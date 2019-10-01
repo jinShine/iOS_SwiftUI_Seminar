@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  BaseTarBarController.swift
 //  GroupingApp
 //
 //  Created by Seungjin on 01/10/2019.
@@ -8,13 +8,18 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class BaseTabBarController: UITabBarController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    // Do any additional setup after loading the view.
+
+    setupUI()
+
   }
 
+  private func setupUI() {
+//    tabBar.isTranslucent = true
+    tabBar.backgroundColor = .blue
+  }
 
 }
-
