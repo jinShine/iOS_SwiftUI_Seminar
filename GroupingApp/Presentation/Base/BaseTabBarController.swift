@@ -43,7 +43,7 @@ extension UITabBar {
   // TabBar Height 조절 방법
   open override func sizeThatFits(_ size: CGSize) -> CGSize {
     super.sizeThatFits(size)
-    let tabBarHeight: CGFloat = Constant.tabBarHeight
+    let tabBarHeight: CGFloat = Constant.tabBarHeight + (window?.safeAreaInsets.bottom ?? 0)
 
     var sizeThatFits = super.sizeThatFits(size)
     sizeThatFits.height = tabBarHeight

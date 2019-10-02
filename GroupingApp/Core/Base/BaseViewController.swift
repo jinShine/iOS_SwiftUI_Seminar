@@ -39,9 +39,44 @@ class BaseViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    self.view.backgroundColor = .white
+    self.view.backgroundColor = App.color.background
     
   }
 
-  
+  func naviLeftBarButton(name: String) -> UIButton {
+    let image = UIImage(named: name)
+    let button = UIButton()
+    button.setImage(image, for: .normal)
+    button.contentMode = .scaleAspectFit
+    view.addSubview(button)
+
+    button.translatesAutoresizingMaskIntoConstraints = false
+    NSLayoutConstraint.activate([
+      button.topAnchor.constraint(equalTo: view.topAnchor, constant: 54),
+      button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
+      button.heightAnchor.constraint(equalToConstant: 44),
+      button.widthAnchor.constraint(equalToConstant: 44)
+    ])
+
+    return button
+  }
+
+  func naviRightBarButton(name: String) -> UIButton {
+    let image = UIImage(named: name)
+    let button = UIButton()
+    button.setImage(image, for: .normal)
+    button.contentMode = .scaleAspectFit
+    view.addSubview(button)
+
+    button.translatesAutoresizingMaskIntoConstraints = false
+    NSLayoutConstraint.activate([
+      button.topAnchor.constraint(equalTo: view.topAnchor, constant: 54),
+      button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
+      button.heightAnchor.constraint(equalToConstant: 44),
+      button.widthAnchor.constraint(equalToConstant: 44)
+    ])
+
+    return button
+  }
+
 }

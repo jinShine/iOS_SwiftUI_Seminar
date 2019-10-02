@@ -26,6 +26,8 @@
 		5C87653C23443D7E00201833 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C87653B23443D7E00201833 /* App.swift */; };
 		5C87654223443FD900201833 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C87654123443FD900201833 /* UIColor+Extension.swift */; };
 		5C8765462344407200201833 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8765452344407200201833 /* Color.swift */; };
+		5CB1245E2344E00900E61A49 /* RegistryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB1245D2344E00900E61A49 /* RegistryViewController.swift */; };
+		5CB124622344E03700E61A49 /* RegistryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB124612344E03700E61A49 /* RegistryViewModel.swift */; };
 		B6A36A733CE89D0E7D3AB033 /* Pods_GroupingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A779397F6095BB719DE4D7B /* Pods_GroupingApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +53,8 @@
 		5C87653B23443D7E00201833 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		5C87654123443FD900201833 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		5C8765452344407200201833 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		5CB1245D2344E00900E61A49 /* RegistryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistryViewController.swift; sourceTree = "<group>"; };
+		5CB124612344E03700E61A49 /* RegistryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistryViewModel.swift; sourceTree = "<group>"; };
 		6EF01C972792DDD61480E721 /* Pods-GroupingApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GroupingApp.release.xcconfig"; path = "Target Support Files/Pods-GroupingApp/Pods-GroupingApp.release.xcconfig"; sourceTree = "<group>"; };
 		8A779397F6095BB719DE4D7B /* Pods_GroupingApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GroupingApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE55CE162F5FF925DECC3D35 /* Pods-GroupingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GroupingApp.debug.xcconfig"; path = "Target Support Files/Pods-GroupingApp/Pods-GroupingApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -196,6 +200,7 @@
 			children = (
 				5C8764EC2342F4FF00201833 /* Splash */,
 				5C8764F82343105400201833 /* Home */,
+				5CB1245F2344E00F00E61A49 /* Registry */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -223,6 +228,15 @@
 				5C8765452344407200201833 /* Color.swift */,
 			);
 			path = Theme;
+			sourceTree = "<group>";
+		};
+		5CB1245F2344E00F00E61A49 /* Registry */ = {
+			isa = PBXGroup;
+			children = (
+				5CB1245D2344E00900E61A49 /* RegistryViewController.swift */,
+				5CB124612344E03700E61A49 /* RegistryViewModel.swift */,
+			);
+			path = Registry;
 			sourceTree = "<group>";
 		};
 		A6CA7D407CE00D3B88BBB560 /* Pods */ = {
@@ -356,6 +370,7 @@
 				5C8764EA2342F4C400201833 /* BindViewModelType.swift in Sources */,
 				5C8765462344407200201833 /* Color.swift in Sources */,
 				5C87653C23443D7E00201833 /* App.swift in Sources */,
+				5CB124622344E03700E61A49 /* RegistryViewModel.swift in Sources */,
 				5C8764FD2343112800201833 /* SplashNavigator.swift in Sources */,
 				5C87654223443FD900201833 /* UIColor+Extension.swift in Sources */,
 				5C8764D42342F19000201833 /* GroupingApp.xcdatamodeld in Sources */,
@@ -363,6 +378,7 @@
 				5C87653023432E8500201833 /* SceneDelegate.swift in Sources */,
 				5C8764CA2342F19000201833 /* AppDelegate.swift in Sources */,
 				5C8764EB2342F4C500201833 /* BindViewType.swift in Sources */,
+				5CB1245E2344E00900E61A49 /* RegistryViewController.swift in Sources */,
 				5C8765362343559F00201833 /* HomeNavigator.swift in Sources */,
 				5C8764EE2342F51B00201833 /* SplashViewController.swift in Sources */,
 			);

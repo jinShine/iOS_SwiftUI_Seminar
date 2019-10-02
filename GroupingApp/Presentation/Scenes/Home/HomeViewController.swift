@@ -8,6 +8,7 @@
 
 import RxSwift
 import RxCocoa
+import SnapKit
 
 class HomeViewController: BaseViewController, BindViewType {
 
@@ -18,7 +19,20 @@ class HomeViewController: BaseViewController, BindViewType {
 
 
   //MARK: - UI Properties
+  let naviBaseView: UIImageView = {
+    let view = UIImageView()
+    view.image = UIImage(named: "Navi_Base")
+    view.contentMode = .scaleAspectFill
+    return view
+  }()
 
+  let searchButton: UIButton = {
+    let button = UIButton()
+    button.setImage(UIImage(named: "Search"), for: .normal)
+//    button.setImage(UIImage(named: "Search"), for: .highlighted)
+    button.contentMode = .scaleAspectFill
+    return button
+  }()
 
 
 
@@ -47,7 +61,8 @@ class HomeViewController: BaseViewController, BindViewType {
     super.viewDidLoad()
 
     setupUI()
-    print("Home ViewController")
+    setupConstraint()
+
   }
 
 
@@ -83,6 +98,35 @@ extension HomeViewController {
 
   private func setupUI() {
     self.navigationController?.setNavigationBarHidden(true, animated: false)
+    
+    [naviBaseView, searchButton].forEach {
+      view.addSubview($0)
+    }
+
+    let naviLeftButton = naviLeftBarButton(name: "Icon-Menu")
+    let naviRightButton = naviRightBarButton(name: "Icon-Menu")
+    view.bringSubviewToFront(naviLeftButton)
+    view.bringSubviewToFront(naviRightButton)
+
+
+
+
+
+  }
+
+  private func setupConstraint() {
+
+    naviBaseView.snp.makeConstraints {
+      $0.top.leading.trailing.equalToSuperview()
+      $0.height.equalTo(100)
+    }
+
+    searchButton.snp.makeConstraints {
+      $0.top.equalTo(naviBaseView.snp.bottom).offset(30)
+      $0.leading.equalToSuperview().offset(16)
+      $0.trailing.equalToSuperview().offset(-16)
+    }
+
   }
 
 }
