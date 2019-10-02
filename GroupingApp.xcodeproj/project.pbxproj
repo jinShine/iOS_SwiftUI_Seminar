@@ -13,7 +13,7 @@
 		5C8764EA2342F4C400201833 /* BindViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8764E72342F4BE00201833 /* BindViewModelType.swift */; };
 		5C8764EB2342F4C500201833 /* BindViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8764E82342F4BE00201833 /* BindViewType.swift */; };
 		5C8764EE2342F51B00201833 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8764ED2342F51B00201833 /* SplashViewController.swift */; };
-		5C8764F723430F8F00201833 /* BaseTarBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8764F623430F8F00201833 /* BaseTarBarController.swift */; };
+		5C8764F723430F8F00201833 /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8764F623430F8F00201833 /* BaseTabBarController.swift */; };
 		5C8764FB234310B600201833 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8764FA234310B600201833 /* HomeViewController.swift */; };
 		5C8764FD2343112800201833 /* SplashNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8764FC2343112800201833 /* SplashNavigator.swift */; };
 		5C87650823432B1800201833 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C87650323432A3800201833 /* LaunchScreen.storyboard */; };
@@ -38,7 +38,7 @@
 		5C8764E72342F4BE00201833 /* BindViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindViewModelType.swift; sourceTree = "<group>"; };
 		5C8764E82342F4BE00201833 /* BindViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindViewType.swift; sourceTree = "<group>"; };
 		5C8764ED2342F51B00201833 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
-		5C8764F623430F8F00201833 /* BaseTarBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTarBarController.swift; sourceTree = "<group>"; };
+		5C8764F623430F8F00201833 /* BaseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
 		5C8764FA234310B600201833 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		5C8764FC2343112800201833 /* SplashNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashNavigator.swift; sourceTree = "<group>"; };
 		5C87650423432A3800201833 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -174,7 +174,7 @@
 		5C8764F523430F7100201833 /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				5C8764F623430F8F00201833 /* BaseTarBarController.swift */,
+				5C8764F623430F8F00201833 /* BaseTabBarController.swift */,
 				5C87653823443C9F00201833 /* BaseNavigationController.swift */,
 				5C8764E62342F4BE00201833 /* BaseViewController.swift */,
 			);
@@ -352,7 +352,7 @@
 				5C87653923443C9F00201833 /* BaseNavigationController.swift in Sources */,
 				5C8764E92342F4C200201833 /* BaseViewController.swift in Sources */,
 				5C8765342343530800201833 /* HomeViewModel.swift in Sources */,
-				5C8764F723430F8F00201833 /* BaseTarBarController.swift in Sources */,
+				5C8764F723430F8F00201833 /* BaseTabBarController.swift in Sources */,
 				5C8764EA2342F4C400201833 /* BindViewModelType.swift in Sources */,
 				5C8765462344407200201833 /* Color.swift in Sources */,
 				5C87653C23443D7E00201833 /* App.swift in Sources */,

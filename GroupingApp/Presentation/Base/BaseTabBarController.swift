@@ -15,17 +15,21 @@ class BaseTabBarController: UITabBarController {
     super.viewDidLoad()
 
     setupUI()
+
   }
 
   private func setupUI() {
-    tabBar.isTranslucent = true
-    tabBar.barTintColor = .white
-    tabBar.layer.cornerRadius = 10
-    tabBar.layer.masksToBounds = true
-    tabBar.layer.shadowOffset = CGSize.zero
-    tabBar.layer.shadowRadius = 2
-    tabBar.layer.shadowColor = UIColor.black.cgColor
-    tabBar.layer.shadowOpacity = 0.16
+
+    tabBarClear()
+    tabBar.layer.applyShadow(color: .black, alpha: 0.16, x: 0, y: -2, blur: 16)
+
+  }
+
+  func tabBarClear() {
+    let appearance = UITabBar.appearance()
+    appearance.shadowImage = UIImage()
+    appearance.backgroundImage = UIImage()
+    appearance.backgroundColor = .white
   }
 
 }
@@ -36,6 +40,7 @@ extension UITabBar {
     static let tabBarHeight: CGFloat = 70
   }
 
+  // TabBar Height 조절 방법
   open override func sizeThatFits(_ size: CGSize) -> CGSize {
     super.sizeThatFits(size)
     let tabBarHeight: CGFloat = Constant.tabBarHeight
@@ -44,5 +49,22 @@ extension UITabBar {
     sizeThatFits.height = tabBarHeight
 
     return sizeThatFits
+  }
+
+}
+
+//Sketch 스타일
+extension CALayer {
+  func applyShadow (
+    color: UIColor = .black,
+    alpha: Float = 0.5,
+    x: CGFloat = 0,
+    y: CGFloat = 2,
+    blur: CGFloat = 4
+  ) {
+    shadowColor = color.cgColor
+    shadowOpacity = alpha
+    shadowOffset = CGSize(width: x, height: y)
+    shadowRadius = blur / 2.0
   }
 }

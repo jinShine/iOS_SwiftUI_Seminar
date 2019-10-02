@@ -20,8 +20,8 @@ class SplashNavigator: Navigator<SplashRoute> {
     case .home:
       let tabBarController = BaseTabBarController()
       tabBarController.viewControllers = [
-        setupHome(),
         setupHome()
+//        setupHome()
       ]
 
       presenter?.pushViewController(tabBarController, animated: true)

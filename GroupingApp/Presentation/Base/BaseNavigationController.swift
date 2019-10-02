@@ -13,12 +13,16 @@ class BaseNavigationController: UINavigationController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
+  }
+
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+
     setupUI()
   }
 
   private func setupUI() {
     navigationBar.isTranslucent = true
-    navigationBar.barTintColor = App.color.main
   }
 
 }

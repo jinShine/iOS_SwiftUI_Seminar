@@ -46,7 +46,8 @@ class HomeViewController: BaseViewController, BindViewType {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-
+    setupUI()
+    print("Home ViewController")
   }
 
 
@@ -81,7 +82,7 @@ extension HomeViewController {
 extension HomeViewController {
 
   private func setupUI() {
-
+    self.navigationController?.setNavigationBarHidden(true, animated: false)
   }
 
 }
