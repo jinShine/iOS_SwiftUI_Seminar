@@ -6,14 +6,82 @@
 //  Copyright © 2019 Jinnify. All rights reserved.
 //
 
-import UIKit
+import RxSwift
+import RxCocoa
 
-class HomeViewController: UIViewController {
+class HomeViewController: BaseViewController, BindViewType {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+  //MARK: - Constant
+  struct Constant {
 
-        view.backgroundColor = .yellow
-        print("Home ViewController")
+  }
+
+
+  //MARK: - UI Properties
+
+
+
+
+  //MARK: - Properties
+  typealias ViewModel = HomeViewModel
+  var disposeBag = DisposeBag()
+
+
+  //MARK: - Initialization
+  init(viewModel: ViewModel) {
+    defer {
+      self.viewModel = viewModel
     }
+    super.init()
+
+  }
+
+  required init?(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+
+  }
+
+
+  //MARK: - Life Cycle
+  override func viewDidLoad() {
+    super.viewDidLoad()
+
+
+  }
+
+
+}
+
+//MARK: - Bind
+extension HomeViewController {
+
+  //OUTPUT
+  func command(viewModel: ViewModel) {
+
+
+  }
+
+
+  //INPUT
+  func state(viewModel: ViewModel) {
+
+    viewModel.state
+      .drive(onNext: { [weak self] state in
+        guard let self = self else { return }
+
+
+      })
+      .disposed(by: self.disposeBag)
+  }
+
+}
+
+
+//MARK: - Method Handler
+extension HomeViewController {
+
+  private func setupUI() {
+
+  }
+
 }

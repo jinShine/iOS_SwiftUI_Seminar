@@ -19,20 +19,23 @@ class SplashNavigator: Navigator<SplashRoute> {
     switch destination {
     case .home:
       let tabBarController = BaseTabBarController()
-
-      let homeVC = HomeViewController()
-      homeVC.tabBarItem.title = "홈"
-
       tabBarController.viewControllers = [
-        homeVC
+        setupHome(),
+        setupHome()
       ]
 
       presenter?.pushViewController(tabBarController, animated: true)
     }
   }
 
-  private func setupHome() {
-    
+  private func setupHome() -> UIViewController {
+    let homeViewModel = HomeViewModel()
+    let homeVC = HomeViewController(viewModel: homeViewModel)
+    let navigationController = BaseNavigationController(rootViewController: homeVC)
+    navigationController.tabBarItem.image = UIImage(named: "TabBar_Home")?.withRenderingMode(.alwaysOriginal)
+    navigationController.tabBarItem.selectedImage = UIImage(named: "TabBar_Home_Selected")?.withRenderingMode(.alwaysOriginal)
+    navigationController.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
+    return navigationController
   }
 
 
