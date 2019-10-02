@@ -20,8 +20,9 @@ class SplashNavigator: Navigator<SplashRoute> {
     case .home:
       let tabBarController = BaseTabBarController()
       tabBarController.viewControllers = [
-        setupHome()
-//        setupHome()
+        setupHome(),
+        setupRegistry(),
+        setupSearch()
       ]
 
       presenter?.pushViewController(tabBarController, animated: true)
@@ -38,6 +39,24 @@ class SplashNavigator: Navigator<SplashRoute> {
     return navigationController
   }
 
+  private func setupRegistry() -> UIViewController {
+    let registryViewModel = RegistryViewModel()
+    let registryVC = RegistryViewController(viewModel: registryViewModel)
+    let navigationController = BaseNavigationController(rootViewController: registryVC)
+    navigationController.tabBarItem.image = UIImage(named: "TabBar_Registry")?.withRenderingMode(.alwaysOriginal)
+    navigationController.tabBarItem.selectedImage = UIImage(named: "TabBar_Registry_Selected")?.withRenderingMode(.alwaysOriginal)
+    navigationController.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
+    return navigationController
+  }
 
+  private func setupSearch() -> UIViewController {
+    let searchViewModel = SearchViewModel()
+    let searchVC = SearchViewController(viewModel: searchViewModel)
+    let navigationController = BaseNavigationController(rootViewController: searchVC)
+    navigationController.tabBarItem.image = UIImage(named: "TabBar_Search")?.withRenderingMode(.alwaysOriginal)
+    navigationController.tabBarItem.selectedImage = UIImage(named: "TabBar_Search_Selected")?.withRenderingMode(.alwaysOriginal)
+    navigationController.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
+    return navigationController
+  }
 
 }
