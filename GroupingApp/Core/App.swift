@@ -11,5 +11,6 @@ import Foundation
 struct App {
 
   static let color = Color()
+  static let font = Font()
 
 }

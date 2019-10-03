@@ -17,5 +17,9 @@ struct Color {
   var background: UIColor {
     return UIColor(r: 242, g: 242, b: 243)
   }
+  
+  var line: UIColor {
+    return UIColor(r: 199, g: 199, b: 212)
+  }
 
 }

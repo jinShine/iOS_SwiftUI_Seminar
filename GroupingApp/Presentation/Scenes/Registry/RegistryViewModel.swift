@@ -21,15 +21,24 @@ final class RegistryViewModel: BindViewModelType {
   //MARK: - Unidirection
 
   enum Command {
-
+    case dismiss
+    case keyboardWillShow(Notification)
+    case keyboardWillHide
+    case didTapAddPhto
   }
 
   enum Action {
-
+    case dismissAction
+    case keyboardWillShowAction(Notification)
+    case keyboardWillHideAction
+    case didTapAddPhtoAction
   }
 
   enum State {
-
+    case dismissState
+    case keyboardWillShowState(CGFloat)
+    case keyboardWillHideState
+    case didTapAddPhtoState
   }
 
   var command = PublishSubject<Command>()
@@ -53,11 +62,31 @@ final class RegistryViewModel: BindViewModelType {
   //MARK: - Unidirection Action
 
   func toAction(from command: Command) -> Observable<Action> {
-    return Observable<Action>.empty()
+    switch command {
+    case .dismiss:
+      return Observable<Action>.just(.dismissAction)
+    case .keyboardWillShow(let noti):
+      return Observable<Action>.just(.keyboardWillShowAction(noti))
+    case .keyboardWillHide:
+      return Observable<Action>.just(.keyboardWillHideAction)
+    case .didTapAddPhto:
+      return Observable<Action>.just(.didTapAddPhtoAction)
+    }
   }
 
   func toState(from action: Action) -> Observable<State> {
-    return Observable<State>.empty()
+    switch action {
+    case .dismissAction:
+      return Observable<State>.just(.dismissState)
+    case .keyboardWillShowAction(let noti):
+      let keyboardFrame = noti.userInfo?["UIKeyboardFrameEndUserInfoKey"] as? CGRect
+      let keyboardHeight = keyboardFrame?.height
+      return Observable<State>.just(.keyboardWillShowState(keyboardHeight ?? 0))
+    case .keyboardWillHideAction:
+      return Observable<State>.just(.keyboardWillHideState)
+    case .didTapAddPhtoAction:
+      return Observable<State>.just(.didTapAddPhtoState)
+    }
   }
 
 }

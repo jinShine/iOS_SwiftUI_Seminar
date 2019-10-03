@@ -9,20 +9,31 @@
 import UIKit
 import SnapKit
 
+enum TabBarViewControllers: Int {
+  case Home = 0
+  case Registery
+  case Search
+}
+
 class BaseTabBarController: UITabBarController {
 
+  //MARK: - Life Cycle
   override func viewDidLoad() {
     super.viewDidLoad()
-
+    
     setupUI()
-
   }
-
+  
   private func setupUI() {
-
+    delegate = self
+    
     tabBarClear()
     tabBar.layer.applyShadow(color: .black, alpha: 0.16, x: 0, y: -2, blur: 16)
-
+    
+    tabBar.items?.forEach {
+      $0.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
+    }
+    
   }
 
   func tabBarClear() {
@@ -31,9 +42,35 @@ class BaseTabBarController: UITabBarController {
     appearance.backgroundImage = UIImage()
     appearance.backgroundColor = .white
   }
+  
+  private func setupRegistry() -> UINavigationController {
+    let registryViewModel = RegistryViewModel()
+    let registryVC = RegistryViewController(viewModel: registryViewModel)
+    return UINavigationController.generate(rootViewController: registryVC,
+                                           image: UIImage(named: "TabBar_Registry")?.withRenderingMode(.alwaysOriginal),
+                                           selectedImage: UIImage(named: "TabBar_Registry_Selected")?.withRenderingMode(.alwaysOriginal))
+  }
 
 }
 
+
+//MARK: - UITabBar Delegate
+extension BaseTabBarController: UITabBarControllerDelegate {
+  func tabBarController(_ tabBarController: UITabBarController,
+                          shouldSelect viewController: UIViewController) -> Bool {
+        
+    let selectedVCIndex = tabBarController.viewControllers?.firstIndex(of: viewController)
+    if selectedVCIndex == TabBarViewControllers.Registery.rawValue {
+      self.present(setupRegistry(), animated: true, completion: nil)
+      return false
+    }
+        
+    return true
+  }
+}
+
+
+//MARK: - UITabbr
 extension UITabBar {
 
   private struct Constant {
@@ -53,6 +90,8 @@ extension UITabBar {
 
 }
 
+
+//MARK: - CALayer
 //Sketch 스타일
 extension CALayer {
   func applyShadow (

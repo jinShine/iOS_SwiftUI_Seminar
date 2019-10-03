@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C0C7B3623451493002E4B50 /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0C7B3523451492002E4B50 /* UINavigationController+Extension.swift */; };
+		5C0C7B3823452566002E4B50 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0C7B3723452566002E4B50 /* Font.swift */; };
 		5C8764CA2342F19000201833 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8764C92342F19000201833 /* AppDelegate.swift */; };
 		5C8764D42342F19000201833 /* GroupingApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5C8764D22342F19000201833 /* GroupingApp.xcdatamodeld */; };
 		5C8764E92342F4C200201833 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8764E62342F4BE00201833 /* BaseViewController.swift */; };
@@ -30,10 +32,13 @@
 		5CB124622344E03700E61A49 /* RegistryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB124612344E03700E61A49 /* RegistryViewModel.swift */; };
 		5CB124652344E52A00E61A49 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB124642344E52A00E61A49 /* SearchViewController.swift */; };
 		5CB124672344E53300E61A49 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB124662344E53300E61A49 /* SearchViewModel.swift */; };
+		5CE6D2032345CFFA00E090A2 /* UIViewController+NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE6D2022345CFFA00E090A2 /* UIViewController+NavigationBar.swift */; };
 		B6A36A733CE89D0E7D3AB033 /* Pods_GroupingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A779397F6095BB719DE4D7B /* Pods_GroupingApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5C0C7B3523451492002E4B50 /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
+		5C0C7B3723452566002E4B50 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		5C8764C62342F19000201833 /* GroupingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GroupingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C8764C92342F19000201833 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5C8764CB2342F19000201833 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -59,6 +64,7 @@
 		5CB124612344E03700E61A49 /* RegistryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistryViewModel.swift; sourceTree = "<group>"; };
 		5CB124642344E52A00E61A49 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		5CB124662344E53300E61A49 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		5CE6D2022345CFFA00E090A2 /* UIViewController+NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+NavigationBar.swift"; sourceTree = "<group>"; };
 		6EF01C972792DDD61480E721 /* Pods-GroupingApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GroupingApp.release.xcconfig"; path = "Target Support Files/Pods-GroupingApp/Pods-GroupingApp.release.xcconfig"; sourceTree = "<group>"; };
 		8A779397F6095BB719DE4D7B /* Pods_GroupingApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GroupingApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE55CE162F5FF925DECC3D35 /* Pods-GroupingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GroupingApp.debug.xcconfig"; path = "Target Support Files/Pods-GroupingApp/Pods-GroupingApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -223,6 +229,8 @@
 			isa = PBXGroup;
 			children = (
 				5C87654123443FD900201833 /* UIColor+Extension.swift */,
+				5C0C7B3523451492002E4B50 /* UINavigationController+Extension.swift */,
+				5CE6D2022345CFFA00E090A2 /* UIViewController+NavigationBar.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -231,6 +239,7 @@
 			isa = PBXGroup;
 			children = (
 				5C8765452344407200201833 /* Color.swift */,
+				5C0C7B3723452566002E4B50 /* Font.swift */,
 			);
 			path = Theme;
 			sourceTree = "<group>";
@@ -382,12 +391,15 @@
 				5C8765342343530800201833 /* HomeViewModel.swift in Sources */,
 				5C8764F723430F8F00201833 /* BaseTabBarController.swift in Sources */,
 				5CB124652344E52A00E61A49 /* SearchViewController.swift in Sources */,
+				5CE6D2032345CFFA00E090A2 /* UIViewController+NavigationBar.swift in Sources */,
 				5C8764EA2342F4C400201833 /* BindViewModelType.swift in Sources */,
 				5CB124672344E53300E61A49 /* SearchViewModel.swift in Sources */,
 				5C8765462344407200201833 /* Color.swift in Sources */,
 				5C87653C23443D7E00201833 /* App.swift in Sources */,
 				5CB124622344E03700E61A49 /* RegistryViewModel.swift in Sources */,
 				5C8764FD2343112800201833 /* SplashNavigator.swift in Sources */,
+				5C0C7B3623451493002E4B50 /* UINavigationController+Extension.swift in Sources */,
+				5C0C7B3823452566002E4B50 /* Font.swift in Sources */,
 				5C87654223443FD900201833 /* UIColor+Extension.swift in Sources */,
 				5C8764D42342F19000201833 /* GroupingApp.xcdatamodeld in Sources */,
 				5C8764FB234310B600201833 /* HomeViewController.swift in Sources */,

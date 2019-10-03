@@ -29,8 +29,22 @@ class HomeViewController: BaseViewController, BindViewType {
   let searchButton: UIButton = {
     let button = UIButton()
     button.setImage(UIImage(named: "Search"), for: .normal)
-//    button.setImage(UIImage(named: "Search"), for: .highlighted)
+    button.setImage(UIImage(named: "Search"), for: .highlighted)
     button.contentMode = .scaleAspectFill
+    return button
+  }()
+  
+  let drawerButton: UIButton = {
+    let button = UIButton()
+    button.setImage(UIImage(named: "Icon-Menu"), for: .normal)
+    button.contentMode = .scaleAspectFit
+    return button
+  }()
+  
+  let settingButton: UIButton = {
+    let button = UIButton()
+    button.setImage(UIImage(named: "Icon-Menu"), for: .normal)
+    button.contentMode = .scaleAspectFit
     return button
   }()
 
@@ -103,14 +117,7 @@ extension HomeViewController {
       view.addSubview($0)
     }
 
-    let naviLeftButton = naviLeftBarButton(name: "Icon-Menu")
-    let naviRightButton = naviRightBarButton(name: "Icon-Menu")
-    view.bringSubviewToFront(naviLeftButton)
-    view.bringSubviewToFront(naviRightButton)
-
-
-
-
+    setupNavigationBar(at: self.view, leftItem: drawerButton, rightItem: settingButton)
 
   }
 

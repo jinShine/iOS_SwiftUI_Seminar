@@ -8,9 +8,6 @@ target 'GroupingApp' do
   # Pods for GroupingApp
 
 
-  # UI
-  pod 'SnapKit', '~> 5.0.0'
-
   # Rx
   pod 'RxSwift', '~> 4.0'
   pod 'RxCocoa', '~> 4.0'
@@ -25,5 +22,8 @@ target 'GroupingApp' do
   # DI
   pod 'FlowInject'
 
+  # UI
+  pod 'SnapKit', '~> 5.0.0'
+  pod 'TextFieldEffects'
 
 end

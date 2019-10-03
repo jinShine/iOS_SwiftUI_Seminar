@@ -18,7 +18,7 @@ class SplashViewController: BaseViewController {
 
     self.view.backgroundColor = .red
     setupNavigator()
-
+    
   }
 
   override func viewDidAppear(_ animated: Bool) {

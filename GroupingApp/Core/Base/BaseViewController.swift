@@ -10,13 +10,21 @@ import UIKit
 
 class BaseViewController: UIViewController {
 
+  //MARK: Constant
+  struct Constant {
+    static let itemSize: CGFloat = 44
+    static let basicMargin: CGFloat = 12
+  }
 
   //MARK: Properties
 
 
 
   //MARK: UI Properties
-
+  
+  override var preferredStatusBarStyle: UIStatusBarStyle {
+    return .lightContent
+  }
 
 
   //MARK: Initialization
@@ -30,53 +38,41 @@ class BaseViewController: UIViewController {
   }
 
   deinit {
+    NotificationCenter.default.removeObserver(self)
     print("DEINIT: \(String(describing: self))")
   }
-
+  
 
   //MARK: Life Cycle
 
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    self.view.backgroundColor = App.color.background
-    
+    view.backgroundColor = App.color.background
   }
 
-  func naviLeftBarButton(name: String) -> UIButton {
-    let image = UIImage(named: name)
-    let button = UIButton()
-    button.setImage(image, for: .normal)
-    button.contentMode = .scaleAspectFit
-    view.addSubview(button)
+}
 
-    button.translatesAutoresizingMaskIntoConstraints = false
-    NSLayoutConstraint.activate([
-      button.topAnchor.constraint(equalTo: view.topAnchor, constant: 54),
-      button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
-      button.heightAnchor.constraint(equalToConstant: 44),
-      button.widthAnchor.constraint(equalToConstant: 44)
-    ])
-
-    return button
+//MARK: - Methods
+extension BaseViewController {
+  
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    super.touchesBegan(touches, with: event)
+    dismissKeyboard()
+  }
+  
+  func addDismissTabGesture(view: UIView) {
+    let dismissKeyboardGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+    dismissKeyboardGesture.numberOfTapsRequired = 1
+    dismissKeyboardGesture.isEnabled = true
+    dismissKeyboardGesture.cancelsTouchesInView = false
+    view.addGestureRecognizer(dismissKeyboardGesture)
+  }
+  
+  @objc
+  private func dismissKeyboard() {
+    self.view.endEditing(true)
   }
 
-  func naviRightBarButton(name: String) -> UIButton {
-    let image = UIImage(named: name)
-    let button = UIButton()
-    button.setImage(image, for: .normal)
-    button.contentMode = .scaleAspectFit
-    view.addSubview(button)
-
-    button.translatesAutoresizingMaskIntoConstraints = false
-    NSLayoutConstraint.activate([
-      button.topAnchor.constraint(equalTo: view.topAnchor, constant: 54),
-      button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
-      button.heightAnchor.constraint(equalToConstant: 44),
-      button.widthAnchor.constraint(equalToConstant: 44)
-    ])
-
-    return button
-  }
-
+  
 }
