@@ -10,6 +10,8 @@ import Foundation
 
 struct App {
 
+  static let coreData = CoreDataManager.shared
+  
   static let color = Color()
   static let font = Font()
 

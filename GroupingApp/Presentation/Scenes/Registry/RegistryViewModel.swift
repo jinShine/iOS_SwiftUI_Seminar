@@ -25,6 +25,7 @@ final class RegistryViewModel: BindViewModelType {
     case keyboardWillShow(Notification)
     case keyboardWillHide
     case didTapAddPhto
+    case didTapSave(name: String, number: String, crew: String,)
   }
 
   enum Action {
@@ -32,6 +33,7 @@ final class RegistryViewModel: BindViewModelType {
     case keyboardWillShowAction(Notification)
     case keyboardWillHideAction
     case didTapAddPhtoAction
+    case didTapSaveAction(user: [String?])
   }
 
   enum State {
@@ -39,6 +41,7 @@ final class RegistryViewModel: BindViewModelType {
     case keyboardWillShowState(CGFloat)
     case keyboardWillHideState
     case didTapAddPhtoState
+    case didTapSaveState
   }
 
   var command = PublishSubject<Command>()
@@ -50,11 +53,12 @@ final class RegistryViewModel: BindViewModelType {
 
   //MARK: - Properties
 
-
+  let userUseCase: UserUseCase
 
   //MARK: - Initialize
-  init() {
-
+  init(userUseCase: UserUseCase) {
+    self.userUseCase = userUseCase
+    
     self.bind()
   }
 
@@ -71,6 +75,8 @@ final class RegistryViewModel: BindViewModelType {
       return Observable<Action>.just(.keyboardWillHideAction)
     case .didTapAddPhto:
       return Observable<Action>.just(.didTapAddPhtoAction)
+    case .didTapSave(let userInfo):
+      return Observable<Action>.just(.didTapSaveAction(user: userInfo))
     }
   }
 
@@ -86,6 +92,14 @@ final class RegistryViewModel: BindViewModelType {
       return Observable<State>.just(.keyboardWillHideState)
     case .didTapAddPhtoAction:
       return Observable<State>.just(.didTapAddPhtoState)
+    case .didTapSaveAction(let userInfo):
+      
+      userInfo.forEach {
+        print($0)
+        UserModel(name: <#T##String#>, number: <#T##String#>, crew: <#T##String#>, address: <#T##String?#>, email: <#T##String?#>, birth: <#T##String?#>)
+      }
+//      userUseCase.create(name: <#T##String#>, number: <#T##String#>, crew: <#T##String#>, address: <#T##String?#>, email: <#T##String?#>, birth: <#T##String?#>)
+      return Observable<State>.just(.didTapSaveState)
     }
   }
 
@@ -94,13 +108,4 @@ final class RegistryViewModel: BindViewModelType {
 //MARK: - Method Handler
 extension RegistryViewModel {
 
-  private func setupUI() {
-
-  }
-
-  private func setupConstraint() {
-
-  }
-
 }
-

@@ -40,7 +40,7 @@ class RegistryViewController: BaseViewController, BindViewType {
   
   let profileButton: UIButton = {
     let button = UIButton()
-    button.setBackgroundImage(UIImage(named: "Profile"), for: .normal)
+    button.setBackgroundImage(UIImage(named: "Empty_Profile"), for: .normal)
     button.contentMode = .scaleToFill
     return button
   }()
@@ -161,10 +161,20 @@ class RegistryViewController: BaseViewController, BindViewType {
     return button
   }()
   
+  let titleLabel: UILabel = {
+    let label = UILabel()
+    label.text = "새로운 연락처"
+    label.textColor = .white
+    label.font = App.font.bold(size: 18)
+    label.textAlignment = .center
+    return label
+  }()
+  
   let saveButton: UIButton = {
     let button = UIButton()
     button.setTitle("저장", for: .normal)
     button.titleLabel?.contentMode = .center
+    button.titleLabel?.font = App.font.regular(size: 16)
     return button
   }()
   
@@ -246,19 +256,36 @@ extension RegistryViewController {
       .notification(UIApplication.keyboardWillHideNotification)
       .map { _ in ViewModel.Command.keyboardWillHide }
     
-    let obAddPhoto = Observable.merge([ profileButton.rx.tap.asObservable(),
-                                        addProfileButton.rx.tap.asObservable()])
+    let obProfileButton = profileButton.rx.tap.asObservable()
+    let obAddProfileButton = addProfileButton.rx.tap.asObservable()
+    let obAddPhoto = Observable.merge([obProfileButton, obAddProfileButton])
       .map { ViewModel.Command.didTapAddPhto }
+    
+    
+    let obUserInfoCombine = Observable.combineLatest([nameTextField.rx.text,
+                                                      numberTextField.rx.text,
+                                                      crewTextField.rx.text,
+                                                      addressField.rx.text,
+                                                      emailTextField.rx.text,
+                                                      birthTextField.rx.text])
+
+    let obSaveButton = saveButton.rx.tap
+      .withLatestFrom(obUserInfoCombine)
+      .map { userInfo in
+        userInfo
+        ViewModel.Command.didTapSave(user: userInfo)
+    }
+    
     
     Observable<ViewModel.Command>.merge([
       obDismiss,
       obKeyboardWillShow,
       obKeyboardWillHide,
-      obAddPhoto
+      obAddPhoto,
+      obSaveButton
     ])
     .bind(to: viewModel.command)
     .disposed(by: disposeBag)
-    
     
   }
 
@@ -281,8 +308,13 @@ extension RegistryViewController {
             self.view.layoutIfNeeded()
           }
         case .didTapAddPhtoState:
+          guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else { return }
+          let pickerContoller = UIImagePickerController()
+          pickerContoller.delegate = self
+          self.present(pickerContoller, animated: true, completion: nil)
           
-          
+        case .didTapSaveState:
+          print("asdf")
         }
 
       })
@@ -290,7 +322,6 @@ extension RegistryViewController {
   }
 
 }
-
 
 //MARK: - Method Handler
 extension RegistryViewController {
@@ -306,7 +337,7 @@ extension RegistryViewController {
       baseContentView.addSubview($0)
     }
 
-    setupNavigationBar(at: baseContentView, leftItem: dismissButton, rightItem: saveButton)
+    setupNavigationBar(at: baseContentView, leftItem: dismissButton, titleItem: titleLabel, rightItem: saveButton)
     
   }
 
@@ -331,6 +362,8 @@ extension RegistryViewController {
       $0.centerX.equalTo(naviBaseView)
       $0.centerY.equalTo(naviBaseView).offset(50)
       $0.width.height.equalTo(120)
+      profileButton.layer.cornerRadius = 120 / 2
+      profileButton.layer.masksToBounds = true
     }
     
     addProfileButton.snp.makeConstraints {
@@ -380,6 +413,23 @@ extension RegistryViewController {
       $0.height.equalTo(46)
     }
     
+  }
+
+}
+
+//MARK: - UIPickerController Delegate
+extension RegistryViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+
+  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+
+    let originImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+    self.profileButton.setImage(originImage, for: .normal)
+    self.dismiss(animated: true, completion: nil)
+
+  }
+
+  func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+    self.dismiss(animated: true, completion: nil)
   }
 
 }

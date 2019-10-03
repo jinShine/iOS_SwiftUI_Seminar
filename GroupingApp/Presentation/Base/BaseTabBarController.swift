@@ -44,7 +44,7 @@ class BaseTabBarController: UITabBarController {
   }
   
   private func setupRegistry() -> UINavigationController {
-    let registryViewModel = RegistryViewModel()
+    let registryViewModel = RegistryViewModel(userUseCase: UserInteractor())
     let registryVC = RegistryViewController(viewModel: registryViewModel)
     return UINavigationController.generate(rootViewController: registryVC,
                                            image: UIImage(named: "TabBar_Registry")?.withRenderingMode(.alwaysOriginal),
