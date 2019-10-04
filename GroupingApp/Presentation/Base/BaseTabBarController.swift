@@ -43,12 +43,10 @@ class BaseTabBarController: UITabBarController {
     appearance.backgroundColor = .white
   }
   
-  private func setupRegistry() -> UINavigationController {
+  private func makeRegistry() -> UINavigationController {
     let registryViewModel = RegistryViewModel(userUseCase: UserInteractor())
     let registryVC = RegistryViewController(viewModel: registryViewModel)
-    return UINavigationController.generate(rootViewController: registryVC,
-                                           image: UIImage(named: "TabBar_Registry")?.withRenderingMode(.alwaysOriginal),
-                                           selectedImage: UIImage(named: "TabBar_Registry_Selected")?.withRenderingMode(.alwaysOriginal))
+    return UINavigationController(rootViewController: registryVC)
   }
 
 }
@@ -61,7 +59,9 @@ extension BaseTabBarController: UITabBarControllerDelegate {
         
     let selectedVCIndex = tabBarController.viewControllers?.firstIndex(of: viewController)
     if selectedVCIndex == TabBarViewControllers.Registery.rawValue {
-      self.present(setupRegistry(), animated: true, completion: nil)
+      let registryVC = makeRegistry()
+      registryVC.modalPresentationStyle = .fullScreen
+      self.present(registryVC, animated: true, completion: nil)
       return false
     }
         

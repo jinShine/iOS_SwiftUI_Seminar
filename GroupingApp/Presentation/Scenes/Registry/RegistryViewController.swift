@@ -47,14 +47,28 @@ class RegistryViewController: BaseViewController, BindViewType {
   
   let addProfileButton: UIButton = {
     let button = UIButton()
-    button.setTitle("사진 추가", for: .normal)
-    button.titleLabel?.font = App.font.regular(size: 14)
+    button.setImage(UIImage(named: "AddPhoto"), for: .normal)
     return button
   }()
 
+  let essentialInfoLabel: UILabel = {
+    let label = UILabel()
+    label.text = "필수 정보"
+    label.font = App.font.bold(size: 18)
+    return label
+  }()
+  
   let nameTextField = SJTextField(placeholder: "이름 *")
   let numberTextField = SJTextField(placeholder: "전화번호 *")
   let crewTextField = SJTextField(placeholder: "ex) 동아리명/기수 *")
+  
+  let additionalInfoLabel: UILabel = {
+    let label = UILabel()
+    label.text = "추가 정보"
+    label.font = App.font.bold(size: 18)
+    return label
+  }()
+  
   let addressField = SJTextField(placeholder: "주소")
   let emailTextField = SJTextField(placeholder: "이메일")
   let birthTextField = SJTextField(placeholder: "생일")
@@ -103,20 +117,22 @@ class RegistryViewController: BaseViewController, BindViewType {
   //MARK: - Properties
   typealias ViewModel = RegistryViewModel
   var disposeBag = DisposeBag()
-
+  var navigator: RegistryNavigator?
+  
 
   init(viewModel: ViewModel) {
     defer {
       self.viewModel = viewModel
     }
+
     super.init()
-
+    
   }
-
+  
   required init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
-
+    fatalError("init(coder:) has not been implemented")
   }
+
   
   deinit {
     NotificationCenter.default.removeObserver(self)
@@ -125,13 +141,15 @@ class RegistryViewController: BaseViewController, BindViewType {
   //MARK: - Life Cycle
   override func viewDidLoad() {
     super.viewDidLoad()
-
+    
     setupUI()
     setupConstraint()
+    self.navigator = RegistryNavigator(with: self.navigationController)
 
     addDismissTabGesture(view: baseScrollView)
     baseScrollView.delegate = self
     addressField.delegate = self
+    
 
     let useC = AddressInteractor()
     useC.requestAddress(address: "답십리파크자이")
@@ -244,7 +262,7 @@ extension RegistryViewController {
     [baseScrollView].forEach { view.addSubview($0) }
     [baseContentView].forEach { baseScrollView.addSubview($0) }
     [profileBaseView, profileButton, addProfileButton,
-     nameTextField, numberTextField, crewTextField,
+     essentialInfoLabel, additionalInfoLabel, nameTextField, numberTextField, crewTextField,
       addressField, emailTextField, birthTextField, memoTextView].forEach {
       baseContentView.addSubview($0)
     }
@@ -266,7 +284,8 @@ extension RegistryViewController {
     }
 
     profileBaseView.snp.makeConstraints {
-      $0.top.leading.trailing.equalToSuperview()
+      $0.top.equalToSuperview().offset(-50)
+      $0.leading.trailing.equalToSuperview()
       $0.height.equalTo(300)
     }
     
@@ -280,11 +299,18 @@ extension RegistryViewController {
     
     addProfileButton.snp.makeConstraints {
       $0.centerX.equalTo(profileBaseView)
-      $0.top.equalTo(profileButton.snp.bottom).offset(10)
+      $0.top.equalTo(profileButton.snp.bottom).offset(14)
+    }
+    
+    essentialInfoLabel.snp.makeConstraints {
+      $0.top.equalTo(profileBaseView.snp.bottom).offset(32)
+      $0.leading.equalToSuperview().offset(16)
+      $0.trailing.equalToSuperview().offset(-16)
+      $0.height.equalTo(46)
     }
     
     nameTextField.snp.makeConstraints {
-      $0.top.equalTo(profileBaseView.snp.bottom).offset(32)
+      $0.top.equalTo(essentialInfoLabel.snp.bottom).offset(16)
       $0.leading.equalToSuperview().offset(16)
       $0.trailing.equalToSuperview().offset(-16)
       $0.height.equalTo(46)
@@ -304,8 +330,15 @@ extension RegistryViewController {
       $0.height.equalTo(46)
     }
     
+    additionalInfoLabel.snp.makeConstraints {
+      $0.top.equalTo(crewTextField.snp.bottom).offset(32)
+      $0.leading.equalToSuperview().offset(16)
+      $0.trailing.equalToSuperview().offset(-16)
+      $0.height.equalTo(46)
+    }
+    
     addressField.snp.makeConstraints {
-      $0.top.equalTo(crewTextField.snp.bottom).offset(16)
+      $0.top.equalTo(additionalInfoLabel.snp.bottom).offset(16)
       $0.leading.equalToSuperview().offset(16)
       $0.trailing.equalToSuperview().offset(-16)
       $0.height.equalTo(46)
@@ -330,7 +363,7 @@ extension RegistryViewController {
       $0.leading.equalToSuperview().offset(16)
       $0.trailing.equalToSuperview().offset(-16)
       $0.height.equalTo(300)
-      $0.bottom.equalTo(baseContentView)
+      $0.bottom.equalTo(baseContentView).offset(-32)
     }
     
   }
@@ -375,12 +408,8 @@ extension RegistryViewController: UIScrollViewDelegate {
 extension RegistryViewController: UITextFieldDelegate {
 
   func textFieldDidBeginEditing(_ textField: UITextField) {
-    //TODO: 글자를 입력할때 주소화면 보여주기
+    dismissKeyboard()
+    self.navigator?.navigate(to: .addressSearch)
   }
-//
-//  func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-//
-//    return true
-//  }
 
 }
