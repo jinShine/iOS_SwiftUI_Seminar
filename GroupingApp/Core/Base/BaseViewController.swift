@@ -26,6 +26,7 @@ class BaseViewController: UIViewController {
     return .lightContent
   }
 
+  let navigationBaseView = UIView()
 
   //MARK: Initialization
 
@@ -47,8 +48,8 @@ class BaseViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    view.backgroundColor = App.color.background
+
+//    view.backgroundColor = App.color.background
   }
 
 }

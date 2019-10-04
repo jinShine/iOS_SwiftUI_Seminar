@@ -13,7 +13,13 @@ enum CoreDataResult {
   case failure
 }
 
+enum CoreDataError: Error {
+  case saveError
+}
+
 struct CoreDataResponse {
   let result: CoreDataResult
-  let error: CoreDataResult?
+  var error: CoreDataError?
 }
+
+

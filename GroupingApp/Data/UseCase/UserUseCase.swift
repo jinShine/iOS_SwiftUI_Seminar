@@ -15,7 +15,7 @@ protocol UserUseCase {
               crew: String,
               address: String?,
               email: String?,
-              birth: String?) -> Completable
+              birth: String?) -> Single<Void>
   
   
 }

@@ -24,6 +24,6 @@ target 'GroupingApp' do
 
   # UI
   pod 'SnapKit', '~> 5.0.0'
-  pod 'TextFieldEffects'
+  pod 'JVFloatLabeledTextField'
 
 end

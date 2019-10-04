@@ -8,7 +8,7 @@
 
 import RxSwift
 import RxCocoa
-import TextFieldEffects
+import JVFloatLabeledTextField
 
 class RegistryViewController: BaseViewController, BindViewType {
 
@@ -28,13 +28,16 @@ class RegistryViewController: BaseViewController, BindViewType {
   
   let baseContentView: UIView = {
     let view = UIView()
+    view.backgroundColor = App.color.background
     return view
   }()
   
   let naviBaseView: UIImageView = {
     let view = UIImageView()
-    view.image = UIImage(named: "Navi_Base_Long")
-    view.contentMode = .scaleAspectFill
+//    view.image = UIImage(named: "Navi_Base_Long")
+
+//    view.backgroundColor = App.color.main
+    view.contentMode = .scaleToFill
     return view
   }()
   
@@ -52,107 +55,12 @@ class RegistryViewController: BaseViewController, BindViewType {
     return button
   }()
 
-  let nameTextField: HoshiTextField = {
-    let textField = HoshiTextField()
-    textField.placeholder = "이름 *"
-    textField.placeholderColor = App.color.line
-    
-    let line = UIView()
-    line.backgroundColor = App.color.line
-    textField.addSubview(line)
-    line.snp.makeConstraints {
-      $0.top.equalTo(textField.snp.bottom).offset(10)
-      $0.leading.trailing.equalToSuperview()
-      $0.height.equalTo(1)
-    }
-    
-    return textField
-  }()
-  
-  let numberTextField: HoshiTextField = {
-    let textField = HoshiTextField()
-    textField.placeholder = "전화번호 *"
-    textField.placeholderColor = App.color.line
-    
-    let line = UIView()
-    line.backgroundColor = App.color.line
-    textField.addSubview(line)
-    line.snp.makeConstraints {
-      $0.top.equalTo(textField.snp.bottom).offset(10)
-      $0.leading.trailing.equalToSuperview()
-      $0.height.equalTo(1)
-    }
-    
-    return textField
-  }()
-  
-  let crewTextField: HoshiTextField = {
-    let textField = HoshiTextField()
-    textField.placeholder = "동아리명/기수 *"
-    textField.placeholderColor = App.color.line
-    
-    let line = UIView()
-    line.backgroundColor = App.color.line
-    textField.addSubview(line)
-    line.snp.makeConstraints {
-      $0.top.equalTo(textField.snp.bottom).offset(10)
-      $0.leading.trailing.equalToSuperview()
-      $0.height.equalTo(1)
-    }
-    
-    return textField
-  }()
-  
-  let addressField: HoshiTextField = {
-    let textField = HoshiTextField()
-    textField.placeholder = "주소"
-    textField.placeholderColor = App.color.line
-    
-    let line = UIView()
-    line.backgroundColor = App.color.line
-    textField.addSubview(line)
-    line.snp.makeConstraints {
-      $0.top.equalTo(textField.snp.bottom).offset(10)
-      $0.leading.trailing.equalToSuperview()
-      $0.height.equalTo(1)
-    }
-    
-    return textField
-  }()
-  
-  let emailTextField: HoshiTextField = {
-    let textField = HoshiTextField()
-    textField.placeholder = "이메일"
-    textField.placeholderColor = App.color.line
-    
-    let line = UIView()
-    line.backgroundColor = App.color.line
-    textField.addSubview(line)
-    line.snp.makeConstraints {
-      $0.top.equalTo(textField.snp.bottom).offset(10)
-      $0.leading.trailing.equalToSuperview()
-      $0.height.equalTo(1)
-    }
-    
-    return textField
-  }()
-  
-  let birthTextField: HoshiTextField = {
-    let textField = HoshiTextField()
-    textField.placeholder = "생일"
-    textField.placeholderColor = App.color.line
-    
-    let line = UIView()
-    line.backgroundColor = App.color.line
-    textField.addSubview(line)
-    line.snp.makeConstraints {
-      $0.top.equalTo(textField.snp.bottom).offset(10)
-      $0.leading.trailing.equalToSuperview()
-      $0.height.equalTo(1)
-    }
-    
-    return textField
-  }()
+  let nameTextField = SJTextField(placeholder: "이름 *")
+  let numberTextField = SJTextField(placeholder: "전화번호 *")
+  let crewTextField = SJTextField(placeholder: "ex) 동아리명/기수 *")
+  let addressField = SJTextField(placeholder: "주소")
+  let emailTextField = SJTextField(placeholder: "이메일")
+  let birthTextField = SJTextField(placeholder: "생일")
   
   let dismissButton: UIButton = {
     let button = UIButton()
@@ -175,7 +83,15 @@ class RegistryViewController: BaseViewController, BindViewType {
     button.setTitle("저장", for: .normal)
     button.titleLabel?.contentMode = .center
     button.titleLabel?.font = App.font.regular(size: 16)
+    button.unActivate()
+
     return button
+  }()
+
+  let memoTextView: JVFloatLabeledTextView = {
+    let textView = JVFloatLabeledTextView()
+    textView.placeholder = "메모"
+    return textView
   }()
   
 //  let memoTextField: HoshiTextField = {
@@ -243,7 +159,7 @@ extension RegistryViewController {
   //OUTPUT
   func command(viewModel: ViewModel) {
     
-    let obDismiss = dismissButton.rx.tap
+    let obDidTapDismiss = dismissButton.rx.tap
       .map { ViewModel.Command.dismiss }
 
     let obKeyboardWillShow = NotificationCenter.default.rx
@@ -258,31 +174,34 @@ extension RegistryViewController {
     
     let obProfileButton = profileButton.rx.tap.asObservable()
     let obAddProfileButton = addProfileButton.rx.tap.asObservable()
-    let obAddPhoto = Observable.merge([obProfileButton, obAddProfileButton])
+    let obDidTapAddPhoto = Observable.merge([obProfileButton, obAddProfileButton])
       .map { ViewModel.Command.didTapAddPhto }
     
     
-    let obUserInfoCombine = Observable.combineLatest([nameTextField.rx.text,
+    let obUserInfoCombine = Observable.combineLatest(nameTextField.rx.text,
                                                       numberTextField.rx.text,
                                                       crewTextField.rx.text,
                                                       addressField.rx.text,
                                                       emailTextField.rx.text,
-                                                      birthTextField.rx.text])
+                                                      birthTextField.rx.text)
 
-    let obSaveButton = saveButton.rx.tap
+    let userInfoValidation = obUserInfoCombine
+      .map { UserModel(name: $0.0!, number: $0.1!, crew: $0.2!, address: $0.3, email: $0.4, birth: $0.5) }
+      .map { ViewModel.Command.userValidation(user: $0) }
+
+    let obDidTapSaveButton = saveButton.rx.tap.asObservable()
       .withLatestFrom(obUserInfoCombine)
-      .map { userInfo in
-        userInfo
-        ViewModel.Command.didTapSave(user: userInfo)
-    }
+      .map { UserModel(name: $0.0!, number: $0.1!, crew: $0.2!, address: $0.3, email: $0.4, birth: $0.5) }
+      .map { ViewModel.Command.didTapSave(user: $0)}
     
     
     Observable<ViewModel.Command>.merge([
-      obDismiss,
+      obDidTapDismiss,
       obKeyboardWillShow,
       obKeyboardWillHide,
-      obAddPhoto,
-      obSaveButton
+      obDidTapAddPhoto,
+      userInfoValidation,
+      obDidTapSaveButton
     ])
     .bind(to: viewModel.command)
     .disposed(by: disposeBag)
@@ -312,11 +231,13 @@ extension RegistryViewController {
           let pickerContoller = UIImagePickerController()
           pickerContoller.delegate = self
           self.present(pickerContoller, animated: true, completion: nil)
-          
-        case .didTapSaveState:
-          print("asdf")
-        }
 
+        case .userValidationState(let result):
+          result ? self.saveButton.activate() : self.saveButton.unActivate()
+
+        case .didTapSaveState:
+          self.dismiss(animated: true, completion: nil)
+        }
       })
       .disposed(by: self.disposeBag)
   }
@@ -328,29 +249,35 @@ extension RegistryViewController {
 
   private func setupUI() {
     navigationController?.isNavigationBarHidden = true
-    
+
     [baseScrollView].forEach { view.addSubview($0) }
     [baseContentView].forEach { baseScrollView.addSubview($0) }
     [naviBaseView, profileButton, addProfileButton,
      nameTextField, numberTextField, crewTextField,
-      addressField, emailTextField, birthTextField].forEach {
+      addressField, emailTextField, birthTextField, memoTextView].forEach {
       baseContentView.addSubview($0)
     }
 
-    setupNavigationBar(at: baseContentView, leftItem: dismissButton, titleItem: titleLabel, rightItem: saveButton)
-    
+    setupNavigationBar(at: view, leftItem: dismissButton, titleItem: titleLabel, rightItem: saveButton)
+
+
+//    navigationBaseView.layer.insertSublayer(gradientLayer, at: 0)
+
+//    navigationBaseView.backgroundColor = App.color.main
+
   }
 
   private func setupConstraint() {
     
     baseScrollView.snp.makeConstraints {
-      $0.edges.equalToSuperview()
+      $0.top.equalTo(navigationBaseView.snp.bottom)
+      $0.leading.trailing.bottom.equalToSuperview()
     }
     
     baseContentView.snp.makeConstraints {
-      $0.top.bottom.equalTo(baseScrollView)
-      $0.leading.trailing.equalTo(view)
-      $0.width.height.equalTo(baseScrollView)
+      $0.edges.equalToSuperview()
+      $0.width.equalToSuperview()
+      $0.height.equalToSuperview().priority(250)
     }
 
     naviBaseView.snp.makeConstraints {
@@ -372,7 +299,7 @@ extension RegistryViewController {
     }
     
     nameTextField.snp.makeConstraints {
-      $0.top.equalTo(naviBaseView.snp.bottom).offset(100)
+      $0.top.equalTo(naviBaseView.snp.bottom).offset(32)
       $0.leading.equalToSuperview().offset(16)
       $0.trailing.equalToSuperview().offset(-16)
       $0.height.equalTo(46)
@@ -412,7 +339,19 @@ extension RegistryViewController {
       $0.trailing.equalToSuperview().offset(-16)
       $0.height.equalTo(46)
     }
-    
+
+    memoTextView.snp.makeConstraints {
+      $0.top.equalTo(birthTextField.snp.bottom).offset(16)
+      $0.leading.equalToSuperview().offset(16)
+      $0.trailing.equalToSuperview().offset(-16)
+      $0.height.equalTo(300)
+      $0.bottom.equalTo(baseContentView)
+    }
+
+    let gradientLayer = CAGradientLayer()
+    gradientLayer.frame = naviBaseView.frame
+    gradientLayer.colors = [UIColor.white.cgColor, App.color.main.cgColor]
+    naviBaseView.layer.addSublayer(gradientLayer)
   }
 
 }

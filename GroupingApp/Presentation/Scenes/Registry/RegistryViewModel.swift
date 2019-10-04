@@ -25,7 +25,8 @@ final class RegistryViewModel: BindViewModelType {
     case keyboardWillShow(Notification)
     case keyboardWillHide
     case didTapAddPhto
-    case didTapSave(name: String, number: String, crew: String,)
+    case userValidation(user: UserModel)
+    case didTapSave(user: UserModel)
   }
 
   enum Action {
@@ -33,7 +34,8 @@ final class RegistryViewModel: BindViewModelType {
     case keyboardWillShowAction(Notification)
     case keyboardWillHideAction
     case didTapAddPhtoAction
-    case didTapSaveAction(user: [String?])
+    case userValidationAction(user: UserModel)
+    case didTapSaveAction(user: UserModel)
   }
 
   enum State {
@@ -41,6 +43,7 @@ final class RegistryViewModel: BindViewModelType {
     case keyboardWillShowState(CGFloat)
     case keyboardWillHideState
     case didTapAddPhtoState
+    case userValidationState(result: Bool)
     case didTapSaveState
   }
 
@@ -75,6 +78,8 @@ final class RegistryViewModel: BindViewModelType {
       return Observable<Action>.just(.keyboardWillHideAction)
     case .didTapAddPhto:
       return Observable<Action>.just(.didTapAddPhtoAction)
+    case .userValidation(let userInfo):
+      return Observable<Action>.just(.userValidationAction(user: userInfo))
     case .didTapSave(let userInfo):
       return Observable<Action>.just(.didTapSaveAction(user: userInfo))
     }
@@ -92,14 +97,13 @@ final class RegistryViewModel: BindViewModelType {
       return Observable<State>.just(.keyboardWillHideState)
     case .didTapAddPhtoAction:
       return Observable<State>.just(.didTapAddPhtoState)
+    case .userValidationAction(let userInfo):
+      let result = saveValidation(userModel: userInfo)
+      return Observable<State>.just(.userValidationState(result: result))
     case .didTapSaveAction(let userInfo):
-      
-      userInfo.forEach {
-        print($0)
-        UserModel(name: <#T##String#>, number: <#T##String#>, crew: <#T##String#>, address: <#T##String?#>, email: <#T##String?#>, birth: <#T##String?#>)
-      }
-//      userUseCase.create(name: <#T##String#>, number: <#T##String#>, crew: <#T##String#>, address: <#T##String?#>, email: <#T##String?#>, birth: <#T##String?#>)
-      return Observable<State>.just(.didTapSaveState)
+      return userUseCase.create(name: userInfo.name, number: userInfo.number, crew: userInfo.crew, address: userInfo.address, email: userInfo.email, birth: userInfo.birth)
+        .flatMap { _ in Single<State>.just(.didTapSaveState) }
+        .asObservable()
     }
   }
 
@@ -107,5 +111,13 @@ final class RegistryViewModel: BindViewModelType {
 
 //MARK: - Method Handler
 extension RegistryViewModel {
+
+  private func saveValidation(userModel: UserModel) -> Bool {
+    guard userModel.name != "" && userModel.number != "" && userModel.crew != "" else {
+      return false
+    }
+
+    return true
+  }
 
 }

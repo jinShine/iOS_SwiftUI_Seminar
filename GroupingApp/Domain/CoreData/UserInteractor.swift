@@ -18,10 +18,10 @@ final class UserInteractor: UserUseCase {
               crew: String,
               address: String?,
               email: String?,
-              birth: String?) -> Completable {
-    
-    return Completable.create { (completable) -> Disposable in
-      
+              birth: String?) -> Single<Void> {
+
+    return Single.create { (single) -> Disposable in
+
       self.coreData.context.perform {
         let newUserInfo = UserInfomation(context: self.coreData.context)
         newUserInfo.name = name
@@ -30,13 +30,14 @@ final class UserInteractor: UserUseCase {
         newUserInfo.address = address
         newUserInfo.email = email
         newUserInfo.birth = birth
-        
+
         self.coreData.saveContext()
-        completable(.completed)
+        single(.success(()))
       }
-    
+
       return Disposables.create()
     }
+
   }
   
   
