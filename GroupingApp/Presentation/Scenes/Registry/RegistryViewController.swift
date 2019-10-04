@@ -131,7 +131,15 @@ class RegistryViewController: BaseViewController, BindViewType {
 
     addDismissTabGesture(view: baseScrollView)
     baseScrollView.delegate = self
-    
+    addressField.delegate = self
+
+    let useC = AddressInteractor()
+    useC.requestAddress(address: "답십리파크자이")
+      .subscribe(onNext: { (addressModel) in
+        print("AddressModel", addressModel)
+      })
+      .disposed(by: self.disposeBag)
+
   }
   
 }
@@ -346,6 +354,7 @@ extension RegistryViewController: UIImagePickerControllerDelegate, UINavigationC
 
 }
 
+//MARK: - UIScrollViewDelegate
 extension RegistryViewController: UIScrollViewDelegate {
 
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -360,4 +369,18 @@ extension RegistryViewController: UIScrollViewDelegate {
       self.saveButton.titleLabel?.textColor = .white
     }
   }
+}
+
+//MARK: - UITextFieldDelegate
+extension RegistryViewController: UITextFieldDelegate {
+
+  func textFieldDidBeginEditing(_ textField: UITextField) {
+    //TODO: 글자를 입력할때 주소화면 보여주기
+  }
+//
+//  func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//
+//    return true
+//  }
+
 }

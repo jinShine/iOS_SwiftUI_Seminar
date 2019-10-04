@@ -10,6 +10,7 @@ import Foundation
 
 struct App {
 
+  static let service = NetworkService.shared
   static let coreData = CoreDataManager.shared
   
   static let color = Color()

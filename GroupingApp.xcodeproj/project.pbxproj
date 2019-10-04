@@ -18,6 +18,16 @@
 		5C0C7B3823452566002E4B50 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0C7B3723452566002E4B50 /* Font.swift */; };
 		5C17C028234711A70097490E /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17C027234711A70097490E /* UIView+Extension.swift */; };
 		5C17C02B2347230E0097490E /* SJTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17C02A2347230E0097490E /* SJTextField.swift */; };
+		5C17C02D234769BA0097490E /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C17C02C234769B90097490E /* KakaoOpenSDK.framework */; };
+		5C17C02F234771130097490E /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17C02E234771130097490E /* NetworkService.swift */; };
+		5C17C0342347718E0097490E /* NaverRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17C0332347718E0097490E /* NaverRouter.swift */; };
+		5C17C036234772820097490E /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17C035234772820097490E /* String+Extension.swift */; };
+		5C17C038234772AE0097490E /* NetworkDataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17C037234772AE0097490E /* NetworkDataResponse.swift */; };
+		5C17C03A234772D20097490E /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17C039234772D20097490E /* NetworkError.swift */; };
+		5C17C03C234772F30097490E /* NetworkErrorBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17C03B234772F30097490E /* NetworkErrorBuilder.swift */; };
+		5C17C03E234773340097490E /* NaverUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17C03D234773340097490E /* NaverUseCase.swift */; };
+		5C17C043234773BC0097490E /* NaverInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17C042234773BC0097490E /* NaverInteractor.swift */; };
+		5C17C045234773D80097490E /* AddressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17C044234773D80097490E /* AddressModel.swift */; };
 		5C8764CA2342F19000201833 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8764C92342F19000201833 /* AppDelegate.swift */; };
 		5C8764D42342F19000201833 /* GroupingApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5C8764D22342F19000201833 /* GroupingApp.xcdatamodeld */; };
 		5C8764E92342F4C200201833 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8764E62342F4BE00201833 /* BaseViewController.swift */; };
@@ -57,6 +67,16 @@
 		5C0C7B3723452566002E4B50 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		5C17C027234711A70097490E /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		5C17C02A2347230E0097490E /* SJTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SJTextField.swift; sourceTree = "<group>"; };
+		5C17C02C234769B90097490E /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoOpenSDK.framework; sourceTree = "<group>"; };
+		5C17C02E234771130097490E /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NetworkService.swift; path = GroupingApp/Domain/Network/Service/NetworkService.swift; sourceTree = SOURCE_ROOT; };
+		5C17C0332347718E0097490E /* NaverRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverRouter.swift; sourceTree = "<group>"; };
+		5C17C035234772820097490E /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		5C17C037234772AE0097490E /* NetworkDataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDataResponse.swift; sourceTree = "<group>"; };
+		5C17C039234772D20097490E /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		5C17C03B234772F30097490E /* NetworkErrorBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorBuilder.swift; sourceTree = "<group>"; };
+		5C17C03D234773340097490E /* NaverUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverUseCase.swift; sourceTree = "<group>"; };
+		5C17C042234773BC0097490E /* NaverInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverInteractor.swift; sourceTree = "<group>"; };
+		5C17C044234773D80097490E /* AddressModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressModel.swift; sourceTree = "<group>"; };
 		5C8764C62342F19000201833 /* GroupingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GroupingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C8764C92342F19000201833 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5C8764CB2342F19000201833 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -94,6 +114,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B6A36A733CE89D0E7D3AB033 /* Pods_GroupingApp.framework in Frameworks */,
+				5C17C02D234769BA0097490E /* KakaoOpenSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,6 +124,7 @@
 		2070D5F548A2D2CEFC97B73B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5C17C02C234769B90097490E /* KakaoOpenSDK.framework */,
 				8A779397F6095BB719DE4D7B /* Pods_GroupingApp.framework */,
 			);
 			name = Frameworks;
@@ -111,8 +133,7 @@
 		5C01E90C2345F0AA0051CA68 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				5C01E9162345F61F0051CA68 /* CoreDataResponse.swift */,
-				5C01E90D2345F0BB0051CA68 /* CoreDataManager.swift */,
+				5C17C040234773900097490E /* Service */,
 				5C01E90F2345F30B0051CA68 /* Entities */,
 				5C01E91A23464F790051CA68 /* UserInteractor.swift */,
 			);
@@ -131,6 +152,9 @@
 		5C01E91923464E910051CA68 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				5C17C03F234773700097490E /* Service */,
+				5C17C030234771320097490E /* Router */,
+				5C17C042234773BC0097490E /* NaverInteractor.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -139,6 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				5C01E91E23464FA70051CA68 /* UserUseCase.swift */,
+				5C17C03D234773340097490E /* NaverUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -147,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				5C01E92123465C850051CA68 /* UserModel.swift */,
+				5C17C044234773D80097490E /* AddressModel.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -157,6 +183,34 @@
 				5C17C02A2347230E0097490E /* SJTextField.swift */,
 			);
 			path = CustromViews;
+			sourceTree = "<group>";
+		};
+		5C17C030234771320097490E /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				5C17C0332347718E0097490E /* NaverRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		5C17C03F234773700097490E /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				5C17C02E234771130097490E /* NetworkService.swift */,
+				5C17C037234772AE0097490E /* NetworkDataResponse.swift */,
+				5C17C039234772D20097490E /* NetworkError.swift */,
+				5C17C03B234772F30097490E /* NetworkErrorBuilder.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		5C17C040234773900097490E /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				5C01E9162345F61F0051CA68 /* CoreDataResponse.swift */,
+				5C01E90D2345F0BB0051CA68 /* CoreDataManager.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 		5C8764BD2342F19000201833 = {
@@ -306,6 +360,7 @@
 				5C0C7B3523451492002E4B50 /* UINavigationController+Extension.swift */,
 				5CE6D2022345CFFA00E090A2 /* UIViewController+NavigationBar.swift */,
 				5C17C027234711A70097490E /* UIView+Extension.swift */,
+				5C17C035234772820097490E /* String+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -461,30 +516,39 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C17C03E234773340097490E /* NaverUseCase.swift in Sources */,
 				5C87653923443C9F00201833 /* BaseNavigationController.swift in Sources */,
 				5C8764E92342F4C200201833 /* BaseViewController.swift in Sources */,
 				5C8765342343530800201833 /* HomeViewModel.swift in Sources */,
 				5C8764F723430F8F00201833 /* BaseTabBarController.swift in Sources */,
 				5CB124652344E52A00E61A49 /* SearchViewController.swift in Sources */,
+				5C17C03C234772F30097490E /* NetworkErrorBuilder.swift in Sources */,
 				5CE6D2032345CFFA00E090A2 /* UIViewController+NavigationBar.swift in Sources */,
 				5C8764EA2342F4C400201833 /* BindViewModelType.swift in Sources */,
 				5CB124672344E53300E61A49 /* SearchViewModel.swift in Sources */,
+				5C17C036234772820097490E /* String+Extension.swift in Sources */,
 				5C01E9132345F37F0051CA68 /* UserInfomation+CoreDataProperties.swift in Sources */,
+				5C17C0342347718E0097490E /* NaverRouter.swift in Sources */,
 				5C8765462344407200201833 /* Color.swift in Sources */,
 				5C87653C23443D7E00201833 /* App.swift in Sources */,
 				5C01E9122345F37F0051CA68 /* UserInfomation+CoreDataClass.swift in Sources */,
 				5CB124622344E03700E61A49 /* RegistryViewModel.swift in Sources */,
 				5C8764FD2343112800201833 /* SplashNavigator.swift in Sources */,
+				5C17C03A234772D20097490E /* NetworkError.swift in Sources */,
 				5C01E91B23464F790051CA68 /* UserInteractor.swift in Sources */,
 				5C0C7B3623451493002E4B50 /* UINavigationController+Extension.swift in Sources */,
+				5C17C045234773D80097490E /* AddressModel.swift in Sources */,
 				5C0C7B3823452566002E4B50 /* Font.swift in Sources */,
 				5C87654223443FD900201833 /* UIColor+Extension.swift in Sources */,
 				5C17C02B2347230E0097490E /* SJTextField.swift in Sources */,
 				5C8764D42342F19000201833 /* GroupingApp.xcdatamodeld in Sources */,
 				5C8764FB234310B600201833 /* HomeViewController.swift in Sources */,
 				5C87653023432E8500201833 /* SceneDelegate.swift in Sources */,
+				5C17C02F234771130097490E /* NetworkService.swift in Sources */,
 				5C01E90E2345F0BB0051CA68 /* CoreDataManager.swift in Sources */,
 				5C8764CA2342F19000201833 /* AppDelegate.swift in Sources */,
+				5C17C038234772AE0097490E /* NetworkDataResponse.swift in Sources */,
+				5C17C043234773BC0097490E /* NaverInteractor.swift in Sources */,
 				5C8764EB2342F4C500201833 /* BindViewType.swift in Sources */,
 				5CB1245E2344E00900E61A49 /* RegistryViewController.swift in Sources */,
 				5C8765362343559F00201833 /* HomeNavigator.swift in Sources */,
@@ -631,6 +695,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = CNMQE42DQF;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/GroupingApp/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -651,6 +719,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = CNMQE42DQF;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/GroupingApp/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
