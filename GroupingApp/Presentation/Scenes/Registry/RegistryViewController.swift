@@ -28,15 +28,12 @@ class RegistryViewController: BaseViewController, BindViewType {
   
   let baseContentView: UIView = {
     let view = UIView()
-    view.backgroundColor = App.color.background
     return view
   }()
   
-  let naviBaseView: UIImageView = {
+  let profileBaseView: UIImageView = {
     let view = UIImageView()
-//    view.image = UIImage(named: "Navi_Base_Long")
-
-//    view.backgroundColor = App.color.main
+    view.image = UIImage(named: "Navi_Base_Long")
     view.contentMode = .scaleToFill
     return view
   }()
@@ -61,10 +58,22 @@ class RegistryViewController: BaseViewController, BindViewType {
   let addressField = SJTextField(placeholder: "주소")
   let emailTextField = SJTextField(placeholder: "이메일")
   let birthTextField = SJTextField(placeholder: "생일")
-  
+  let memoTextView: JVFloatLabeledTextView = {
+    let textView = JVFloatLabeledTextView()
+    textView.placeholder = "메모"
+    textView.contentInset = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
+    textView.floatingLabelYPadding = 12
+    textView.layer.cornerRadius = 16
+    textView.layer.masksToBounds = true
+    textView.clipsToBounds = false
+    textView.layer.applyShadow(color: .black, alpha: 0.16, x: 0, y: 2, blur: 10)
+    return textView
+  }()
+
   let dismissButton: UIButton = {
     let button = UIButton()
     button.setImage(UIImage(named: "Icon_Arrow_Down"), for: .normal)
+    button.imageView?.tintColor = .white
     button.contentMode = .scaleAspectFit
     return button
   }()
@@ -87,31 +96,6 @@ class RegistryViewController: BaseViewController, BindViewType {
 
     return button
   }()
-
-  let memoTextView: JVFloatLabeledTextView = {
-    let textView = JVFloatLabeledTextView()
-    textView.placeholder = "메모"
-    return textView
-  }()
-  
-//  let memoTextField: HoshiTextField = {
-//    let textField = HoshiTextField()
-//    textField.placeholder = "메모"
-//    textField.placeholderColor = App.color.line
-//
-//    let line = UIView()
-//    line.backgroundColor = App.color.line
-//    textField.addSubview(line)
-//    line.snp.makeConstraints {
-//      $0.top.equalTo(textField.snp.bottom).offset(10)
-//      $0.leading.trailing.equalToSuperview()
-//      $0.height.equalTo(1)
-//    }
-//
-//    return textField
-//  }()
-  
-
 
 
 
@@ -146,10 +130,9 @@ class RegistryViewController: BaseViewController, BindViewType {
     setupConstraint()
 
     addDismissTabGesture(view: baseScrollView)
-    
+    baseScrollView.delegate = self
     
   }
-
   
 }
 
@@ -252,7 +235,7 @@ extension RegistryViewController {
 
     [baseScrollView].forEach { view.addSubview($0) }
     [baseContentView].forEach { baseScrollView.addSubview($0) }
-    [naviBaseView, profileButton, addProfileButton,
+    [profileBaseView, profileButton, addProfileButton,
      nameTextField, numberTextField, crewTextField,
       addressField, emailTextField, birthTextField, memoTextView].forEach {
       baseContentView.addSubview($0)
@@ -260,18 +243,12 @@ extension RegistryViewController {
 
     setupNavigationBar(at: view, leftItem: dismissButton, titleItem: titleLabel, rightItem: saveButton)
 
-
-//    navigationBaseView.layer.insertSublayer(gradientLayer, at: 0)
-
-//    navigationBaseView.backgroundColor = App.color.main
-
   }
 
   private func setupConstraint() {
     
     baseScrollView.snp.makeConstraints {
-      $0.top.equalTo(navigationBaseView.snp.bottom)
-      $0.leading.trailing.bottom.equalToSuperview()
+      $0.edges.equalToSuperview()
     }
     
     baseContentView.snp.makeConstraints {
@@ -280,26 +257,26 @@ extension RegistryViewController {
       $0.height.equalToSuperview().priority(250)
     }
 
-    naviBaseView.snp.makeConstraints {
+    profileBaseView.snp.makeConstraints {
       $0.top.leading.trailing.equalToSuperview()
       $0.height.equalTo(300)
     }
     
     profileButton.snp.makeConstraints {
-      $0.centerX.equalTo(naviBaseView)
-      $0.centerY.equalTo(naviBaseView).offset(50)
+      $0.centerX.equalTo(profileBaseView)
+      $0.centerY.equalTo(profileBaseView).offset(50)
       $0.width.height.equalTo(120)
       profileButton.layer.cornerRadius = 120 / 2
       profileButton.layer.masksToBounds = true
     }
     
     addProfileButton.snp.makeConstraints {
-      $0.centerX.equalTo(naviBaseView)
+      $0.centerX.equalTo(profileBaseView)
       $0.top.equalTo(profileButton.snp.bottom).offset(10)
     }
     
     nameTextField.snp.makeConstraints {
-      $0.top.equalTo(naviBaseView.snp.bottom).offset(32)
+      $0.top.equalTo(profileBaseView.snp.bottom).offset(32)
       $0.leading.equalToSuperview().offset(16)
       $0.trailing.equalToSuperview().offset(-16)
       $0.height.equalTo(46)
@@ -341,17 +318,13 @@ extension RegistryViewController {
     }
 
     memoTextView.snp.makeConstraints {
-      $0.top.equalTo(birthTextField.snp.bottom).offset(16)
+      $0.top.equalTo(birthTextField.snp.bottom).offset(32)
       $0.leading.equalToSuperview().offset(16)
       $0.trailing.equalToSuperview().offset(-16)
       $0.height.equalTo(300)
       $0.bottom.equalTo(baseContentView)
     }
-
-    let gradientLayer = CAGradientLayer()
-    gradientLayer.frame = naviBaseView.frame
-    gradientLayer.colors = [UIColor.white.cgColor, App.color.main.cgColor]
-    naviBaseView.layer.addSublayer(gradientLayer)
+    
   }
 
 }
@@ -371,4 +344,20 @@ extension RegistryViewController: UIImagePickerControllerDelegate, UINavigationC
     self.dismiss(animated: true, completion: nil)
   }
 
+}
+
+extension RegistryViewController: UIScrollViewDelegate {
+
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {
+
+    if scrollView.contentOffset.y >= 190 {
+      self.titleLabel.textColor = .black
+      self.dismissButton.imageView?.tintColor = .black
+      self.saveButton.titleLabel?.textColor = .black
+    } else {
+      self.titleLabel.textColor = .white
+      self.dismissButton.imageView?.tintColor = .white
+      self.saveButton.titleLabel?.textColor = .white
+    }
+  }
 }

@@ -49,7 +49,7 @@ class BaseViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-//    view.backgroundColor = App.color.background
+    view.backgroundColor = App.color.background
   }
 
 }

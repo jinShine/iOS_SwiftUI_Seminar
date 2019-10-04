@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14903" systemVersion="19A558d" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14903" systemVersion="18G95" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="UserInfomation" representedClassName="UserInfomation" syncable="YES">
         <attribute name="address" optional="YES" attributeType="String"/>
         <attribute name="birth" optional="YES" attributeType="String"/>
@@ -8,8 +8,9 @@
         <attribute name="memo" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="number" optional="YES" attributeType="String"/>
+        <attribute name="profile" optional="YES" attributeType="Binary"/>
     </entity>
     <elements>
-        <element name="UserInfomation" positionX="-63" positionY="-18" width="128" height="148"/>
+        <element name="UserInfomation" positionX="-63" positionY="-18" width="128" height="163"/>
     </elements>
 </model>
