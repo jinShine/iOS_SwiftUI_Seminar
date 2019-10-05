@@ -9,7 +9,7 @@
 import RxSwift
 import RxCocoa
 
-class AddressSeachViewController: BaseViewController, BindViewType {
+class AddressSearchViewController: BaseViewController, BindViewType {
 
   //MARK: - Constant
   struct Constant {
@@ -19,6 +19,14 @@ class AddressSeachViewController: BaseViewController, BindViewType {
 
   //MARK: - UI Properties
 
+  let naviBaseView: UIImageView = {
+    let view = UIImageView()
+    view.image = UIImage(named: "Navi_Base_Rect")
+    view.isUserInteractionEnabled = true
+    view.contentMode = .scaleToFill
+    return view
+  }()
+  
   let popButton: UIButton = {
     let button = UIButton()
     button.setImage(UIImage(named: "Icon-Arrow-Left"), for: .normal)
@@ -30,6 +38,7 @@ class AddressSeachViewController: BaseViewController, BindViewType {
   let searchBaseView: UIImageView = {
     let view = UIImageView()
     view.image = UIImage(named: "SearchBar")
+    view.isUserInteractionEnabled = true
     return view
   }()
   
@@ -39,13 +48,24 @@ class AddressSeachViewController: BaseViewController, BindViewType {
     searchBar.clearButtonMode = .whileEditing
     return searchBar
   }()
+  
+  let tableView: UITableView = {
+    let tableView = UITableView()
+    tableView.estimatedRowHeight = 100
+    tableView.rowHeight = UITableView.automaticDimension
+    tableView.register(UINib(nibName: "AddressCell", bundle: nil), forCellReuseIdentifier: String(describing: AddressCell.self))
+    return tableView
+  }()
 
 
 
   //MARK: - Properties
   typealias ViewModel = AddressSearchViewModel
   var disposeBag = DisposeBag()
-
+  
+  
+  var addressList: [ItemModel] = []
+  let obDidSearch = PublishSubject<String>()
 
   init(viewModel: ViewModel) {
     defer {
@@ -71,17 +91,19 @@ class AddressSeachViewController: BaseViewController, BindViewType {
 }
 
 //MARK: - Bind
-extension AddressSeachViewController {
+extension AddressSearchViewController {
 
   //OUTPUT
   func command(viewModel: ViewModel) {
 
     let obDidTapPop = popButton.rx.tap
-    .map { ViewModel.Command.pop }
-    
-    
+    .map { ViewModel.Command.didTapPop }
+
+    let dd = self.obDidSearch.map { ViewModel.Command.didSearch(address: $0) }
+ 
     Observable<ViewModel.Command>.merge([
-      obDidTapPop
+      obDidTapPop,
+      dd
     ])
     .bind(to: viewModel.command)
     .disposed(by: disposeBag)
@@ -97,8 +119,11 @@ extension AddressSeachViewController {
         guard let self = self else { return }
 
         switch state {
-        case .popState:
+        case .didTapPopState:
           self.navigationController?.popViewController(animated: true)
+          
+        case .didSearchState(let addressModel):
+          self.addressList = addressModel.items
           
         }
       })
@@ -109,23 +134,31 @@ extension AddressSeachViewController {
 
 
 //MARK: - Method Handler
-extension AddressSeachViewController {
+extension AddressSearchViewController {
 
   private func setupUI() {
     navigationController?.isNavigationBarHidden = true
+    tableView.delegate = self
+    tableView.dataSource = self
+    searchTextField.delegate = self
     
+    [naviBaseView, tableView].forEach { view.addSubview($0) }
+    [searchBaseView, searchTextField].forEach { naviBaseView.addSubview($0) }
     setupNavigationBar(at: view, leftItem: popButton)
-    [searchBaseView, searchTextField].forEach { view.addSubview($0) }
-//    navigationBaseView.backgroundColor = App.color.main
     
   }
 
   private func setupConstraint() {
     
+    naviBaseView.snp.makeConstraints {
+      $0.top.leading.trailing.equalToSuperview()
+      $0.height.equalTo(190)
+    }
+    
     searchBaseView.snp.makeConstraints {
-      $0.top.equalTo(navigationBaseView.snp.bottom).offset(16)
       $0.leading.equalToSuperview().offset(16)
       $0.trailing.equalToSuperview().offset(-16)
+      $0.bottom.equalToSuperview().offset(-4)
     }
     
     searchTextField.snp.makeConstraints {
@@ -133,9 +166,53 @@ extension AddressSeachViewController {
       $0.leading.equalToSuperview().offset(80)
       $0.trailing.equalToSuperview().offset(-32)
       $0.height.equalTo(46)
-      
     }
+    
+    tableView.snp.makeConstraints {
+      $0.top.equalTo(naviBaseView.snp.bottom)
+      $0.leading.trailing.bottom.equalToSuperview()
+    }
+    
   }
 
+}
+
+//MARK: - UITableView Datasource
+extension AddressSearchViewController: UITableViewDataSource {
+  
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return addressList.count
+  }
+  
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    guard let addressCell = tableView.dequeueReusableCell(withIdentifier: String(describing: AddressCell.self), for: indexPath) as? AddressCell else { return UITableViewCell() }
+    addressCell.titleLabel.text = addressList[indexPath.row].title
+    addressCell.addressLabel.text = addressList[indexPath.row].address
+    addressCell.roadAddressLabel.text = addressList[indexPath.row].roadAddress
+    return addressCell
+  }
+}
+
+//MARK: - UITableView Delegate
+extension AddressSearchViewController: UITableViewDelegate {
+  
+}
+
+//MARK: - UITextField Delegate
+extension AddressSearchViewController: UITextFieldDelegate {
+  func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    
+    
+    self.obDidSearch.onNext(textField.text ?? "")
+//
+//      useC.requestAddress(address: textField.text ?? "")
+//        .subscribe(onNext: { (addressModel) in
+//          print("AddressModel", addressModel)
+//        })
+//        .disposed(by: self.disposeBag)
+
+      return true
+  }
+  
 }
 

@@ -50,6 +50,7 @@ class BaseViewController: UIViewController {
     super.viewDidLoad()
 
     view.backgroundColor = App.color.background
+
   }
 
 }

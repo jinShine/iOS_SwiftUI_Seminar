@@ -150,14 +150,6 @@ class RegistryViewController: BaseViewController, BindViewType {
     baseScrollView.delegate = self
     addressField.delegate = self
     
-
-    let useC = AddressInteractor()
-    useC.requestAddress(address: "답십리파크자이")
-      .subscribe(onNext: { (addressModel) in
-        print("AddressModel", addressModel)
-      })
-      .disposed(by: self.disposeBag)
-
   }
   
 }
@@ -258,7 +250,7 @@ extension RegistryViewController {
 
   private func setupUI() {
     navigationController?.isNavigationBarHidden = true
-
+    
     [baseScrollView].forEach { view.addSubview($0) }
     [baseContentView].forEach { baseScrollView.addSubview($0) }
     [profileBaseView, profileButton, addProfileButton,
@@ -268,7 +260,6 @@ extension RegistryViewController {
     }
 
     setupNavigationBar(at: view, leftItem: dismissButton, titleItem: titleLabel, rightItem: saveButton)
-
   }
 
   private func setupConstraint() {

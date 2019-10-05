@@ -21,15 +21,18 @@ final class AddressSearchViewModel: BindViewModelType {
   //MARK: - Unidirection
 
   enum Command {
-    case pop
+    case didTapPop
+    case didSearch(address: String)
   }
 
   enum Action {
-    case popAction
+    case didTapPopAction
+    case didSearchAction(address: String)
   }
 
   enum State {
-    case popState
+    case didTapPopState
+    case didSearchState(AddressModel)
   }
 
   var command = PublishSubject<Command>()
@@ -41,11 +44,12 @@ final class AddressSearchViewModel: BindViewModelType {
 
   //MARK: - Properties
 
-
-
+  let naverUseCase: NaverUseCase
+  
   //MARK: - Initialize
-  init() {
-
+  init(naverUseCase: NaverUseCase) {
+    self.naverUseCase = naverUseCase
+    
     self.bind()
   }
 
@@ -54,16 +58,24 @@ final class AddressSearchViewModel: BindViewModelType {
 
   func toAction(from command: Command) -> Observable<Action> {
     switch command {
-    case .pop:
-      return Observable<Action>.just(.popAction)
+    case .didTapPop:
+      return Observable<Action>.just(.didTapPopAction)
+    case .didSearch(let address):
+      return Observable<Action>.just(.didSearchAction(address: address))
       
     }
   }
 
   func toState(from action: Action) -> Observable<State> {
     switch action {
-    case .popAction:
-      return Observable<State>.just(.popState)
+    case .didTapPopAction:
+      return Observable<State>.just(.didTapPopState)
+    case .didSearchAction(let address):
+      print(" :", address)
+      return naverUseCase.requestAddress(address: address)
+        .flatMap { addressModel in
+          return Observable<State>.just(.didSearchState(addressModel))
+      }
       
     }
   }
