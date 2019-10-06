@@ -18,6 +18,7 @@ class SJTextField: JVFloatLabeledTextField {
     static let lineHeight: CGFloat = 1
   }
 
+  let line = UIView()
 
   //MARK: - Initialization
   override init(frame: CGRect) {
@@ -47,7 +48,7 @@ class SJTextField: JVFloatLabeledTextField {
     self.placeholderColor = App.color.line
     self.floatingLabelFont = Constant.floatingLabelSize
     self.floatingLabelTextColor = App.color.main
-    let line = UIView()
+    
     line.backgroundColor = App.color.line
     self.addSubview(line)
 

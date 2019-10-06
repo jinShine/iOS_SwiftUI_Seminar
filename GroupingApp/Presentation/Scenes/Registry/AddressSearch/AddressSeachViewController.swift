@@ -19,14 +19,6 @@ class AddressSearchViewController: BaseViewController, BindViewType {
 
   //MARK: - UI Properties
 
-  let naviBaseView: UIImageView = {
-    let view = UIImageView()
-    view.image = UIImage(named: "Navi_Base_Rect")
-    view.isUserInteractionEnabled = true
-    view.contentMode = .scaleToFill
-    return view
-  }()
-  
   let popButton: UIButton = {
     let button = UIButton()
     button.setImage(UIImage(named: "Icon-Arrow-Left"), for: .normal)
@@ -35,11 +27,25 @@ class AddressSearchViewController: BaseViewController, BindViewType {
     return button
   }()
   
-  let searchBaseView: UIImageView = {
-    let view = UIImageView()
-    view.image = UIImage(named: "SearchBar")
-    view.isUserInteractionEnabled = true
+  let naviTitleLabel: UILabel = {
+    let label = UILabel()
+    label.text = "주소 설정"
+    label.textColor = .black
+    label.textAlignment = .center
+    label.font = App.font.bold(size: 18)
+    return label
+  }()
+  
+  let searchBaseView: UIView = {
+    let view = UIView()
+    view.backgroundColor = .white
     return view
+  }()
+  
+  let searchIcon: UIImageView = {
+    let imageView = UIImageView()
+    imageView.image = UIImage(named: "Icon-Search")
+    return imageView
   }()
   
   let searchTextField: UITextField = {
@@ -49,10 +55,18 @@ class AddressSearchViewController: BaseViewController, BindViewType {
     return searchBar
   }()
   
+  let line: UIView = {
+    let view = UIView()
+    view.backgroundColor = App.color.main
+    return view
+  }()
+  
   let tableView: UITableView = {
     let tableView = UITableView()
     tableView.estimatedRowHeight = 100
     tableView.rowHeight = UITableView.automaticDimension
+    tableView.separatorStyle = .none
+    
     tableView.register(UINib(nibName: "AddressCell", bundle: nil), forCellReuseIdentifier: String(describing: AddressCell.self))
     return tableView
   }()
@@ -65,7 +79,6 @@ class AddressSearchViewController: BaseViewController, BindViewType {
   
   
   var addressList: [ItemModel] = []
-  let obDidSearch = PublishSubject<String>()
 
   init(viewModel: ViewModel) {
     defer {
@@ -99,11 +112,12 @@ extension AddressSearchViewController {
     let obDidTapPop = popButton.rx.tap
     .map { ViewModel.Command.didTapPop }
 
-    let dd = self.obDidSearch.map { ViewModel.Command.didSearch(address: $0) }
- 
+    let obDidSearchText = searchTextField.rx.text.asObservable()
+      .map { ViewModel.Command.didSearch(address: $0 ?? "") }
+    
     Observable<ViewModel.Command>.merge([
       obDidTapPop,
-      dd
+      obDidSearchText
     ])
     .bind(to: viewModel.command)
     .disposed(by: disposeBag)
@@ -123,7 +137,10 @@ extension AddressSearchViewController {
           self.navigationController?.popViewController(animated: true)
           
         case .didSearchState(let addressModel):
+          
+          print(addressModel)
           self.addressList = addressModel.items
+          self.tableView.reloadData()
           
         }
       })
@@ -140,36 +157,44 @@ extension AddressSearchViewController {
     navigationController?.isNavigationBarHidden = true
     tableView.delegate = self
     tableView.dataSource = self
-    searchTextField.delegate = self
+    tableView.backgroundColor = .white
+    tableView.contentInset = UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
     
-    [naviBaseView, tableView].forEach { view.addSubview($0) }
-    [searchBaseView, searchTextField].forEach { naviBaseView.addSubview($0) }
-    setupNavigationBar(at: view, leftItem: popButton)
-    
+    [searchBaseView, tableView ].forEach { view.addSubview($0) }
+    [searchIcon, searchTextField, line].forEach { searchBaseView.addSubview($0) }
+    setupNavigationBar(at: view, leftItem: popButton, titleItem: naviTitleLabel)
+    navigationBaseView.backgroundColor = .white
   }
 
   private func setupConstraint() {
-    
-    naviBaseView.snp.makeConstraints {
-      $0.top.leading.trailing.equalToSuperview()
-      $0.height.equalTo(190)
-    }
-    
+
     searchBaseView.snp.makeConstraints {
-      $0.leading.equalToSuperview().offset(16)
-      $0.trailing.equalToSuperview().offset(-16)
-      $0.bottom.equalToSuperview().offset(-4)
+      $0.top.equalTo(navigationBaseView.snp.bottom)
+      $0.leading.trailing.equalToSuperview()
+      $0.height.equalTo(70)
     }
     
+    searchIcon.snp.makeConstraints {
+      $0.centerY.equalToSuperview().offset(8)
+      $0.leading.equalToSuperview().offset(32)
+      $0.size.equalTo(18)
+    }
+
     searchTextField.snp.makeConstraints {
-      $0.centerY.equalTo(searchBaseView).offset(-2)
-      $0.leading.equalToSuperview().offset(80)
+      $0.centerY.equalTo(searchBaseView).offset(8)
+      $0.leading.equalTo(searchIcon.snp.trailing).offset(14)
       $0.trailing.equalToSuperview().offset(-32)
-      $0.height.equalTo(46)
+    }
+    
+    line.snp.makeConstraints {
+      $0.bottom.equalToSuperview()
+      $0.leading.equalTo(searchIcon)
+      $0.trailing.equalTo(searchTextField)
+      $0.height.equalTo(2)
     }
     
     tableView.snp.makeConstraints {
-      $0.top.equalTo(naviBaseView.snp.bottom)
+      $0.top.equalTo(searchBaseView.snp.bottom)
       $0.leading.trailing.bottom.equalToSuperview()
     }
     
@@ -186,33 +211,31 @@ extension AddressSearchViewController: UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let addressCell = tableView.dequeueReusableCell(withIdentifier: String(describing: AddressCell.self), for: indexPath) as? AddressCell else { return UITableViewCell() }
-    addressCell.titleLabel.text = addressList[indexPath.row].title
-    addressCell.addressLabel.text = addressList[indexPath.row].address
-    addressCell.roadAddressLabel.text = addressList[indexPath.row].roadAddress
+    
+    addressCell.titleLabel.text = addressList[indexPath.row].title.removeHTMLTags
+    
+    if let address = addressList[indexPath.row].address {
+      if address != "" {
+        addressCell.addressLabel.text = "[지번] " + address
+      } else {
+        addressCell.addressLabel.text = ""
+      }
+    }
+  
+    if let roadAddress = addressList[indexPath.row].roadAddress {
+      if roadAddress != "" {
+          addressCell.roadAddressLabel.text = "[도로명] " + roadAddress
+      } else {
+        addressCell.roadAddressLabel.text = ""
+      }
+    }
+    
     return addressCell
   }
 }
 
 //MARK: - UITableView Delegate
 extension AddressSearchViewController: UITableViewDelegate {
-  
-}
-
-//MARK: - UITextField Delegate
-extension AddressSearchViewController: UITextFieldDelegate {
-  func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-    
-    
-    self.obDidSearch.onNext(textField.text ?? "")
-//
-//      useC.requestAddress(address: textField.text ?? "")
-//        .subscribe(onNext: { (addressModel) in
-//          print("AddressModel", addressModel)
-//        })
-//        .disposed(by: self.disposeBag)
-
-      return true
-  }
   
 }
 

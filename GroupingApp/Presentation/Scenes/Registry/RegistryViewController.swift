@@ -92,7 +92,7 @@ class RegistryViewController: BaseViewController, BindViewType {
     return button
   }()
   
-  let titleLabel: UILabel = {
+  let naviTitleLabel: UILabel = {
     let label = UILabel()
     label.text = "새로운 연락처"
     label.textColor = .white
@@ -259,7 +259,7 @@ extension RegistryViewController {
       baseContentView.addSubview($0)
     }
 
-    setupNavigationBar(at: view, leftItem: dismissButton, titleItem: titleLabel, rightItem: saveButton)
+    setupNavigationBar(at: view, leftItem: dismissButton, titleItem: naviTitleLabel, rightItem: saveButton)
   }
 
   private func setupConstraint() {
@@ -384,11 +384,11 @@ extension RegistryViewController: UIScrollViewDelegate {
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
 
     if scrollView.contentOffset.y >= 190 {
-      self.titleLabel.textColor = .black
+      self.naviTitleLabel.textColor = .black
       self.dismissButton.imageView?.tintColor = .black
       self.saveButton.titleLabel?.textColor = .black
     } else {
-      self.titleLabel.textColor = .white
+      self.naviTitleLabel.textColor = .white
       self.dismissButton.imageView?.tintColor = .white
       self.saveButton.titleLabel?.textColor = .white
     }

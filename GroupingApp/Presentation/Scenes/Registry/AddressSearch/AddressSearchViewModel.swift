@@ -70,13 +70,13 @@ final class AddressSearchViewModel: BindViewModelType {
     switch action {
     case .didTapPopAction:
       return Observable<State>.just(.didTapPopState)
-    case .didSearchAction(let address):
-      print(" :", address)
-      return naverUseCase.requestAddress(address: address)
-        .flatMap { addressModel in
-          return Observable<State>.just(.didSearchState(addressModel))
-      }
       
+    case .didSearchAction(let address):
+      return naverUseCase.requestAddress(address: address)
+        .asObservable()
+        .flatMap { addressModel in
+          return Observable<State>.just(.didSearchState(addressModel)).retry(3)
+        }.catchErrorJustReturn(.didSearchState(AddressModel()))
     }
   }
 

@@ -10,6 +10,10 @@ import Foundation
 
 struct AddressModel: Codable {
   var items: [ItemModel]
+  
+  init() {
+    items = []
+  }
 }
 
 struct ItemModel: Codable {

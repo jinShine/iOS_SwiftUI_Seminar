@@ -11,6 +11,7 @@ import UIKit
 struct Color {
 
   var main: UIColor {
+    //#504DE5
     return UIColor(r: 80, g: 77, b: 229)
   }
 

@@ -10,12 +10,13 @@ import RxSwift
 import RxCocoa
 
 final class AddressInteractor: NaverUseCase {
-  func requestAddress(address: String) -> Observable<AddressModel> {
+  
+  func requestAddress(address: String) -> Single<AddressModel> {
     return App.service.buildRequest(to: .addressSearch(address: address))
-      .asObservable()
       .map { response in
         do {
-          let result = try JSONDecoder().decode(AddressModel.self, from: response.jsonData ?? Data() )
+          let result = try JSONDecoder().decode(AddressModel.self,
+                                                from: response.jsonData ?? Data() )
           return result
         }
     }

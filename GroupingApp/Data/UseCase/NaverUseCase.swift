@@ -9,5 +9,5 @@
 import RxSwift
 
 protocol NaverUseCase {
-  func requestAddress(address: String) -> Observable<AddressModel>
+  func requestAddress(address: String) -> Single<AddressModel>
 }

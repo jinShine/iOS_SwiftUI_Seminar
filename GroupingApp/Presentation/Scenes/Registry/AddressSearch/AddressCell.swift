@@ -10,6 +10,7 @@ import UIKit
 
 class AddressCell: UITableViewCell {
 
+  @IBOutlet weak var mapPin: UIImageView!
   @IBOutlet weak var titleLabel: UILabel!
   @IBOutlet weak var addressLabel: UILabel!
   @IBOutlet weak var roadAddressLabel: UILabel!
@@ -26,7 +27,17 @@ class AddressCell: UITableViewCell {
   }
   
   private func setupUI() {
+
+    mapPin.image = UIImage(named: "Icon-Map-Pin")
     
+    self.titleLabel.textColor = .black
+    self.titleLabel.font = App.font.regular(size: 14)
+    
+    self.addressLabel.textColor = .lightGray
+    self.addressLabel.font = App.font.regular(size: 12)
+    
+    self.roadAddressLabel.textColor = .lightGray
+    self.roadAddressLabel.font = App.font.regular(size: 12)
   }
   
   var viewModel: AddressCellViewModel! {
