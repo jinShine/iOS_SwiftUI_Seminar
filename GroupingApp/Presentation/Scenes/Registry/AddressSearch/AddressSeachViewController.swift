@@ -66,12 +66,14 @@ class AddressSearchViewController: BaseViewController, BindViewType {
     tableView.estimatedRowHeight = 100
     tableView.rowHeight = UITableView.automaticDimension
     tableView.separatorStyle = .none
-    
+    tableView.keyboardDismissMode = .onDrag
     tableView.register(UINib(nibName: "AddressCell", bundle: nil), forCellReuseIdentifier: String(describing: AddressCell.self))
     return tableView
   }()
 
-
+  override var preferredStatusBarStyle: UIStatusBarStyle {
+    return .default
+  }
 
   //MARK: - Properties
   typealias ViewModel = AddressSearchViewModel
