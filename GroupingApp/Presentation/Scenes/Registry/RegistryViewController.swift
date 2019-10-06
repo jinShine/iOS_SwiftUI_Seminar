@@ -107,11 +107,8 @@ class RegistryViewController: BaseViewController, BindViewType {
     button.titleLabel?.contentMode = .center
     button.titleLabel?.font = App.font.regular(size: 16)
     button.unActivate()
-
     return button
   }()
-
-
 
 
   //MARK: - Properties
@@ -124,16 +121,14 @@ class RegistryViewController: BaseViewController, BindViewType {
     defer {
       self.viewModel = viewModel
     }
-
-    super.init()
     
+    super.init()
   }
   
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
-  
   deinit {
     NotificationCenter.default.removeObserver(self)
   }
@@ -144,9 +139,10 @@ class RegistryViewController: BaseViewController, BindViewType {
     
     setupUI()
     setupConstraint()
-    self.navigator = RegistryNavigator(with: self.navigationController)
-
-    addDismissTabGesture(view: baseScrollView)
+    setupNavigator()
+    
+    addDismissTabGesture(in: baseScrollView)
+    
     baseScrollView.delegate = self
     addressField.delegate = self
     
@@ -220,13 +216,16 @@ extension RegistryViewController {
         switch state {
         case .dismissState:
           self.dismiss(animated: true, completion: nil)
+          
         case .keyboardWillShowState(let keyboardHeight):
           self.baseScrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardHeight, right: 0)
+          
         case .keyboardWillHideState:
           self.baseScrollView.contentInset = UIEdgeInsets.zero
           UIView.animate(withDuration: 0.25) {
             self.view.layoutIfNeeded()
           }
+          
         case .didTapAddPhtoState:
           guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else { return }
           let pickerContoller = UIImagePickerController()
@@ -358,6 +357,10 @@ extension RegistryViewController {
     }
     
   }
+  
+  private func setupNavigator() {
+    navigator = RegistryNavigator(with: self.navigationController)
+  }
 
 }
 
@@ -392,6 +395,7 @@ extension RegistryViewController: UIScrollViewDelegate {
       self.dismissButton.imageView?.tintColor = .white
       self.saveButton.titleLabel?.textColor = .white
     }
+    
   }
 }
 
@@ -400,7 +404,7 @@ extension RegistryViewController: UITextFieldDelegate {
 
   func textFieldDidBeginEditing(_ textField: UITextField) {
     dismissKeyboard()
-    self.navigator?.navigate(to: .addressSearch)
+    navigator?.navigate(to: .addressSearch)
   }
 
 }

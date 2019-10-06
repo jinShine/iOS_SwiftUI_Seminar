@@ -42,9 +42,23 @@ class AddressCell: UITableViewCell {
   
   var viewModel: AddressCellViewModel! {
     didSet {
-      self.titleLabel.text = viewModel.title
-      self.addressLabel.text = viewModel.address
-      self.roadAddressLabel.text = viewModel.roadAddress
+      self.titleLabel.text = viewModel.title.removeHTMLTags
+      
+      if let address = viewModel.address {
+        if address != "" {
+          self.addressLabel.text = "[지번] " + address
+        } else {
+          self.addressLabel.text = ""
+        }
+      }
+      
+      if let roadAddress = viewModel.roadAddress {
+        if roadAddress != "" {
+          self.roadAddressLabel.text = "[도로명] " + roadAddress
+        } else {
+          self.roadAddressLabel.text = ""
+        }
+      }
     }
   }
     

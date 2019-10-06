@@ -67,6 +67,8 @@ class AddressSearchViewController: BaseViewController, BindViewType {
     tableView.rowHeight = UITableView.automaticDimension
     tableView.separatorStyle = .none
     tableView.keyboardDismissMode = .onDrag
+    tableView.backgroundColor = .white
+    tableView.contentInset = UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
     tableView.register(UINib(nibName: "AddressCell", bundle: nil), forCellReuseIdentifier: String(describing: AddressCell.self))
     return tableView
   }()
@@ -78,21 +80,20 @@ class AddressSearchViewController: BaseViewController, BindViewType {
   //MARK: - Properties
   typealias ViewModel = AddressSearchViewModel
   var disposeBag = DisposeBag()
-  
-  
+  let navigator: AddressSearchNavigator
   var addressList: [ItemModel] = []
 
-  init(viewModel: ViewModel) {
+  init(viewModel: ViewModel, navigator: AddressSearchNavigator) {
     defer {
       self.viewModel = viewModel
     }
+    self.navigator = navigator
     super.init()
-
+    
   }
-
+  
   required init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
-
+    fatalError("init(coder:) has not been implemented")
   }
 
   //MARK: - Life Cycle
@@ -139,8 +140,7 @@ extension AddressSearchViewController {
           self.navigationController?.popViewController(animated: true)
           
         case .didSearchState(let addressModel):
-          
-          print(addressModel)
+//          print(addressModel)
           self.addressList = addressModel.items
           self.tableView.reloadData()
           
@@ -159,8 +159,6 @@ extension AddressSearchViewController {
     navigationController?.isNavigationBarHidden = true
     tableView.delegate = self
     tableView.dataSource = self
-    tableView.backgroundColor = .white
-    tableView.contentInset = UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
     
     [searchBaseView, tableView ].forEach { view.addSubview($0) }
     [searchIcon, searchTextField, line].forEach { searchBaseView.addSubview($0) }
@@ -214,30 +212,29 @@ extension AddressSearchViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let addressCell = tableView.dequeueReusableCell(withIdentifier: String(describing: AddressCell.self), for: indexPath) as? AddressCell else { return UITableViewCell() }
     
-    addressCell.titleLabel.text = addressList[indexPath.row].title.removeHTMLTags
-    
-    if let address = addressList[indexPath.row].address {
-      if address != "" {
-        addressCell.addressLabel.text = "[지번] " + address
-      } else {
-        addressCell.addressLabel.text = ""
-      }
-    }
-  
-    if let roadAddress = addressList[indexPath.row].roadAddress {
-      if roadAddress != "" {
-          addressCell.roadAddressLabel.text = "[도로명] " + roadAddress
-      } else {
-        addressCell.roadAddressLabel.text = ""
-      }
+    if let viewModel = object(at: indexPath) as? AddressCellViewModel {
+      addressCell.viewModel = viewModel
     }
     
     return addressCell
+  }
+  
+  private func object(at indexPath: IndexPath) -> Any? {
+    guard indexPath.row < addressList.count else {
+      return nil
+    }
+    let item = addressList[indexPath.row]
+    return AddressCellViewModel(item: item)
   }
 }
 
 //MARK: - UITableView Delegate
 extension AddressSearchViewController: UITableViewDelegate {
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    let selectedItem = addressList[indexPath.row]
+    navigator.navigate(to: .selectMap(selectedItem))
+  }
   
 }
 

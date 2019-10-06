@@ -13,5 +13,16 @@ struct AddressCellViewModel {
   var title: String
   var address: String?
   var roadAddress: String?
+  var mapx: String
+  var mapy: String
+  
+  
+  init(item: ItemModel) {
+    self.title = item.title
+    self.address = item.address
+    self.roadAddress = item.roadAddress
+    self.mapx = item.mapx
+    self.mapy = item.mapy
+  }
   
 }
