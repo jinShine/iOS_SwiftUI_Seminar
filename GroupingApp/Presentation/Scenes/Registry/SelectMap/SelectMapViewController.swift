@@ -1,19 +1,19 @@
 //
-//  SearchViewController.swift
+//  SelectMapViewController.swift
 //  GroupingApp
 //
-//  Created by Seungjin on 02/10/2019.
+//  Created by seungjin on 2019/10/06.
 //  Copyright © 2019 Jinnify. All rights reserved.
 //
 
 import RxSwift
 import RxCocoa
 
-class SearchViewController: BaseViewController, BindViewType {
+class SelectMapViewController: BaseViewController, BindViewType {
 
   //MARK: - Constant
   struct Constant {
-
+    
   }
 
 
@@ -23,24 +23,25 @@ class SearchViewController: BaseViewController, BindViewType {
 
 
   //MARK: - Properties
-  typealias ViewModel = SearchViewModel
+  typealias ViewModel = SelectMapViewModel
   var disposeBag = DisposeBag()
-  //  var dataSource: RxTableViewSectionedReloadDataSource<SectionOfUserModel>?
+  
+  let selectedItem: ItemModel
 
 
-  init(viewModel: ViewModel) {
+  init(viewModel: ViewModel, selectedItem: ItemModel) {
     defer {
       self.viewModel = viewModel
     }
-    
+    self.selectedItem = selectedItem
+
     super.init()
-
   }
-
+  
   required init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
-
+    fatalError("init(coder:) has not been implemented")
   }
+  
 
   //MARK: - Life Cycle
   override func viewDidLoad() {
@@ -49,11 +50,12 @@ class SearchViewController: BaseViewController, BindViewType {
     setupUI()
     setupConstraint()
 
+    print(selectedItem)
   }
 }
 
 //MARK: - Bind
-extension SearchViewController {
+extension SelectMapViewController {
 
   //OUTPUT
   func command(viewModel: ViewModel) {
@@ -78,7 +80,7 @@ extension SearchViewController {
 
 
 //MARK: - Method Handler
-extension SearchViewController {
+extension SelectMapViewController {
 
   private func setupUI() {
 
@@ -89,3 +91,4 @@ extension SearchViewController {
   }
 
 }
+

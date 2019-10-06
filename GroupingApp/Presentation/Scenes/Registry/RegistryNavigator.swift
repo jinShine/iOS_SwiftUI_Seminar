@@ -23,9 +23,9 @@ class RegistryNavigator: Navigator<RegistryRoute> {
   func navigate(to destination: RegistryRoute) {
     switch destination {
     case .addressSearch:
-      let addressSearchViewModel = AddressSearchViewModel(naverUseCase: AddressInteractor())
-      let addressSearchVC = AddressSearchViewController(viewModel: addressSearchViewModel)
-      presenter?.pushViewController(addressSearchVC, animated: true)
+      let viewModel = AddressSearchViewModel(naverUseCase: AddressInteractor())
+      let viewController = AddressSearchViewController(viewModel: viewModel, navigator: AddressSearchNavigator(with: presenter))
+      presenter?.pushViewController(viewController, animated: true)
     }
   }
   

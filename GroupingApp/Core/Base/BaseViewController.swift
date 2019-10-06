@@ -10,32 +10,33 @@ import UIKit
 
 class BaseViewController: UIViewController {
 
-  //MARK: Constant
+  //MARK: - Constant
   struct Constant {
     static let itemSize: CGFloat = 44
     static let basicMargin: CGFloat = 12
   }
 
-  //MARK: Properties
+  //MARK: - Properties
 
 
 
-  //MARK: UI Properties
+  //MARK: - UI Properties
+  
+  let navigationBaseView = UIView()
   
   override var preferredStatusBarStyle: UIStatusBarStyle {
     return .lightContent
   }
 
-  let navigationBaseView = UIView()
 
-  //MARK: Initialization
+  //MARK: - Initialization
 
   init() {
     super.init(nibName: nil, bundle: nil)
   }
   
-  required init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
+  required init?(coder: NSCoder) {
+    super.init(coder: coder)
   }
 
   deinit {
@@ -44,13 +45,13 @@ class BaseViewController: UIViewController {
   }
   
 
-  //MARK: Life Cycle
+  //MARK: - Life Cycle
 
   override func viewDidLoad() {
     super.viewDidLoad()
 
     view.backgroundColor = App.color.background
-
+    navigationController?.interactivePopGestureRecognizer?.delegate = self
   }
 
 }
@@ -63,7 +64,7 @@ extension BaseViewController {
     dismissKeyboard()
   }
   
-  func addDismissTabGesture(view: UIView) {
+  func addDismissTabGesture(in view: UIView) {
     let dismissKeyboardGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
     dismissKeyboardGesture.numberOfTapsRequired = 1
     dismissKeyboardGesture.isEnabled = true
@@ -74,6 +75,13 @@ extension BaseViewController {
   @objc func dismissKeyboard() {
     self.view.endEditing(true)
   }
-
   
+}
+
+//MARK: - GestureRecognizerDelegate
+extension BaseViewController: UIGestureRecognizerDelegate {
+  func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                         shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    return true
+  }
 }

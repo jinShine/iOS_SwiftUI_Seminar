@@ -60,8 +60,8 @@ class HomeViewController: BaseViewController, BindViewType {
     defer {
       self.viewModel = viewModel
     }
+    
     super.init()
-
   }
 
   required init?(coder aDecoder: NSCoder) {

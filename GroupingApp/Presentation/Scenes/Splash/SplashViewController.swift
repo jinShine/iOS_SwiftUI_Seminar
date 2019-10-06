@@ -10,13 +10,18 @@ import UIKit
 
 class SplashViewController: BaseViewController {
 
+  //MARK: - UI Properties
+  
+  
+  //MARK: - Properties
   var splashNavigator: SplashNavigator?
 
-
+  
+  //MARK: - Life Cycle
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    self.view.backgroundColor = .red
+    setupUI()
     setupNavigator()
     
   }
@@ -28,6 +33,11 @@ class SplashViewController: BaseViewController {
       self.splashNavigator?.navigate(to: .home)
     }
 
+  }
+  
+  //MARK: - Methods
+  private func setupUI() {
+    self.view.backgroundColor = .red
   }
 
   private func setupNavigator() {

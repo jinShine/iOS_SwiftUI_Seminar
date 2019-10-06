@@ -14,8 +14,6 @@ extension BaseViewController {
                           leftItem: UIButton = UIButton(),
                           titleItem: UIView = UIView(),
                           rightItem: UIButton = UIButton()) {
-
-    let window = UIApplication.shared.windows.first { $0.isKeyWindow }
     
     [navigationBaseView].forEach { view.addSubview($0)}
     [leftItem, titleItem, rightItem].forEach { navigationBaseView.addSubview($0) }
@@ -23,7 +21,7 @@ extension BaseViewController {
     // Base View
     navigationBaseView.translatesAutoresizingMaskIntoConstraints = false
     if #available(iOS 13.0, *) {
-      let statusBarManager = window?.windowScene?.statusBarManager
+      let statusBarManager = App.window?.windowScene?.statusBarManager
       NSLayoutConstraint.activate([
         navigationBaseView.topAnchor.constraint(equalTo: view.topAnchor),
         navigationBaseView.leadingAnchor.constraint(equalTo: view.leadingAnchor),

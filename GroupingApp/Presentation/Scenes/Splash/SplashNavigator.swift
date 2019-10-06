@@ -24,11 +24,12 @@ class SplashNavigator: Navigator<SplashRoute> {
         makeRegistryViewController(),
         makeSearchViewController()
       ]
-
-      presenter?.pushViewController(tabBarController, animated: true)
+      
+      App.window?.rootViewController = tabBarController
     }
   }
 
+  
   private func makeHomeViewController() -> UIViewController {
     let homeViewModel = HomeViewModel()
     let homeVC = HomeViewController(viewModel: homeViewModel)

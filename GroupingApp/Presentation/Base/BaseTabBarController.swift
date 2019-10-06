@@ -9,10 +9,10 @@
 import UIKit
 import SnapKit
 
-enum TabBarViewControllers: Int {
-  case Home = 0
-  case Registery
-  case Search
+enum TabBarType: Int {
+  case Home = 0,
+  Registery,
+  Search
 }
 
 class BaseTabBarController: UITabBarController {
@@ -20,23 +20,24 @@ class BaseTabBarController: UITabBarController {
   //MARK: - Life Cycle
   override func viewDidLoad() {
     super.viewDidLoad()
-    
     setupUI()
   }
   
   private func setupUI() {
     delegate = self
     
+    // Shadow
     tabBarClear()
     tabBar.layer.applyShadow(color: .black, alpha: 0.16, x: 0, y: -2, blur: 16)
     
+    // Item Image Inset
     tabBar.items?.forEach {
       $0.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
     }
     
   }
 
-  func tabBarClear() {
+  private func tabBarClear() {
     let appearance = UITabBar.appearance()
     appearance.shadowImage = UIImage()
     appearance.backgroundImage = UIImage()
@@ -44,9 +45,9 @@ class BaseTabBarController: UITabBarController {
   }
   
   private func makeRegistry() -> UINavigationController {
-    let registryViewModel = RegistryViewModel(userUseCase: UserInteractor())
-    let registryVC = RegistryViewController(viewModel: registryViewModel)
-    return UINavigationController(rootViewController: registryVC)
+    let viewModel = RegistryViewModel(userUseCase: UserInteractor())
+    let viewController = RegistryViewController(viewModel: viewModel)
+    return UINavigationController(rootViewController: viewController)
   }
 
 }
@@ -54,11 +55,12 @@ class BaseTabBarController: UITabBarController {
 
 //MARK: - UITabBar Delegate
 extension BaseTabBarController: UITabBarControllerDelegate {
+  
   func tabBarController(_ tabBarController: UITabBarController,
                           shouldSelect viewController: UIViewController) -> Bool {
-        
+    
     let selectedVCIndex = tabBarController.viewControllers?.firstIndex(of: viewController)
-    if selectedVCIndex == TabBarViewControllers.Registery.rawValue {
+    if selectedVCIndex == TabBarType.Registery.rawValue {
       let registryVC = makeRegistry()
       registryVC.modalPresentationStyle = .fullScreen
       self.present(registryVC, animated: true, completion: nil)
@@ -73,7 +75,7 @@ extension BaseTabBarController: UITabBarControllerDelegate {
 //MARK: - UITabbr
 extension UITabBar {
 
-  private struct Constant {
+  struct Constant {
     static let tabBarHeight: CGFloat = 70
   }
 
@@ -88,22 +90,4 @@ extension UITabBar {
     return sizeThatFits
   }
 
-}
-
-
-//MARK: - CALayer
-//Sketch 스타일
-extension CALayer {
-  func applyShadow (
-    color: UIColor = .black,
-    alpha: Float = 0.5,
-    x: CGFloat = 0,
-    y: CGFloat = 2,
-    blur: CGFloat = 4
-  ) {
-    shadowColor = color.cgColor
-    shadowOpacity = alpha
-    shadowOffset = CGSize(width: x, height: y)
-    shadowRadius = blur / 2.0
-  }
 }
