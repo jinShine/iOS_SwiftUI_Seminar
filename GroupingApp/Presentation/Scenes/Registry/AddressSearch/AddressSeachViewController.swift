@@ -10,6 +10,10 @@ import RxSwift
 import RxCocoa
 
 class AddressSearchViewController: BaseViewController, BindViewType {
+  
+  enum ModelType: Int {
+    case address = 0
+  }
 
   //MARK: - Constant
   struct Constant {
@@ -69,7 +73,7 @@ class AddressSearchViewController: BaseViewController, BindViewType {
     tableView.keyboardDismissMode = .onDrag
     tableView.backgroundColor = .white
     tableView.contentInset = UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
-    tableView.register(UINib(nibName: "AddressCell", bundle: nil), forCellReuseIdentifier: String(describing: AddressCell.self))
+    tableView.register(AddressCell.nib(), forCellReuseIdentifier: String(describing: AddressCell.self))
     return tableView
   }()
 
@@ -200,41 +204,5 @@ extension AddressSearchViewController {
     
   }
 
-}
-
-//MARK: - UITableView Datasource
-extension AddressSearchViewController: UITableViewDataSource {
-  
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return addressList.count
-  }
-  
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let addressCell = tableView.dequeueReusableCell(withIdentifier: String(describing: AddressCell.self), for: indexPath) as? AddressCell else { return UITableViewCell() }
-    
-    if let viewModel = object(at: indexPath) as? AddressCellViewModel {
-      addressCell.viewModel = viewModel
-    }
-    
-    return addressCell
-  }
-  
-  private func object(at indexPath: IndexPath) -> Any? {
-    guard indexPath.row < addressList.count else {
-      return nil
-    }
-    let item = addressList[indexPath.row]
-    return AddressCellViewModel(item: item)
-  }
-}
-
-//MARK: - UITableView Delegate
-extension AddressSearchViewController: UITableViewDelegate {
-  
-  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    let selectedItem = addressList[indexPath.row]
-    navigator.navigate(to: .selectMap(selectedItem))
-  }
-  
 }
 

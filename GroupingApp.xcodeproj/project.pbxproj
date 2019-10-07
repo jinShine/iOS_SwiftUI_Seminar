@@ -38,6 +38,8 @@
 		5C253DCF234A3488009CDAA4 /* SelectMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C253DCE234A3488009CDAA4 /* SelectMapViewModel.swift */; };
 		5C253DD1234A3518009CDAA4 /* AddressSearchNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C253DD0234A3518009CDAA4 /* AddressSearchNavigator.swift */; };
 		5C253DD4234A3D21009CDAA4 /* CALayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C253DD3234A3D21009CDAA4 /* CALayer+Extension.swift */; };
+		5C253DD6234AF8E6009CDAA4 /* AddressSearchViewController+TableViewDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C253DD5234AF8E6009CDAA4 /* AddressSearchViewController+TableViewDecorator.swift */; };
+		5C253DD8234AF9AA009CDAA4 /* TableViewDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C253DD7234AF9AA009CDAA4 /* TableViewDecorator.swift */; };
 		5C8764CA2342F19000201833 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8764C92342F19000201833 /* AppDelegate.swift */; };
 		5C8764D42342F19000201833 /* GroupingApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5C8764D22342F19000201833 /* GroupingApp.xcdatamodeld */; };
 		5C8764E92342F4C200201833 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8764E62342F4BE00201833 /* BaseViewController.swift */; };
@@ -97,6 +99,8 @@
 		5C253DCE234A3488009CDAA4 /* SelectMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMapViewModel.swift; sourceTree = "<group>"; };
 		5C253DD0234A3518009CDAA4 /* AddressSearchNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSearchNavigator.swift; sourceTree = "<group>"; };
 		5C253DD3234A3D21009CDAA4 /* CALayer+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Extension.swift"; sourceTree = "<group>"; };
+		5C253DD5234AF8E6009CDAA4 /* AddressSearchViewController+TableViewDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddressSearchViewController+TableViewDecorator.swift"; sourceTree = "<group>"; };
+		5C253DD7234AF9AA009CDAA4 /* TableViewDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewDecorator.swift; sourceTree = "<group>"; };
 		5C8764C62342F19000201833 /* GroupingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GroupingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C8764C92342F19000201833 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5C8764CB2342F19000201833 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -202,6 +206,7 @@
 				5C01E9252347AF640051CA68 /* AddressSeachViewController.swift */,
 				5C01E9272347AF700051CA68 /* AddressSearchViewModel.swift */,
 				5C253DD0234A3518009CDAA4 /* AddressSearchNavigator.swift */,
+				5C253DD5234AF8E6009CDAA4 /* AddressSearchViewController+TableViewDecorator.swift */,
 			);
 			path = AddressSearch;
 			sourceTree = "<group>";
@@ -366,6 +371,7 @@
 				5C8764F623430F8F00201833 /* BaseTabBarController.swift */,
 				5C87653823443C9F00201833 /* BaseNavigationController.swift */,
 				5C8764E62342F4BE00201833 /* BaseViewController.swift */,
+				5C253DD7234AF9AA009CDAA4 /* TableViewDecorator.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -589,9 +595,11 @@
 				5C17C036234772820097490E /* String+Extension.swift in Sources */,
 				5C01E9132345F37F0051CA68 /* UserInfomation+CoreDataProperties.swift in Sources */,
 				5C17C0342347718E0097490E /* NaverRouter.swift in Sources */,
+				5C253DD6234AF8E6009CDAA4 /* AddressSearchViewController+TableViewDecorator.swift in Sources */,
 				5C8765462344407200201833 /* Color.swift in Sources */,
 				5C87653C23443D7E00201833 /* App.swift in Sources */,
 				5C01E9122345F37F0051CA68 /* UserInfomation+CoreDataClass.swift in Sources */,
+				5C253DD8234AF9AA009CDAA4 /* TableViewDecorator.swift in Sources */,
 				5CB124622344E03700E61A49 /* RegistryViewModel.swift in Sources */,
 				5C8764FD2343112800201833 /* SplashNavigator.swift in Sources */,
 				5C253DD1234A3518009CDAA4 /* AddressSearchNavigator.swift in Sources */,
