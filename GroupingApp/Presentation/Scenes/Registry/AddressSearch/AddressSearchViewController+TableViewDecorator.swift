@@ -17,24 +17,33 @@ extension AddressSearchViewController: UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
-    var cell: UITableViewCell!
-    switch indexPath.section {
-    case ModelType.address.hashValue:
-      cell = tableView.dequeueReusableCell(withIdentifier: AddressCell.resuseIdentifier)
-      
-    default:
-      return cell
-    }
-    cell = tableView.dequeueReusableCell(withIdentifier: )
-    guard let addressCell = tableView.dequeueReusableCell(withIdentifier: AddressCell.resuseIdentifier, for: indexPath) as? AddressCell else { return UITableViewCell() }
-    
-    tableView.dequeueReusableCell(withIdentifier: reuseIdentifierForCell(type: <#T##AddressSearchViewController.ModelType#>))
+    guard let cell = tableView.dequeueReusableCell(withIdentifier: AddressCell.resuseIdentifier, for: indexPath) as? AddressCell else { return UITableViewCell() }
     
     if let viewModel = object(at: indexPath) as? AddressCellViewModel {
-      addressCell.viewModel = viewModel
+      cell.viewModel = viewModel
     }
     
-    return addressCell
+//    var cell: UITableViewCell!
+//    switch indexPath.section {
+//    case ModelType.address.hashValue:
+//      cell = tableView.dequeueReusableCell(withIdentifier: AddressCell.resuseIdentifier)
+//
+//    default:
+//      return cell
+//    }
+//    cell = tableView.dequeueReusableCell(withIdentifier: )
+//    guard let addressCell = tableView.dequeueReusableCell(withIdentifier: AddressCell.resuseIdentifier, for: indexPath) as? AddressCell else { return UITableViewCell() }
+//
+//    tableView.dequeueReusableCell(withIdentifier: reuseIdentifierForCell(type: <#T##AddressSearchViewController.ModelType#>))
+//
+//    if let viewModel = object(at: indexPath) as? AddressCellViewModel {
+//      if let cell = cell as? AddressCell {
+//        cell.viewModel = viewModel
+//      }
+//
+//    }
+    
+    return cell
   }
   
   private func object(at indexPath: IndexPath) -> Any? {

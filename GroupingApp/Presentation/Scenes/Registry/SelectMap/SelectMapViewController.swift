@@ -26,10 +26,10 @@ class SelectMapViewController: BaseViewController, BindViewType {
   typealias ViewModel = SelectMapViewModel
   var disposeBag = DisposeBag()
   
-  let selectedItem: ItemModel
+  let selectedItem: PlaceModel
 
 
-  init(viewModel: ViewModel, selectedItem: ItemModel) {
+  init(viewModel: ViewModel, selectedItem: PlaceModel) {
     defer {
       self.viewModel = viewModel
     }

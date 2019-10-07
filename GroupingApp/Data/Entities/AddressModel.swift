@@ -9,25 +9,34 @@
 import Foundation
 
 struct AddressModel: Codable {
-  var items: [ItemModel]
+  var places: [PlaceModel]
   
   init() {
-    items = []
+    places = []
   }
 }
 
-struct ItemModel: Codable {
-  var title: String
-  var address: String?
-  var roadAddress: String?
-  var mapx: String
-  var mapy: String
+struct PlaceModel: Codable {
+  var name: String
+  var road_address: String?
+  var jibun_address: String?
+  var x: String
+  var y: String
+  var distance: Double
+  
+  enum CodingKeys: String, CodingKey {
+    case name
+    case road_address = "roadAddress"
+    case jibun_address = "jibunAddress"
+    case x, y, distance
+  }
 
   init() {
-    title = ""
-    address = ""
-    roadAddress = ""
-    mapx = ""
-    mapy = ""
+    name = ""
+    road_address = ""
+    jibun_address = ""
+    x = ""
+    y = ""
+    distance = 0.0
   }
 }

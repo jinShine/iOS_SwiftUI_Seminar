@@ -12,7 +12,7 @@ class AddressCell: UITableViewCell {
 
   @IBOutlet weak var mapPin: UIImageView!
   @IBOutlet weak var titleLabel: UILabel!
-  @IBOutlet weak var addressLabel: UILabel!
+  @IBOutlet weak var jibunAddressLabel: UILabel!
   @IBOutlet weak var roadAddressLabel: UILabel!
   
   override func awakeFromNib() {
@@ -33,8 +33,8 @@ class AddressCell: UITableViewCell {
     self.titleLabel.textColor = .black
     self.titleLabel.font = App.font.regular(size: 14)
     
-    self.addressLabel.textColor = .lightGray
-    self.addressLabel.font = App.font.regular(size: 12)
+    self.jibunAddressLabel.textColor = .lightGray
+    self.jibunAddressLabel.font = App.font.regular(size: 12)
     
     self.roadAddressLabel.textColor = .lightGray
     self.roadAddressLabel.font = App.font.regular(size: 12)
@@ -42,17 +42,17 @@ class AddressCell: UITableViewCell {
   
   var viewModel: AddressCellViewModel! {
     didSet {
-      self.titleLabel.text = viewModel.title.removeHTMLTags
+      self.titleLabel.text = viewModel.name
       
-      if let address = viewModel.address {
+      if let address = viewModel.jibun_address {
         if address != "" {
-          self.addressLabel.text = "[지번] " + address
+          self.jibunAddressLabel.text = "[지번] " + address
         } else {
-          self.addressLabel.text = ""
+          self.jibunAddressLabel.text = ""
         }
       }
       
-      if let roadAddress = viewModel.roadAddress {
+      if let roadAddress = viewModel.road_address {
         if roadAddress != "" {
           self.roadAddressLabel.text = "[도로명] " + roadAddress
         } else {

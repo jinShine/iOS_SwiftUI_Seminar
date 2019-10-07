@@ -20,14 +20,14 @@ enum RouterError: Error {
 extension Router: TargetType {
 
   //네이버 Key
-  static let naverClientID = "3BP2CA4bWQrkMSOeXv1d"
-  static let naverClientSecret = "RSiPtAxVAE"
+  static let naverAPIKeyID = "dykuz0db92"
+  static let naverAPIKey = "WHZf2S82iMi8YJMSv2Mnjkzva43An0jbyRvuOFhj"
 
   var baseURL: URL {
     #if DEBUG
-    return URL(string: "https://openapi.naver.com")!
+    return URL(string: "https://naveropenapi.apigw.ntruss.com")!
     #else
-    return URL(string: "https://openapi.naver.com")!
+    return URL(string: "https://naveropenapi.apigw.ntruss.com")!
     #endif
 
   }
@@ -35,7 +35,7 @@ extension Router: TargetType {
   var path: String {
     switch self {
     case .addressSearch:
-      return "/v1/search/local.json"
+      return "/map-place/v1/search"
     }
   }
 
@@ -51,7 +51,7 @@ extension Router: TargetType {
     case .addressSearch(let address):
       return [
         "query" : address,
-        "display" : 30
+        "coordinate" : "127.1054328,37.3595963"
       ]
     }
   }
@@ -67,8 +67,8 @@ extension Router: TargetType {
     switch self {
     case .addressSearch:
       return [
-        "X-Naver-Client-Id" : Router.naverClientID,
-        "X-Naver-Client-Secret" : Router.naverClientSecret
+        "X-NCP-APIGW-API-KEY-ID" : Router.naverAPIKeyID,
+        "X-NCP-APIGW-API-KEY" : Router.naverAPIKey
       ]
     }
   }

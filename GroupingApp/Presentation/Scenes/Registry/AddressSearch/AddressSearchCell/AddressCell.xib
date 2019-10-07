@@ -65,9 +65,9 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="addressLabel" destination="NRT-M1-T2T" id="Tc8-zg-8c1"/>
+                <outlet property="jibunAddressLabel" destination="NRT-M1-T2T" id="eQl-PR-qQ3"/>
                 <outlet property="mapPin" destination="WGB-p2-lZG" id="mWX-36-PUj"/>
-                <outlet property="roadAddressLabel" destination="uIo-cd-gUt" id="rzC-M6-tR0"/>
+                <outlet property="roadAddressLabel" destination="uIo-cd-gUt" id="mYc-qI-3aI"/>
                 <outlet property="titleLabel" destination="mhJ-D8-FRF" id="Hh0-zx-yrA"/>
             </connections>
             <point key="canvasLocation" x="160.1449275362319" y="152.67857142857142"/>

@@ -10,19 +10,21 @@ import Foundation
 
 struct AddressCellViewModel {
   
-  var title: String
-  var address: String?
-  var roadAddress: String?
-  var mapx: String
-  var mapy: String
+  var name: String
+  var road_address: String?
+  var jibun_address: String?
+  var x: String
+  var y: String
+  var distance: Double
   
   
-  init(item: ItemModel) {
-    self.title = item.title
-    self.address = item.address
-    self.roadAddress = item.roadAddress
-    self.mapx = item.mapx
-    self.mapy = item.mapy
+  init(item: PlaceModel) {
+    self.name = item.name
+    self.road_address = item.road_address
+    self.jibun_address = item.jibun_address
+    self.x = item.x
+    self.y = item.y
+    self.distance = item.distance
   }
   
 }

@@ -85,7 +85,7 @@ class AddressSearchViewController: BaseViewController, BindViewType {
   typealias ViewModel = AddressSearchViewModel
   var disposeBag = DisposeBag()
   let navigator: AddressSearchNavigator
-  var addressList: [ItemModel] = []
+  var addressList: [PlaceModel] = []
 
   init(viewModel: ViewModel, navigator: AddressSearchNavigator) {
     defer {
@@ -145,7 +145,7 @@ extension AddressSearchViewController {
           
         case .didSearchState(let addressModel):
 //          print(addressModel)
-          self.addressList = addressModel.items
+          self.addressList = addressModel.places
           self.tableView.reloadData()
           
         }

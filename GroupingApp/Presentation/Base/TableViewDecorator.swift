@@ -11,7 +11,7 @@ import UIKit
 
 protocol TableViewDecorator {
   
-  func reuseIdentifierForCell(type: ModelType) -> String
-  func configureCell(cell: UITableViewCell, type: ModelType, object: Any)
+//  func reuseIdentifierForCell(type: ModelType) -> String
+//  func configureCell(cell: UITableViewCell, type: ModelType, object: Any)
 }
 
