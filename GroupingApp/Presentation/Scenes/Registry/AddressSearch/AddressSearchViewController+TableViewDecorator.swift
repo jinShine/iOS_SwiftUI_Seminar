@@ -10,49 +10,23 @@ import UIKit
 
 //MARK: - UITableView Datasource
 extension AddressSearchViewController: UITableViewDataSource {
-  
+
+  func numberOfSections(in tableView: UITableView) -> Int {
+    return viewModel.numberOfSections()
+  }
+
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return addressList.count
+    return viewModel.numberOfRowsInSection(section: section)
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    
-    guard let cell = tableView.dequeueReusableCell(withIdentifier: AddressCell.resuseIdentifier, for: indexPath) as? AddressCell else { return UITableViewCell() }
-    
-    if let viewModel = object(at: indexPath) as? AddressCellViewModel {
-      cell.viewModel = viewModel
+    var cell: UITableViewCell!
+    if let userInfo = viewModel.listObject(at: indexPath) as? [AnyHashable : Any] {
+      let (type, object) = self.viewModel.objectFromUserInfo(userInfo: userInfo)
+      cell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifierForCell(type: type))
+      self.configureCell(cell: cell, type: type, object: object)
     }
-    
-//    var cell: UITableViewCell!
-//    switch indexPath.section {
-//    case ModelType.address.hashValue:
-//      cell = tableView.dequeueReusableCell(withIdentifier: AddressCell.resuseIdentifier)
-//
-//    default:
-//      return cell
-//    }
-//    cell = tableView.dequeueReusableCell(withIdentifier: )
-//    guard let addressCell = tableView.dequeueReusableCell(withIdentifier: AddressCell.resuseIdentifier, for: indexPath) as? AddressCell else { return UITableViewCell() }
-//
-//    tableView.dequeueReusableCell(withIdentifier: reuseIdentifierForCell(type: <#T##AddressSearchViewController.ModelType#>))
-//
-//    if let viewModel = object(at: indexPath) as? AddressCellViewModel {
-//      if let cell = cell as? AddressCell {
-//        cell.viewModel = viewModel
-//      }
-//
-//    }
-    
     return cell
-  }
-  
-  private func object(at indexPath: IndexPath) -> Any? {
-    guard indexPath.row < addressList.count else {
-      return nil
-    }
-    
-    let item = addressList[indexPath.row]
-    return AddressCellViewModel(item: item)
   }
 }
 
@@ -60,34 +34,37 @@ extension AddressSearchViewController: UITableViewDataSource {
 extension AddressSearchViewController: UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    let selectedItem = addressList[indexPath.row]
-    navigator.navigate(to: .selectMap(selectedItem))
+    let selectedItem = viewModel.list[indexPath.row]
+//    navigator.navigate(to: .selectMap([selectedItem))
   }
 }
 
 //MARK: - TableView Decorator
 extension AddressSearchViewController: TableViewDecorator {
-  
-  func reuseIdentifierForCell(type: ModelType) -> String {
+
+  func reuseIdentifierForCell(type: AnyHashable) -> String {
     var reuseIdentifier = ""
-    switch type {
-    case .address:
-      reuseIdentifier = AddressCell.resuseIdentifier
+    if let modelType = type.base as? AddressSearchViewModel.ModelType {
+      switch modelType {
+      case .address:
+        reuseIdentifier = AddressCell.reuseIdentifier
+      }
     }
-    
+
     return reuseIdentifier
-    
   }
-  
-  func configureCell(cell: UITableViewCell, type: ModelType, object: Any) {
-    switch type {
-    case .address:
-      configureAddressCell(cell, type: type, object: object)
+
+  func configureCell(cell: UITableViewCell, type: AnyHashable, object: Any) {
+    if let modelType = type.base as? AddressSearchViewModel.ModelType {
+      switch modelType {
+      case .address:
+        guard let cell = cell as? AddressCell,
+          let vm = object as? AddressCellViewModel else {
+            return
+        }
+
+        cell.viewModel = vm
+      }
     }
   }
-  
-  func configureAddressCell(_ cell: UITableViewCell, type: ModelType, object: Any) {
-    
-  }
-  
 }

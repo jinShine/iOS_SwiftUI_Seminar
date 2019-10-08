@@ -34,6 +34,7 @@
 		5C17C03E234773340097490E /* NaverUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17C03D234773340097490E /* NaverUseCase.swift */; };
 		5C17C043234773BC0097490E /* NaverInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17C042234773BC0097490E /* NaverInteractor.swift */; };
 		5C17C045234773D80097490E /* AddressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17C044234773D80097490E /* AddressModel.swift */; };
+		5C17C047234C9B550097490E /* TableViewDataSourceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17C046234C9B550097490E /* TableViewDataSourceViewModel.swift */; };
 		5C253DCD234A347F009CDAA4 /* SelectMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C253DCC234A347F009CDAA4 /* SelectMapViewController.swift */; };
 		5C253DCF234A3488009CDAA4 /* SelectMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C253DCE234A3488009CDAA4 /* SelectMapViewModel.swift */; };
 		5C253DD1234A3518009CDAA4 /* AddressSearchNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C253DD0234A3518009CDAA4 /* AddressSearchNavigator.swift */; };
@@ -95,6 +96,7 @@
 		5C17C03D234773340097490E /* NaverUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverUseCase.swift; sourceTree = "<group>"; };
 		5C17C042234773BC0097490E /* NaverInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverInteractor.swift; sourceTree = "<group>"; };
 		5C17C044234773D80097490E /* AddressModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressModel.swift; sourceTree = "<group>"; };
+		5C17C046234C9B550097490E /* TableViewDataSourceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewDataSourceViewModel.swift; sourceTree = "<group>"; };
 		5C253DCC234A347F009CDAA4 /* SelectMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMapViewController.swift; sourceTree = "<group>"; };
 		5C253DCE234A3488009CDAA4 /* SelectMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMapViewModel.swift; sourceTree = "<group>"; };
 		5C253DD0234A3518009CDAA4 /* AddressSearchNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSearchNavigator.swift; sourceTree = "<group>"; };
@@ -372,6 +374,7 @@
 				5C87653823443C9F00201833 /* BaseNavigationController.swift */,
 				5C8764E62342F4BE00201833 /* BaseViewController.swift */,
 				5C253DD7234AF9AA009CDAA4 /* TableViewDecorator.swift */,
+				5C17C046234C9B550097490E /* TableViewDataSourceViewModel.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -579,6 +582,7 @@
 				5C17C03E234773340097490E /* NaverUseCase.swift in Sources */,
 				5C01E92D234917A80051CA68 /* AddressCell.swift in Sources */,
 				5C87653923443C9F00201833 /* BaseNavigationController.swift in Sources */,
+				5C17C047234C9B550097490E /* TableViewDataSourceViewModel.swift in Sources */,
 				5C8764E92342F4C200201833 /* BaseViewController.swift in Sources */,
 				5C8765342343530800201833 /* HomeViewModel.swift in Sources */,
 				5C253DCD234A347F009CDAA4 /* SelectMapViewController.swift in Sources */,

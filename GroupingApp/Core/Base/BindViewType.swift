@@ -12,11 +12,11 @@ public protocol BindViewType: class {
   associatedtype ViewModel
   
   var disposeBag: DisposeBag { get set }
-  var viewModel: ViewModel? { get set }
+  var viewModel: ViewModel! { get set }
   
   func state(viewModel: ViewModel)
   func command(viewModel: ViewModel)
-  func binding(viewModel: ViewModel?)
+  func binding(viewModel: ViewModel)
 }
 
 // MARK: - disposeBag
@@ -52,7 +52,7 @@ extension BindViewType {
 private var viewModelKey: String = "viewModel"
 extension BindViewType {
   
-  public var viewModel: ViewModel? {
+  public var viewModel: ViewModel! {
     get {
       if let value = objc_getAssociatedObject(self,
                                               &viewModelKey) as? ViewModel {
@@ -74,16 +74,14 @@ extension BindViewType {
         .map { _ in newValue }
         .subscribe(onNext: { [weak self] in
           guard let self = self else { return }
-          self.binding(viewModel: $0)
+          self.binding(viewModel: $0!)
         })
         .disposed(by: self.disposeBag)
     }
   }
   
-  public func binding(viewModel: ViewModel?) {
-    if let viewModel = viewModel {
+  public func binding(viewModel: ViewModel) {
       state(viewModel: viewModel)
       command(viewModel: viewModel)
-    }
   }
 }

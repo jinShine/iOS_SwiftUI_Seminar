@@ -24,7 +24,7 @@ extension UIButton {
 
 extension UIView {
   
-  static var resuseIdentifier: String {
+  static var reuseIdentifier: String {
     let nameSpaceClassName = NSStringFromClass(self)
     guard let className = nameSpaceClassName.components(separatedBy: ".").last else {
       return nameSpaceClassName
@@ -33,14 +33,14 @@ extension UIView {
   }
   
   class func newFromNib() -> UIView? {
-    guard let view = Bundle.main.loadNibNamed(self.resuseIdentifier, owner: nil, options: nil)?.first as? UIView else {
+    guard let view = Bundle.main.loadNibNamed(self.reuseIdentifier, owner: nil, options: nil)?.first as? UIView else {
       return nil
     }
     return view
   }
   
   class func nib() -> UINib {
-    return UINib(nibName: self.resuseIdentifier, bundle: nil)
+    return UINib(nibName: self.reuseIdentifier, bundle: nil)
   }
   
 }

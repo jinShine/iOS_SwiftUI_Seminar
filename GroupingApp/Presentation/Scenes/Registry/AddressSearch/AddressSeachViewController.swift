@@ -10,10 +10,6 @@ import RxSwift
 import RxCocoa
 
 class AddressSearchViewController: BaseViewController, BindViewType {
-  
-  enum ModelType: Int {
-    case address = 0
-  }
 
   //MARK: - Constant
   struct Constant {
@@ -85,7 +81,6 @@ class AddressSearchViewController: BaseViewController, BindViewType {
   typealias ViewModel = AddressSearchViewModel
   var disposeBag = DisposeBag()
   let navigator: AddressSearchNavigator
-  var addressList: [PlaceModel] = []
 
   init(viewModel: ViewModel, navigator: AddressSearchNavigator) {
     defer {
@@ -143,11 +138,8 @@ extension AddressSearchViewController {
         case .didTapPopState:
           self.navigationController?.popViewController(animated: true)
           
-        case .didSearchState(let addressModel):
-//          print(addressModel)
-          self.addressList = addressModel.places
+        case .didSearchState:
           self.tableView.reloadData()
-          
         }
       })
       .disposed(by: self.disposeBag)
@@ -201,8 +193,5 @@ extension AddressSearchViewController {
       $0.top.equalTo(searchBaseView.snp.bottom)
       $0.leading.trailing.bottom.equalToSuperview()
     }
-    
   }
-
 }
-

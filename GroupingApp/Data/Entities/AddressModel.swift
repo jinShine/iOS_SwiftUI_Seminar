@@ -17,24 +17,25 @@ struct AddressModel: Codable {
 }
 
 struct PlaceModel: Codable {
+  
   var name: String
-  var road_address: String?
-  var jibun_address: String?
+  var roadAddress: String?
+  var jibunAddress: String?
   var x: String
   var y: String
   var distance: Double
   
   enum CodingKeys: String, CodingKey {
     case name
-    case road_address = "roadAddress"
-    case jibun_address = "jibunAddress"
+    case roadAddress = "road_address"
+    case jibunAddress = "jibun_address"
     case x, y, distance
   }
 
   init() {
     name = ""
-    road_address = ""
-    jibun_address = ""
+    roadAddress = ""
+    jibunAddress = ""
     x = ""
     y = ""
     distance = 0.0

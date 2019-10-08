@@ -6,25 +6,40 @@
 //  Copyright © 2019 Jinnify. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct AddressCellViewModel {
   
   var name: String
-  var road_address: String?
-  var jibun_address: String?
+  var roadAddress: String?
+  var jibunAddress: String?
   var x: String
   var y: String
   var distance: Double
   
   
   init(item: PlaceModel) {
+
     self.name = item.name
-    self.road_address = item.road_address
-    self.jibun_address = item.jibun_address
+
+    if let road = item.roadAddress {
+      if road != "" {
+        self.roadAddress = "[도로명] " + road
+      } else {
+        self.roadAddress = ""
+      }
+    }
+
+    if let jibun = item.jibunAddress {
+      if jibun != "" {
+        self.jibunAddress = "[지번] " + jibun
+      } else {
+        self.jibunAddress = ""
+      }
+    }
+
     self.x = item.x
     self.y = item.y
     self.distance = item.distance
   }
-  
 }

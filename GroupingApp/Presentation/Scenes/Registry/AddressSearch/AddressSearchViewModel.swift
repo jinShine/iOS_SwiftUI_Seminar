@@ -11,6 +11,11 @@ import RxCocoa
 
 final class AddressSearchViewModel: BindViewModelType {
 
+
+  enum ModelType: Int {
+    case address = 0
+  }
+
   //MARK: - Constant
 
   struct Constant {
@@ -32,7 +37,7 @@ final class AddressSearchViewModel: BindViewModelType {
 
   enum State {
     case didTapPopState
-    case didSearchState(AddressModel)
+    case didSearchState
   }
 
   var command = PublishSubject<Command>()
@@ -45,11 +50,12 @@ final class AddressSearchViewModel: BindViewModelType {
   //MARK: - Properties
 
   let naverUseCase: NaverUseCase
+  var list: [[ModelType : Any]] = []
   
   //MARK: - Initialize
   init(naverUseCase: NaverUseCase) {
     self.naverUseCase = naverUseCase
-    
+
     self.bind()
   }
 
@@ -74,16 +80,31 @@ final class AddressSearchViewModel: BindViewModelType {
     case .didSearchAction(let address):
       return naverUseCase.requestAddress(address: address)
         .asObservable()
-        .flatMap { addressModel in
-          return Observable<State>.just(.didSearchState(addressModel)).retry(3)
-        }.catchErrorJustReturn(.didSearchState(AddressModel()))
+        .map { self.list = $0.places.map{[ModelType.address : AddressCellViewModel(item: $0)] }}
+        .flatMap { Observable<State>.just(.didSearchState).retry(3) }
+        .catchErrorJustReturn(.didSearchState)
     }
   }
-
 }
 
 //MARK: - Method Handler
 extension AddressSearchViewModel {
 
+}
 
+//MARK: - TableView DataSource ViewModel
+extension AddressSearchViewModel: TableViewDataSourceViewModel {
+  func numberOfRowsInSection(section: Int) -> Int {
+    return list.count
+  }
+
+  func numberOfSections() -> Int {
+    return 1
+  }
+
+  func listObject(at indexPath: IndexPath) -> Any? {
+    guard indexPath.row < list.count else { return nil }
+
+    return list[indexPath.row]
+  }
 }

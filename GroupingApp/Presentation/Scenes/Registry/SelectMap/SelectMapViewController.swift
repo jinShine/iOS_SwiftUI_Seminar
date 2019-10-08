@@ -11,6 +11,7 @@ import RxCocoa
 
 class SelectMapViewController: BaseViewController, BindViewType {
 
+
   //MARK: - Constant
   struct Constant {
     
@@ -31,7 +32,7 @@ class SelectMapViewController: BaseViewController, BindViewType {
 
   init(viewModel: ViewModel, selectedItem: PlaceModel) {
     defer {
-      self.viewModel = viewModel
+        self.viewModel = viewModel
     }
     self.selectedItem = selectedItem
 
