@@ -1,5 +1,8 @@
 PODS:
   - Alamofire (4.9.0)
+  - CocoaLumberjack/Core (3.6.0)
+  - CocoaLumberjack/Swift (3.6.0):
+    - CocoaLumberjack/Core
   - Differentiator (3.1.0)
   - FlowInject (1.0.1)
   - JVFloatLabeledTextField (1.2.2)
@@ -24,6 +27,7 @@ PODS:
   - SnapKit (5.0.1)
 
 DEPENDENCIES:
+  - CocoaLumberjack/Swift
   - FlowInject
   - JVFloatLabeledTextField
   - Kingfisher (~> 4.0)
@@ -38,6 +42,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
+    - CocoaLumberjack
     - Differentiator
     - FlowInject
     - JVFloatLabeledTextField
@@ -52,6 +57,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: afc3e7c6db61476cb45cdd23fed06bad03bbc321
+  CocoaLumberjack: 78b0c238666f4f58db069738ec176f4519557516
   Differentiator: be49ca3408f0ecfc761e4c7763d20c62be01b9ad
   FlowInject: e26c4b3650f76c0b885690521a5e4d2f69239c33
   JVFloatLabeledTextField: df48598472ee015701d509f43e59492a0d4ca208
@@ -64,6 +70,6 @@ SPEC CHECKSUMS:
   RxSwift: f172070dfd1a93d70a9ab97a5a01166206e1c575
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
-PODFILE CHECKSUM: 3c8e35760c7a65d7bd55dedf7db4ac8d54f31e0b
+PODFILE CHECKSUM: b110320a7c0939cf34dea7c3204e2adf6112e3b4
 
 COCOAPODS: 1.7.5

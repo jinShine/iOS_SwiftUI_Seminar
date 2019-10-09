@@ -21,12 +21,15 @@ target 'GroupingApp' do
 
   # DI
   pod 'FlowInject'
-
-  # UI
-  pod 'SnapKit', '~> 5.0.0'
-  pod 'JVFloatLabeledTextField'
   
   # Map
   pod 'NMapsMap'
+  
+  # Log
+  pod 'CocoaLumberjack/Swift'
+  
+  # UI
+  pod 'SnapKit', '~> 5.0.0'
+  pod 'JVFloatLabeledTextField'
   
 end
