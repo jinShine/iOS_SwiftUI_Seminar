@@ -8,6 +8,7 @@
 
 import RxSwift
 import RxCocoa
+import NMapsMap
 
 class SelectMapViewController: BaseViewController, BindViewType {
   
@@ -62,6 +63,11 @@ class SelectMapViewController: BaseViewController, BindViewType {
     return label
   }()
   
+  let mapView: NMFMapView = {
+    let map = NMFMapView()
+    return map
+  }()
+  
   override var preferredStatusBarStyle: UIStatusBarStyle {
     return .default
   }
@@ -91,6 +97,8 @@ class SelectMapViewController: BaseViewController, BindViewType {
     
     setupUI()
     setupConstraint()
+    
+    
   }
 }
 
@@ -141,8 +149,8 @@ extension SelectMapViewController {
   private func setupUI() {
     
     setupNavigationBar(at: view, leftItem: popButton, titleItem: naviTitleLabel)
-    
-    [placeNameLabel, jibunAddressLabel, roadAddressLabel].forEach {
+
+    [placeNameLabel, jibunAddressLabel, roadAddressLabel, mapView].forEach {
       view.addSubview($0)
     }
   }
@@ -163,7 +171,11 @@ extension SelectMapViewController {
       $0.top.equalTo(jibunAddressLabel.snp.bottom).offset(4)
       $0.leading.trailing.equalTo(placeNameLabel)
     }
+    
+    mapView.snp.makeConstraints {
+      $0.top.equalTo(roadAddressLabel.snp.bottom).offset(32)
+      $0.leading.trailing.bottom.equalToSuperview()
+    }
   }
-  
 }
 

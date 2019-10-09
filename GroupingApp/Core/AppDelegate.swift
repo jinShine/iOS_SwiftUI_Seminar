@@ -8,13 +8,18 @@
 
 import UIKit
 import CoreData
+import NMapsMap
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-    
+   
+    //CoreData
     App.coreData.setup(modelName: "GroupingApp")
+    
+    //Naver Map Key
+    NMFAuthManager.shared().clientId = "dykuz0db92"
     
     return true
   }

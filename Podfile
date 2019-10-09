@@ -7,7 +7,6 @@ target 'GroupingApp' do
 
   # Pods for GroupingApp
 
-
   # Rx
   pod 'RxSwift', '~> 4.0'
   pod 'RxCocoa', '~> 4.0'
@@ -26,5 +25,8 @@ target 'GroupingApp' do
   # UI
   pod 'SnapKit', '~> 5.0.0'
   pod 'JVFloatLabeledTextField'
-
+  
+  # Map
+  pod 'NMapsMap'
+  
 end
