@@ -10,68 +10,70 @@ import RxSwift
 import RxCocoa
 
 final class AddressSearchViewModel: BindViewModelType {
-
-
+  
+  
   enum ModelType: Int {
     case address = 0
   }
-
+  
   //MARK: - Constant
-
+  
   struct Constant {
-
+    
   }
-
-
+  
+  
   //MARK: - Unidirection
-
+  
   enum Command {
     case didTapPop
     case didSearch(address: String)
+    case didTapCell(indexPath: IndexPath)
   }
-
+  
   enum Action {
     case didTapPopAction
     case didSearchAction(address: String)
+    case didTapCellAction(indexPath: IndexPath)
   }
-
+  
   enum State {
     case didTapPopState
-    case didSearchState
+    case didSearchState(viewModel: [SearchSection])
+    case didTapCellState(selectedItem: PlaceModel)
   }
-
+  
   var command = PublishSubject<Command>()
   var state = Driver<State>.empty()
   var stateSubject = PublishSubject<State>()
-
-
-
-
+  var placeList: [PlaceModel] = []
+  
+  
   //MARK: - Properties
-
   let naverUseCase: NaverUseCase
-  var list: [[ModelType : Any]] = []
+  
   
   //MARK: - Initialize
   init(naverUseCase: NaverUseCase) {
     self.naverUseCase = naverUseCase
-
+    
     self.bind()
   }
-
-
+  
+  
   //MARK: - Unidirection Action
-
+  
   func toAction(from command: Command) -> Observable<Action> {
     switch command {
     case .didTapPop:
       return Observable<Action>.just(.didTapPopAction)
     case .didSearch(let address):
       return Observable<Action>.just(.didSearchAction(address: address))
-      
+    case .didTapCell(let indexPath):
+      return Observable<Action>.just(.didTapCellAction(indexPath: indexPath))
     }
   }
-
+  
   func toState(from action: Action) -> Observable<State> {
     switch action {
     case .didTapPopAction:
@@ -80,31 +82,24 @@ final class AddressSearchViewModel: BindViewModelType {
     case .didSearchAction(let address):
       return naverUseCase.requestAddress(address: address)
         .asObservable()
-        .map { self.list = $0.places.map{[ModelType.address : AddressCellViewModel(item: $0)] }}
-        .flatMap { Observable<State>.just(.didSearchState).retry(3) }
-        .catchErrorJustReturn(.didSearchState)
+        .observeOn(ConcurrentDispatchQueueScheduler(qos: .default))
+        .map { addressModel in
+          self.placeList = addressModel.places
+          return addressModel.places.map {
+            SearchSectionItem.addressItem(cellViewModel: AddressCellViewModel(item: $0))
+          }
+        }
+        .map { [SearchSection.address(title: "", items: $0)] }
+        .flatMap { Observable<State>.just(.didSearchState(viewModel: $0)).retry(3) }
+        .catchErrorJustReturn(.didSearchState(viewModel: []))
+      
+    case .didTapCellAction(let indexPath):
+      return Observable<State>.just(.didTapCellState(selectedItem: placeList[indexPath.row]))
     }
   }
 }
 
 //MARK: - Method Handler
 extension AddressSearchViewModel {
-
-}
-
-//MARK: - TableView DataSource ViewModel
-extension AddressSearchViewModel: TableViewDataSourceViewModel {
-  func numberOfRowsInSection(section: Int) -> Int {
-    return list.count
-  }
-
-  func numberOfSections() -> Int {
-    return 1
-  }
-
-  func listObject(at indexPath: IndexPath) -> Any? {
-    guard indexPath.row < list.count else { return nil }
-
-    return list[indexPath.row]
-  }
+  
 }

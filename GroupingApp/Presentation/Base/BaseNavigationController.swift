@@ -9,14 +9,14 @@
 import UIKit
 
 class BaseNavigationController: UINavigationController {
-
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     setupUI()
   }
-
+  
   private func setupUI() {
     navigationBar.isTranslucent = true
   }
-
+  
 }

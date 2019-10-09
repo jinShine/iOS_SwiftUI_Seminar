@@ -9,17 +9,17 @@
 import UIKit
 
 class BaseViewController: UIViewController {
-
+  
   //MARK: - Constant
   struct Constant {
     static let itemSize: CGFloat = 44
     static let basicMargin: CGFloat = 12
   }
-
+  
   //MARK: - Properties
-
-
-
+  
+  
+  
   //MARK: - UI Properties
   
   let navigationBaseView = UIView()
@@ -27,10 +27,10 @@ class BaseViewController: UIViewController {
   override var preferredStatusBarStyle: UIStatusBarStyle {
     return .lightContent
   }
-
-
+  
+  
   //MARK: - Initialization
-
+  
   init() {
     super.init(nibName: nil, bundle: nil)
   }
@@ -38,22 +38,22 @@ class BaseViewController: UIViewController {
   required init?(coder: NSCoder) {
     super.init(coder: coder)
   }
-
+  
   deinit {
     NotificationCenter.default.removeObserver(self)
     print("DEINIT: \(String(describing: self))")
   }
   
-
+  
   //MARK: - Life Cycle
-
+  
   override func viewDidLoad() {
     super.viewDidLoad()
-
+    
     view.backgroundColor = App.color.background
     navigationController?.interactivePopGestureRecognizer?.delegate = self
   }
-
+  
 }
 
 //MARK: - Methods

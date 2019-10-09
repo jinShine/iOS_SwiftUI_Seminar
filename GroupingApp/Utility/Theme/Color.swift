@@ -22,5 +22,9 @@ struct Color {
   var line: UIColor {
     return UIColor(r: 199, g: 199, b: 212)
   }
+  
+  var sub: UIColor {
+    return UIColor.lightGray
+  }
 
 }

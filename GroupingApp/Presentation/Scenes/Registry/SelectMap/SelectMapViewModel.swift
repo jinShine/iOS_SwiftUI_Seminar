@@ -21,15 +21,15 @@ final class SelectMapViewModel: BindViewModelType {
   //MARK: - Unidirection
 
   enum Command {
-
+    case bindPlaceData
   }
 
   enum Action {
-
+    case bindPlaceDataAction
   }
 
   enum State {
-
+    case bindPlaceDataState(plceInfo: PlaceModel)
   }
 
   var command = PublishSubject<Command>()
@@ -41,11 +41,13 @@ final class SelectMapViewModel: BindViewModelType {
 
   //MARK: - Properties
 
+  let placeModel: PlaceModel
 
 
   //MARK: - Initialize
-  init() {
-
+  init(placeModel: PlaceModel) {
+    self.placeModel = placeModel
+    
     self.bind()
   }
 
@@ -53,11 +55,17 @@ final class SelectMapViewModel: BindViewModelType {
   //MARK: - Unidirection Action
 
   func toAction(from command: Command) -> Observable<Action> {
-    return Observable<Action>.empty()
+    switch command {
+    case .bindPlaceData:
+      return Observable<Action>.just(.bindPlaceDataAction)
+    }
   }
 
   func toState(from action: Action) -> Observable<State> {
-    return Observable<State>.empty()
+    switch action {
+    case .bindPlaceDataAction:
+      return Observable<State>.just(.bindPlaceDataState(plceInfo: placeModel))
+    }
   }
 
 }

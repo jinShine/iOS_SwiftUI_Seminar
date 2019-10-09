@@ -18,8 +18,8 @@ class AddressSearchNavigator: Navigator<AddressSearch> {
   func navigate(to destination: AddressSearch) {
     switch destination {
     case .selectMap(let placeModel):
-      let viewModel = SelectMapViewModel()
-      let viewController = SelectMapViewController(viewModel: viewModel, selectedItem: placeModel)
+      let viewModel = SelectMapViewModel(placeModel: placeModel)
+      let viewController = SelectMapViewController(viewModel: viewModel)
       presenter?.pushViewController(viewController, animated: true)
     }
   }

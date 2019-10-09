@@ -9,7 +9,7 @@
 import UIKit
 
 struct App {
-
+  
   static let preference = UserDefaults.standard
   static let service = NetworkService.shared
   static let coreData = CoreDataManager.shared
@@ -17,5 +17,5 @@ struct App {
   
   static let color = Color()
   static let font = Font()
-
+  
 }

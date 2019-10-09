@@ -11,9 +11,10 @@ target 'GroupingApp' do
   # Rx
   pod 'RxSwift', '~> 4.0'
   pod 'RxCocoa', '~> 4.0'
+  pod 'RxDataSources', '~> 3.0'
   
   # Network
-  pod 'Moya', '~> 13.0.1'
+  pod 'Moya', '~> 13.0'
   pod 'Moya/RxSwift', '~> 13.0.1'
   
   # Image Cache

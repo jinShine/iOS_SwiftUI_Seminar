@@ -8,20 +8,22 @@
 
 import RxSwift
 import RxCocoa
+import RxDataSources
 
 class AddressSearchViewController: BaseViewController, BindViewType {
-
+  
   //MARK: - Constant
   struct Constant {
     
   }
-
-
+  
+  
   //MARK: - UI Properties
-
+  
   let popButton: UIButton = {
     let button = UIButton()
-    button.setImage(UIImage(named: "Icon-Arrow-Left"), for: .normal)
+    let image = UIImage(named: "Icon-Arrow-Left")
+    button.setImage(image, for: .normal)
     button.imageView?.tintColor = .black
     button.contentMode = .scaleAspectFit
     return button
@@ -44,7 +46,8 @@ class AddressSearchViewController: BaseViewController, BindViewType {
   
   let searchIcon: UIImageView = {
     let imageView = UIImageView()
-    imageView.image = UIImage(named: "Icon-Search")
+    let image = UIImage(named: "Icon-Search")
+    imageView.image = image
     return imageView
   }()
   
@@ -69,101 +72,134 @@ class AddressSearchViewController: BaseViewController, BindViewType {
     tableView.keyboardDismissMode = .onDrag
     tableView.backgroundColor = .white
     tableView.contentInset = UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
-    tableView.register(AddressCell.nib(), forCellReuseIdentifier: String(describing: AddressCell.self))
+    tableView.register(AddressCell.nib(), forCellReuseIdentifier: AddressCell.reuseIdentifier)
     return tableView
   }()
-
+  
   override var preferredStatusBarStyle: UIStatusBarStyle {
     return .default
   }
-
+  
   //MARK: - Properties
   typealias ViewModel = AddressSearchViewModel
   var disposeBag = DisposeBag()
   let navigator: AddressSearchNavigator
-
+  var datasource: RxTableViewSectionedReloadDataSource<SearchSection>?
+  
+  //MARK: - Inintialize
   init(viewModel: ViewModel, navigator: AddressSearchNavigator) {
     defer {
       self.viewModel = viewModel
     }
     self.navigator = navigator
-    super.init()
     
+    super.init()
   }
   
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-
+  
   //MARK: - Life Cycle
   override func viewDidLoad() {
     super.viewDidLoad()
-
+    
     setupUI()
     setupConstraint()
-
   }
+  
 }
 
 //MARK: - Bind
 extension AddressSearchViewController {
-
+  
   //OUTPUT
   func command(viewModel: ViewModel) {
-
+    
     let obDidTapPop = popButton.rx.tap
-    .map { ViewModel.Command.didTapPop }
-
+      .map { ViewModel.Command.didTapPop }
+    
     let obDidSearchText = searchTextField.rx.text.asObservable()
+      .distinctUntilChanged()
       .map { ViewModel.Command.didSearch(address: $0 ?? "") }
+    
+    let obDidCellSelected = tableView.rx.itemSelected
+      .map { ViewModel.Command.didTapCell(indexPath: $0)}
     
     Observable<ViewModel.Command>.merge([
       obDidTapPop,
-      obDidSearchText
+      obDidSearchText,
+      obDidCellSelected
     ])
-    .bind(to: viewModel.command)
-    .disposed(by: disposeBag)
+      .bind(to: viewModel.command)
+      .disposed(by: disposeBag)
     
   }
-
-
+  
+  
   //INPUT
   func state(viewModel: ViewModel) {
-
+    
     viewModel.state
       .drive(onNext: { [weak self] state in
         guard let self = self else { return }
-
+        
         switch state {
         case .didTapPopState:
           self.navigationController?.popViewController(animated: true)
           
-        case .didSearchState:
-          self.tableView.reloadData()
+        case .didSearchState(let cellViewModel):
+          self.tableView.delegate = nil
+          self.tableView.dataSource = nil
+          self.datasource = RxTableViewSectionedReloadDataSource<SearchSection> (
+            configureCell: { ( datasource, tableView, indexPath, item) -> UITableViewCell in
+              switch item {
+              case .addressItem(let viewmodel):
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: AddressCell.reuseIdentifier) as? AddressCell else {
+                  return UITableViewCell()
+                }
+                cell.viewModel = viewmodel
+                return cell
+              }
+          })
+          Observable.just(cellViewModel)
+            .bind(to: self.tableView.rx.items(dataSource: self.datasource!))
+            .disposed(by: self.disposeBag)
+          
+        case .didTapCellState(let placeItem):
+          print(placeItem)
+          self.navigator.navigate(to: .selectMap(placeItem))
         }
       })
       .disposed(by: self.disposeBag)
+    
   }
-
+  
 }
 
 
 //MARK: - Method Handler
 extension AddressSearchViewController {
-
+  
   private func setupUI() {
-    navigationController?.isNavigationBarHidden = true
-    tableView.delegate = self
-    tableView.dataSource = self
     
-    [searchBaseView, tableView ].forEach { view.addSubview($0) }
-    [searchIcon, searchTextField, line].forEach { searchBaseView.addSubview($0) }
-    setupNavigationBar(at: view, leftItem: popButton, titleItem: naviTitleLabel)
+    [searchBaseView, tableView ].forEach {
+      view.addSubview($0)
+    }
+    
+    [searchIcon, searchTextField, line].forEach {
+      searchBaseView.addSubview($0)
+    }
+    
+    setupNavigationBar(at: view,
+                       leftItem: popButton,
+                       titleItem: naviTitleLabel)
+    
     navigationBaseView.backgroundColor = .white
   }
-
+  
   private func setupConstraint() {
-
+    
     searchBaseView.snp.makeConstraints {
       $0.top.equalTo(navigationBaseView.snp.bottom)
       $0.leading.trailing.equalToSuperview()
@@ -175,7 +211,7 @@ extension AddressSearchViewController {
       $0.leading.equalToSuperview().offset(32)
       $0.size.equalTo(18)
     }
-
+    
     searchTextField.snp.makeConstraints {
       $0.centerY.equalTo(searchBaseView).offset(8)
       $0.leading.equalTo(searchIcon.snp.trailing).offset(14)

@@ -16,7 +16,7 @@ enum TabBarType: Int {
 }
 
 class BaseTabBarController: UITabBarController {
-
+  
   //MARK: - Life Cycle
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -36,7 +36,7 @@ class BaseTabBarController: UITabBarController {
     }
     
   }
-
+  
   private func tabBarClear() {
     let appearance = UITabBar.appearance()
     appearance.shadowImage = UIImage()
@@ -49,7 +49,7 @@ class BaseTabBarController: UITabBarController {
     let viewController = RegistryViewController(viewModel: viewModel)
     return UINavigationController(rootViewController: viewController)
   }
-
+  
 }
 
 
@@ -57,7 +57,7 @@ class BaseTabBarController: UITabBarController {
 extension BaseTabBarController: UITabBarControllerDelegate {
   
   func tabBarController(_ tabBarController: UITabBarController,
-                          shouldSelect viewController: UIViewController) -> Bool {
+                        shouldSelect viewController: UIViewController) -> Bool {
     
     let selectedVCIndex = tabBarController.viewControllers?.firstIndex(of: viewController)
     if selectedVCIndex == TabBarType.Registery.rawValue {
@@ -66,7 +66,7 @@ extension BaseTabBarController: UITabBarControllerDelegate {
       self.present(registryVC, animated: true, completion: nil)
       return false
     }
-        
+    
     return true
   }
 }
@@ -74,20 +74,20 @@ extension BaseTabBarController: UITabBarControllerDelegate {
 
 //MARK: - UITabbr
 extension UITabBar {
-
+  
   struct Constant {
     static let tabBarHeight: CGFloat = 70
   }
-
+  
   // TabBar Height 조절 방법
   open override func sizeThatFits(_ size: CGSize) -> CGSize {
     super.sizeThatFits(size)
     let tabBarHeight: CGFloat = Constant.tabBarHeight + (window?.safeAreaInsets.bottom ?? 0)
-
+    
     var sizeThatFits = super.sizeThatFits(size)
     sizeThatFits.height = tabBarHeight
-
+    
     return sizeThatFits
   }
-
+  
 }
