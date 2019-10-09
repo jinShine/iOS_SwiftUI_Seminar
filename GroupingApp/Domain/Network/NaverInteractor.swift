@@ -11,11 +11,11 @@ import RxCocoa
 
 final class AddressInteractor: NaverUseCase {
   
-  func requestAddress(address: String) -> Single<AddressModel> {
-    return App.service.buildRequest(to: .addressSearch(address: address))
+  func requestAddress(address: String) -> Single<Geocode> {
+    return App.service.buildRequest(to: .geocode(address: address))
       .map { response in
         do {
-          let result = try JSONDecoder().decode(AddressModel.self,
+          let result = try JSONDecoder().decode(Geocode.self,
                                                 from: response.jsonData ?? Data() )
           return result
         }

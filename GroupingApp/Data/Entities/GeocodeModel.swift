@@ -8,32 +8,29 @@
 
 import Foundation
 
-struct AddressModel: Codable {
-  var places: [PlaceModel]
+struct Geocode: Codable {
+  var addresses: [Addresses]
   
   init() {
-    places = []
+    addresses = []
   }
 }
 
-struct PlaceModel: Codable {
-  
-  var name: String
+struct Addresses: Codable {
+
+  var jibunAddress: String
   var roadAddress: String?
-  var jibunAddress: String?
   var x: String
   var y: String
   var distance: Double
   
   enum CodingKeys: String, CodingKey {
-    case name
-    case roadAddress = "road_address"
-    case jibunAddress = "jibun_address"
+    case jibunAddress
+    case roadAddress
     case x, y, distance
   }
 
   init() {
-    name = ""
     roadAddress = ""
     jibunAddress = ""
     x = ""

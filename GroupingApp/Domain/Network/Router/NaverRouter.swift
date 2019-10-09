@@ -9,7 +9,7 @@
 import Moya
 
 enum Router {
-  case addressSearch(address: String)
+  case geocode(address: String)
 }
 
 enum RouterError: Error {
@@ -34,38 +34,37 @@ extension Router: TargetType {
 
   var path: String {
     switch self {
-    case .addressSearch:
-      return "/map-place/v1/search"
+    case .geocode:
+      return "/map-geocode/v2/geocode"
     }
   }
 
   var method: Method {
     switch self {
-    case .addressSearch:
+    case .geocode:
       return .get
     }
   }
 
   var parameters: [String: Any]? {
     switch self {
-    case .addressSearch(let address):
+    case .geocode(let address):
       return [
         "query" : address,
-        "coordinate" : "127.1054328,37.3595963"
       ]
     }
   }
 
   var task: Task {
     switch self {
-    case .addressSearch:
+    case .geocode:
       return .requestParameters(parameters: parameters!, encoding: URLEncoding.default)
     }
   }
 
   var headers: [String : String]? {
     switch self {
-    case .addressSearch:
+    case .geocode:
       return [
         "X-NCP-APIGW-API-KEY-ID" : Router.naverAPIKeyID,
         "X-NCP-APIGW-API-KEY" : Router.naverAPIKey

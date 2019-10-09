@@ -39,19 +39,11 @@ class SelectMapViewController: BaseViewController, BindViewType {
     return label
   }()
   
-  let placeNameLabel: UILabel = {
+  let jibunAddressLabel: UILabel = {
     let label = UILabel()
     label.textColor = .black
     label.textAlignment = .left
     label.font = App.font.bold(size: 18)
-    return label
-  }()
-  
-  let jibunAddressLabel: UILabel = {
-    let label = UILabel()
-    label.textColor = App.color.sub
-    label.textAlignment = .left
-    label.font = App.font.bold(size: 14)
     return label
   }()
   
@@ -62,7 +54,7 @@ class SelectMapViewController: BaseViewController, BindViewType {
     label.font = App.font.bold(size: 14)
     return label
   }()
-  
+
   let mapView: NMFMapView = {
     let map = NMFMapView()
     return map
@@ -130,12 +122,14 @@ extension SelectMapViewController {
         
         switch state {
         case .bindPlaceDataState(let placeInfo):
-          self.placeNameLabel.text = placeInfo.name
           self.jibunAddressLabel.text = placeInfo.jibunAddress
           self.roadAddressLabel.text = placeInfo.roadAddress
+          let latlng = NMGLatLng(lat: Double(placeInfo.y)!, lng: Double(placeInfo.x)!)
+          let cameraPosition = NMFCameraUpdate(scrollTo: latlng, zoomTo: 17)
+          self.mapView.moveCamera(cameraPosition)
+          let marker = NMFMarker(position: latlng, iconImage: NMFOverlayImage(image: UIImage(named: "Icon_pin") ?? UIImage()))
+          marker.mapView = self.mapView
         }
-        
-        
       })
       .disposed(by: self.disposeBag)
   }
@@ -149,28 +143,24 @@ extension SelectMapViewController {
     
     setupNavigationBar(at: view, leftItem: popButton, titleItem: naviTitleLabel)
 
-    [placeNameLabel, jibunAddressLabel, roadAddressLabel, mapView].forEach {
+    [jibunAddressLabel, roadAddressLabel, mapView].forEach {
       view.addSubview($0)
     }
   }
   
   private func setupConstraint() {
-    placeNameLabel.snp.makeConstraints {
+    
+    jibunAddressLabel.snp.makeConstraints {
       $0.leading.equalToSuperview().offset(32)
       $0.top.equalTo(navigationBaseView.snp.bottom).offset(32)
       $0.trailing.equalToSuperview().offset(-32)
     }
     
-    jibunAddressLabel.snp.makeConstraints {
-      $0.top.equalTo(placeNameLabel.snp.bottom).offset(4)
-      $0.leading.trailing.equalTo(placeNameLabel)
-    }
-    
     roadAddressLabel.snp.makeConstraints {
       $0.top.equalTo(jibunAddressLabel.snp.bottom).offset(4)
-      $0.leading.trailing.equalTo(placeNameLabel)
+      $0.leading.trailing.equalTo(jibunAddressLabel)
     }
-    
+
     mapView.snp.makeConstraints {
       $0.top.equalTo(roadAddressLabel.snp.bottom).offset(32)
       $0.leading.trailing.bottom.equalToSuperview()

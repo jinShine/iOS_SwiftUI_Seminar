@@ -36,12 +36,6 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uIo-cd-gUt">
-                        <rect key="frame" x="58" y="24" width="261" height="0.0"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
@@ -49,26 +43,22 @@
                     <constraint firstItem="NRT-M1-T2T" firstAttribute="top" secondItem="mhJ-D8-FRF" secondAttribute="bottom" constant="4" id="54z-ee-cfN"/>
                     <constraint firstItem="NRT-M1-T2T" firstAttribute="top" secondItem="mhJ-D8-FRF" secondAttribute="bottom" constant="4" id="Axl-5L-vDC"/>
                     <constraint firstItem="NRT-M1-T2T" firstAttribute="leading" secondItem="mhJ-D8-FRF" secondAttribute="leading" id="BDW-Jx-OFe"/>
-                    <constraint firstItem="uIo-cd-gUt" firstAttribute="top" secondItem="NRT-M1-T2T" secondAttribute="bottom" constant="4" id="BW3-2O-vue"/>
-                    <constraint firstItem="uIo-cd-gUt" firstAttribute="width" secondItem="NRT-M1-T2T" secondAttribute="width" id="Fxu-4U-yEE"/>
                     <constraint firstItem="WGB-p2-lZG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="32" id="LGx-h0-g7t"/>
                     <constraint firstAttribute="trailing" secondItem="mhJ-D8-FRF" secondAttribute="trailing" constant="32" id="Qke-0q-jEH"/>
                     <constraint firstItem="mhJ-D8-FRF" firstAttribute="leading" secondItem="WGB-p2-lZG" secondAttribute="trailing" constant="8" id="SDh-sm-B0v"/>
                     <constraint firstItem="NRT-M1-T2T" firstAttribute="width" secondItem="mhJ-D8-FRF" secondAttribute="width" id="bpO-IT-NNG"/>
-                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="uIo-cd-gUt" secondAttribute="bottom" constant="8" id="hmT-e8-Lwc"/>
                     <constraint firstItem="NRT-M1-T2T" firstAttribute="leading" secondItem="mhJ-D8-FRF" secondAttribute="leading" id="mJR-sX-VNT"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="NRT-M1-T2T" secondAttribute="bottom" constant="8" id="rgn-mT-XwF"/>
                     <constraint firstItem="mhJ-D8-FRF" firstAttribute="top" secondItem="WGB-p2-lZG" secondAttribute="top" id="sjh-92-Agi"/>
-                    <constraint firstItem="NRT-M1-T2T" firstAttribute="leading" secondItem="uIo-cd-gUt" secondAttribute="leading" id="tN6-is-Dne"/>
                     <constraint firstItem="NRT-M1-T2T" firstAttribute="trailing" secondItem="mhJ-D8-FRF" secondAttribute="trailing" id="vAe-hI-48C"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="jibunAddressLabel" destination="NRT-M1-T2T" id="eQl-PR-qQ3"/>
+                <outlet property="jibunAddressLabel" destination="mhJ-D8-FRF" id="SkT-UH-vY2"/>
                 <outlet property="mapPin" destination="WGB-p2-lZG" id="mWX-36-PUj"/>
-                <outlet property="roadAddressLabel" destination="uIo-cd-gUt" id="mYc-qI-3aI"/>
-                <outlet property="titleLabel" destination="mhJ-D8-FRF" id="Hh0-zx-yrA"/>
+                <outlet property="roadAddressLabel" destination="NRT-M1-T2T" id="bYp-h7-zpN"/>
             </connections>
             <point key="canvasLocation" x="160.1449275362319" y="152.67857142857142"/>
         </tableViewCell>

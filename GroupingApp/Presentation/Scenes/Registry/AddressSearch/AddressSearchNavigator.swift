@@ -10,7 +10,7 @@ import Foundation
 import FlowInject
 
 enum AddressSearch: Route {
-  case selectMap(PlaceModel)
+  case selectMap(Addresses)
 }
 
 class AddressSearchNavigator: Navigator<AddressSearch> {

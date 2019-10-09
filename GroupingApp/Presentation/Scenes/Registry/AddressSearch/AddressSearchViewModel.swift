@@ -40,13 +40,13 @@ final class AddressSearchViewModel: BindViewModelType {
   enum State {
     case didTapPopState
     case didSearchState(viewModel: [SearchSection])
-    case didTapCellState(selectedItem: PlaceModel)
+    case didTapCellState(selectedItem: Addresses)
   }
   
   var command = PublishSubject<Command>()
   var state = Driver<State>.empty()
   var stateSubject = PublishSubject<State>()
-  var placeList: [PlaceModel] = []
+  var placeList: [Addresses] = []
   
   
   //MARK: - Properties
@@ -83,9 +83,9 @@ final class AddressSearchViewModel: BindViewModelType {
       return naverUseCase.requestAddress(address: address)
         .asObservable()
         .observeOn(ConcurrentDispatchQueueScheduler(qos: .default))
-        .map { addressModel in
-          self.placeList = addressModel.places
-          return addressModel.places.map {
+        .map { geocode in
+          self.placeList = geocode.addresses
+          return geocode.addresses.map {
             SearchSectionItem.addressItem(cellViewModel: AddressCellViewModel(item: $0))
           }
         }

@@ -33,7 +33,7 @@
 		5C17C03C234772F30097490E /* NetworkErrorBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17C03B234772F30097490E /* NetworkErrorBuilder.swift */; };
 		5C17C03E234773340097490E /* NaverUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17C03D234773340097490E /* NaverUseCase.swift */; };
 		5C17C043234773BC0097490E /* NaverInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17C042234773BC0097490E /* NaverInteractor.swift */; };
-		5C17C045234773D80097490E /* AddressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17C044234773D80097490E /* AddressModel.swift */; };
+		5C17C045234773D80097490E /* GeocodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17C044234773D80097490E /* GeocodeModel.swift */; };
 		5C253DCD234A347F009CDAA4 /* SelectMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C253DCC234A347F009CDAA4 /* SelectMapViewController.swift */; };
 		5C253DCF234A3488009CDAA4 /* SelectMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C253DCE234A3488009CDAA4 /* SelectMapViewModel.swift */; };
 		5C253DD1234A3518009CDAA4 /* AddressSearchNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C253DD0234A3518009CDAA4 /* AddressSearchNavigator.swift */; };
@@ -94,7 +94,7 @@
 		5C17C03B234772F30097490E /* NetworkErrorBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorBuilder.swift; sourceTree = "<group>"; };
 		5C17C03D234773340097490E /* NaverUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverUseCase.swift; sourceTree = "<group>"; };
 		5C17C042234773BC0097490E /* NaverInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverInteractor.swift; sourceTree = "<group>"; };
-		5C17C044234773D80097490E /* AddressModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressModel.swift; sourceTree = "<group>"; };
+		5C17C044234773D80097490E /* GeocodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeocodeModel.swift; sourceTree = "<group>"; };
 		5C253DCC234A347F009CDAA4 /* SelectMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMapViewController.swift; sourceTree = "<group>"; };
 		5C253DCE234A3488009CDAA4 /* SelectMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMapViewModel.swift; sourceTree = "<group>"; };
 		5C253DD0234A3518009CDAA4 /* AddressSearchNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSearchNavigator.swift; sourceTree = "<group>"; };
@@ -121,11 +121,11 @@
 		5CB124642344E52A00E61A49 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		5CB124662344E53300E61A49 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		5CE6D2022345CFFA00E090A2 /* UIViewController+NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+NavigationBar.swift"; sourceTree = "<group>"; };
-		5CE85FD0234E159D009A27FD /* BindViewType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BindViewType.swift; path = "GroupingApp/Common 복사본/RxBase/BindViewType.swift"; sourceTree = SOURCE_ROOT; };
-		5CE85FD1234E159D009A27FD /* BindViewModelType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BindViewModelType.swift; path = "GroupingApp/Common 복사본/RxBase/BindViewModelType.swift"; sourceTree = SOURCE_ROOT; };
-		5CE85FD4234E15B0009A27FD /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseViewController.swift; path = "GroupingApp/Common 복사본/BaseViewController.swift"; sourceTree = SOURCE_ROOT; };
-		5CE85FD5234E15B0009A27FD /* BaseNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseNavigationController.swift; path = "GroupingApp/Common 복사본/BaseNavigationController.swift"; sourceTree = SOURCE_ROOT; };
-		5CE85FD6234E15B0009A27FD /* BaseTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseTabBarController.swift; path = "GroupingApp/Common 복사본/BaseTabBarController.swift"; sourceTree = SOURCE_ROOT; };
+		5CE85FD0234E159D009A27FD /* BindViewType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BindViewType.swift; path = GroupingApp/Common/RxBase/BindViewType.swift; sourceTree = SOURCE_ROOT; };
+		5CE85FD1234E159D009A27FD /* BindViewModelType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BindViewModelType.swift; path = GroupingApp/Common/RxBase/BindViewModelType.swift; sourceTree = SOURCE_ROOT; };
+		5CE85FD4234E15B0009A27FD /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseViewController.swift; path = GroupingApp/Common/BaseViewController.swift; sourceTree = SOURCE_ROOT; };
+		5CE85FD5234E15B0009A27FD /* BaseNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseNavigationController.swift; path = GroupingApp/Common/BaseNavigationController.swift; sourceTree = SOURCE_ROOT; };
+		5CE85FD6234E15B0009A27FD /* BaseTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseTabBarController.swift; path = GroupingApp/Common/BaseTabBarController.swift; sourceTree = SOURCE_ROOT; };
 		5CE85FDC234E1655009A27FD /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		6EF01C972792DDD61480E721 /* Pods-GroupingApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GroupingApp.release.xcconfig"; path = "Target Support Files/Pods-GroupingApp/Pods-GroupingApp.release.xcconfig"; sourceTree = "<group>"; };
 		8A779397F6095BB719DE4D7B /* Pods_GroupingApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GroupingApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -194,7 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				5C01E92123465C850051CA68 /* UserModel.swift */,
-				5C17C044234773D80097490E /* AddressModel.swift */,
+				5C17C044234773D80097490E /* GeocodeModel.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -604,7 +604,7 @@
 				5C17C03A234772D20097490E /* NetworkError.swift in Sources */,
 				5C01E91B23464F790051CA68 /* UserInteractor.swift in Sources */,
 				5C0C7B3623451493002E4B50 /* UINavigationController+Extension.swift in Sources */,
-				5C17C045234773D80097490E /* AddressModel.swift in Sources */,
+				5C17C045234773D80097490E /* GeocodeModel.swift in Sources */,
 				5C0C7B3823452566002E4B50 /* Font.swift in Sources */,
 				5C87654223443FD900201833 /* UIColor+Extension.swift in Sources */,
 				5C17C02B2347230E0097490E /* SJTextField.swift in Sources */,

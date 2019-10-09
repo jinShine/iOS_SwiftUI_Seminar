@@ -11,7 +11,6 @@ import UIKit
 class AddressCell: UITableViewCell {
 
   @IBOutlet weak var mapPin: UIImageView!
-  @IBOutlet weak var titleLabel: UILabel!
   @IBOutlet weak var jibunAddressLabel: UILabel!
   @IBOutlet weak var roadAddressLabel: UILabel!
   
@@ -30,11 +29,8 @@ class AddressCell: UITableViewCell {
 
     mapPin.image = UIImage(named: "Icon-Map-Pin")
     
-    self.titleLabel.textColor = .black
-    self.titleLabel.font = App.font.regular(size: 14)
-    
-    self.jibunAddressLabel.textColor = App.color.sub
-    self.jibunAddressLabel.font = App.font.regular(size: 12)
+    self.jibunAddressLabel.textColor = .black
+    self.jibunAddressLabel.font = App.font.regular(size: 14)
     
     self.roadAddressLabel.textColor = App.color.sub
     self.roadAddressLabel.font = App.font.regular(size: 12)
@@ -42,7 +38,6 @@ class AddressCell: UITableViewCell {
   
   var viewModel: AddressCellViewModel! {
     didSet {
-      self.titleLabel.text = viewModel.name
       self.jibunAddressLabel.text = viewModel.jibunAddress
       self.roadAddressLabel.text = viewModel.roadAddress
     }

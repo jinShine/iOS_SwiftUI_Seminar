@@ -29,7 +29,7 @@ final class SelectMapViewModel: BindViewModelType {
   }
 
   enum State {
-    case bindPlaceDataState(plceInfo: PlaceModel)
+    case bindPlaceDataState(plceInfo: Addresses)
   }
 
   var command = PublishSubject<Command>()
@@ -41,11 +41,11 @@ final class SelectMapViewModel: BindViewModelType {
 
   //MARK: - Properties
 
-  let placeModel: PlaceModel
+  let placeModel: Addresses
 
 
   //MARK: - Initialize
-  init(placeModel: PlaceModel) {
+  init(placeModel: Addresses) {
     self.placeModel = placeModel
     
     self.bind()
