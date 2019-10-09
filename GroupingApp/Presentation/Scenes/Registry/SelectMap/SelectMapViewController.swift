@@ -139,7 +139,6 @@ extension SelectMapViewController {
       })
       .disposed(by: self.disposeBag)
   }
-  
 }
 
 

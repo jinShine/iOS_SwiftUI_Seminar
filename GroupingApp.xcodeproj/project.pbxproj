@@ -41,11 +41,7 @@
 		5C57DB5A234CF396007686CB /* AddressSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C57DB59234CF396007686CB /* AddressSection.swift */; };
 		5C8764CA2342F19000201833 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8764C92342F19000201833 /* AppDelegate.swift */; };
 		5C8764D42342F19000201833 /* GroupingApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5C8764D22342F19000201833 /* GroupingApp.xcdatamodeld */; };
-		5C8764E92342F4C200201833 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8764E62342F4BE00201833 /* BaseViewController.swift */; };
-		5C8764EA2342F4C400201833 /* BindViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8764E72342F4BE00201833 /* BindViewModelType.swift */; };
-		5C8764EB2342F4C500201833 /* BindViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8764E82342F4BE00201833 /* BindViewType.swift */; };
 		5C8764EE2342F51B00201833 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8764ED2342F51B00201833 /* SplashViewController.swift */; };
-		5C8764F723430F8F00201833 /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8764F623430F8F00201833 /* BaseTabBarController.swift */; };
 		5C8764FB234310B600201833 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8764FA234310B600201833 /* HomeViewController.swift */; };
 		5C8764FD2343112800201833 /* SplashNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8764FC2343112800201833 /* SplashNavigator.swift */; };
 		5C87650823432B1800201833 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C87650323432A3800201833 /* LaunchScreen.storyboard */; };
@@ -54,7 +50,6 @@
 		5C8765342343530800201833 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8765332343530800201833 /* HomeViewModel.swift */; };
 		5C8765362343559F00201833 /* HomeNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8765352343559F00201833 /* HomeNavigator.swift */; };
 		5C8765372343579F00201833 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C87650723432A3800201833 /* Assets.xcassets */; };
-		5C87653923443C9F00201833 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C87653823443C9F00201833 /* BaseNavigationController.swift */; };
 		5C87653C23443D7E00201833 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C87653B23443D7E00201833 /* App.swift */; };
 		5C87654223443FD900201833 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C87654123443FD900201833 /* UIColor+Extension.swift */; };
 		5C8765462344407200201833 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8765452344407200201833 /* Color.swift */; };
@@ -63,6 +58,12 @@
 		5CB124652344E52A00E61A49 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB124642344E52A00E61A49 /* SearchViewController.swift */; };
 		5CB124672344E53300E61A49 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB124662344E53300E61A49 /* SearchViewModel.swift */; };
 		5CE6D2032345CFFA00E090A2 /* UIViewController+NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE6D2022345CFFA00E090A2 /* UIViewController+NavigationBar.swift */; };
+		5CE85FD2234E159D009A27FD /* BindViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE85FD0234E159D009A27FD /* BindViewType.swift */; };
+		5CE85FD3234E159D009A27FD /* BindViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE85FD1234E159D009A27FD /* BindViewModelType.swift */; };
+		5CE85FD7234E15B0009A27FD /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE85FD4234E15B0009A27FD /* BaseViewController.swift */; };
+		5CE85FD8234E15B0009A27FD /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE85FD5234E15B0009A27FD /* BaseNavigationController.swift */; };
+		5CE85FD9234E15B0009A27FD /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE85FD6234E15B0009A27FD /* BaseTabBarController.swift */; };
+		5CE85FDD234E1655009A27FD /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE85FDC234E1655009A27FD /* Logger.swift */; };
 		B6A36A733CE89D0E7D3AB033 /* Pods_GroupingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A779397F6095BB719DE4D7B /* Pods_GroupingApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -103,11 +104,7 @@
 		5C8764C92342F19000201833 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5C8764CB2342F19000201833 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		5C8764D32342F19000201833 /* GroupingApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GroupingApp.xcdatamodel; sourceTree = "<group>"; };
-		5C8764E62342F4BE00201833 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BaseViewController.swift; path = ../../Core/Base/BaseViewController.swift; sourceTree = "<group>"; };
-		5C8764E72342F4BE00201833 /* BindViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindViewModelType.swift; sourceTree = "<group>"; };
-		5C8764E82342F4BE00201833 /* BindViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindViewType.swift; sourceTree = "<group>"; };
 		5C8764ED2342F51B00201833 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
-		5C8764F623430F8F00201833 /* BaseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
 		5C8764FA234310B600201833 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		5C8764FC2343112800201833 /* SplashNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashNavigator.swift; sourceTree = "<group>"; };
 		5C87650423432A3800201833 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -116,7 +113,6 @@
 		5C876531234346D200201833 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		5C8765332343530800201833 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		5C8765352343559F00201833 /* HomeNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigator.swift; sourceTree = "<group>"; };
-		5C87653823443C9F00201833 /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
 		5C87653B23443D7E00201833 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		5C87654123443FD900201833 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		5C8765452344407200201833 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -125,6 +121,12 @@
 		5CB124642344E52A00E61A49 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		5CB124662344E53300E61A49 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		5CE6D2022345CFFA00E090A2 /* UIViewController+NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+NavigationBar.swift"; sourceTree = "<group>"; };
+		5CE85FD0234E159D009A27FD /* BindViewType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BindViewType.swift; path = "GroupingApp/Common 복사본/RxBase/BindViewType.swift"; sourceTree = SOURCE_ROOT; };
+		5CE85FD1234E159D009A27FD /* BindViewModelType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BindViewModelType.swift; path = "GroupingApp/Common 복사본/RxBase/BindViewModelType.swift"; sourceTree = SOURCE_ROOT; };
+		5CE85FD4234E15B0009A27FD /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseViewController.swift; path = "GroupingApp/Common 복사본/BaseViewController.swift"; sourceTree = SOURCE_ROOT; };
+		5CE85FD5234E15B0009A27FD /* BaseNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseNavigationController.swift; path = "GroupingApp/Common 복사본/BaseNavigationController.swift"; sourceTree = SOURCE_ROOT; };
+		5CE85FD6234E15B0009A27FD /* BaseTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseTabBarController.swift; path = "GroupingApp/Common 복사본/BaseTabBarController.swift"; sourceTree = SOURCE_ROOT; };
+		5CE85FDC234E1655009A27FD /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		6EF01C972792DDD61480E721 /* Pods-GroupingApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GroupingApp.release.xcconfig"; path = "Target Support Files/Pods-GroupingApp/Pods-GroupingApp.release.xcconfig"; sourceTree = "<group>"; };
 		8A779397F6095BB719DE4D7B /* Pods_GroupingApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GroupingApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE55CE162F5FF925DECC3D35 /* Pods-GroupingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GroupingApp.debug.xcconfig"; path = "Target Support Files/Pods-GroupingApp/Pods-GroupingApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -208,14 +210,6 @@
 			path = AddressSearch;
 			sourceTree = "<group>";
 		};
-		5C17C029234722F20097490E /* CustromViews */ = {
-			isa = PBXGroup;
-			children = (
-				5C17C02A2347230E0097490E /* SJTextField.swift */,
-			);
-			path = CustromViews;
-			sourceTree = "<group>";
-		};
 		5C17C030234771320097490E /* Router */ = {
 			isa = PBXGroup;
 			children = (
@@ -289,6 +283,7 @@
 				5C8764E12342F38800201833 /* Presentation */,
 				5C8764E22342F3AA00201833 /* Domain */,
 				5C8764E32342F3AF00201833 /* Data */,
+				5CE85FCE234E1579009A27FD /* Common */,
 				5C87653A23443D2200201833 /* Utility */,
 				5C8764E42342F3C300201833 /* Resources */,
 			);
@@ -302,7 +297,6 @@
 				5C8764CB2342F19000201833 /* SceneDelegate.swift */,
 				5C87653B23443D7E00201833 /* App.swift */,
 				5C8764D22342F19000201833 /* GroupingApp.xcdatamodeld */,
-				5C8764E52342F4AA00201833 /* Base */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -310,7 +304,6 @@
 		5C8764E12342F38800201833 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				5C8764F523430F7100201833 /* Base */,
 				5C8764F92343105F00201833 /* Scenes */,
 			);
 			path = Presentation;
@@ -345,15 +338,6 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		5C8764E52342F4AA00201833 /* Base */ = {
-			isa = PBXGroup;
-			children = (
-				5C8764E72342F4BE00201833 /* BindViewModelType.swift */,
-				5C8764E82342F4BE00201833 /* BindViewType.swift */,
-			);
-			path = Base;
-			sourceTree = "<group>";
-		};
 		5C8764EC2342F4FF00201833 /* Splash */ = {
 			isa = PBXGroup;
 			children = (
@@ -361,16 +345,6 @@
 				5C8764FC2343112800201833 /* SplashNavigator.swift */,
 			);
 			path = Splash;
-			sourceTree = "<group>";
-		};
-		5C8764F523430F7100201833 /* Base */ = {
-			isa = PBXGroup;
-			children = (
-				5C8764F623430F8F00201833 /* BaseTabBarController.swift */,
-				5C87653823443C9F00201833 /* BaseNavigationController.swift */,
-				5C8764E62342F4BE00201833 /* BaseViewController.swift */,
-			);
-			path = Base;
 			sourceTree = "<group>";
 		};
 		5C8764F82343105400201833 /* Home */ = {
@@ -397,7 +371,7 @@
 		5C87653A23443D2200201833 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				5C17C029234722F20097490E /* CustromViews */,
+				5CE85FDB234E1648009A27FD /* Logging */,
 				5C8765432344403F00201833 /* Theme */,
 				5C87654023443EAA00201833 /* Extensions */,
 			);
@@ -446,6 +420,35 @@
 				5CB124662344E53300E61A49 /* SearchViewModel.swift */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		5CE85FCE234E1579009A27FD /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				5CE85FCF234E1592009A27FD /* RxBase */,
+				5CE85FD5234E15B0009A27FD /* BaseNavigationController.swift */,
+				5CE85FD6234E15B0009A27FD /* BaseTabBarController.swift */,
+				5CE85FD4234E15B0009A27FD /* BaseViewController.swift */,
+				5C17C02A2347230E0097490E /* SJTextField.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		5CE85FCF234E1592009A27FD /* RxBase */ = {
+			isa = PBXGroup;
+			children = (
+				5CE85FD1234E159D009A27FD /* BindViewModelType.swift */,
+				5CE85FD0234E159D009A27FD /* BindViewType.swift */,
+			);
+			path = RxBase;
+			sourceTree = "<group>";
+		};
+		5CE85FDB234E1648009A27FD /* Logging */ = {
+			isa = PBXGroup;
+			children = (
+				5CE85FDC234E1655009A27FD /* Logger.swift */,
+			);
+			path = Logging;
 			sourceTree = "<group>";
 		};
 		A6CA7D407CE00D3B88BBB560 /* Pods */ = {
@@ -575,23 +578,22 @@
 			files = (
 				5C17C03E234773340097490E /* NaverUseCase.swift in Sources */,
 				5C01E92D234917A80051CA68 /* AddressCell.swift in Sources */,
-				5C87653923443C9F00201833 /* BaseNavigationController.swift in Sources */,
 				5C57DB5A234CF396007686CB /* AddressSection.swift in Sources */,
-				5C8764E92342F4C200201833 /* BaseViewController.swift in Sources */,
 				5C8765342343530800201833 /* HomeViewModel.swift in Sources */,
 				5C253DCD234A347F009CDAA4 /* SelectMapViewController.swift in Sources */,
-				5C8764F723430F8F00201833 /* BaseTabBarController.swift in Sources */,
 				5C01E930234920BD0051CA68 /* UIViewController+Rx.swift in Sources */,
 				5CB124652344E52A00E61A49 /* SearchViewController.swift in Sources */,
 				5C17C03C234772F30097490E /* NetworkErrorBuilder.swift in Sources */,
 				5CE6D2032345CFFA00E090A2 /* UIViewController+NavigationBar.swift in Sources */,
-				5C8764EA2342F4C400201833 /* BindViewModelType.swift in Sources */,
 				5CB124672344E53300E61A49 /* SearchViewModel.swift in Sources */,
 				5C253DCF234A3488009CDAA4 /* SelectMapViewModel.swift in Sources */,
 				5C01E9282347AF700051CA68 /* AddressSearchViewModel.swift in Sources */,
 				5C01E9262347AF640051CA68 /* AddressSeachViewController.swift in Sources */,
 				5C17C036234772820097490E /* String+Extension.swift in Sources */,
+				5CE85FD8234E15B0009A27FD /* BaseNavigationController.swift in Sources */,
 				5C01E9132345F37F0051CA68 /* UserInfomation+CoreDataProperties.swift in Sources */,
+				5CE85FD3234E159D009A27FD /* BindViewModelType.swift in Sources */,
+				5CE85FDD234E1655009A27FD /* Logger.swift in Sources */,
 				5C17C0342347718E0097490E /* NaverRouter.swift in Sources */,
 				5C8765462344407200201833 /* Color.swift in Sources */,
 				5C87653C23443D7E00201833 /* App.swift in Sources */,
@@ -611,16 +613,18 @@
 				5C8764FB234310B600201833 /* HomeViewController.swift in Sources */,
 				5C87653023432E8500201833 /* SceneDelegate.swift in Sources */,
 				5C17C02F234771130097490E /* NetworkService.swift in Sources */,
+				5CE85FD9234E15B0009A27FD /* BaseTabBarController.swift in Sources */,
 				5C01E90E2345F0BB0051CA68 /* CoreDataManager.swift in Sources */,
 				5C8764CA2342F19000201833 /* AppDelegate.swift in Sources */,
 				5C17C038234772AE0097490E /* NetworkDataResponse.swift in Sources */,
 				5C01E92A2347B01C0051CA68 /* RegistryNavigator.swift in Sources */,
 				5C17C043234773BC0097490E /* NaverInteractor.swift in Sources */,
-				5C8764EB2342F4C500201833 /* BindViewType.swift in Sources */,
+				5CE85FD2234E159D009A27FD /* BindViewType.swift in Sources */,
 				5CB1245E2344E00900E61A49 /* RegistryViewController.swift in Sources */,
 				5C253DD4234A3D21009CDAA4 /* CALayer+Extension.swift in Sources */,
 				5C8765362343559F00201833 /* HomeNavigator.swift in Sources */,
 				5C17C028234711A70097490E /* UIView+Extension.swift in Sources */,
+				5CE85FD7234E15B0009A27FD /* BaseViewController.swift in Sources */,
 				5C01E91F23464FA70051CA68 /* UserUseCase.swift in Sources */,
 				5C8764EE2342F51B00201833 /* SplashViewController.swift in Sources */,
 				5C01E92223465C850051CA68 /* UserModel.swift in Sources */,

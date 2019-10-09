@@ -167,7 +167,7 @@ extension AddressSearchViewController {
             .disposed(by: self.disposeBag)
           
         case .didTapCellState(let placeItem):
-          print(placeItem)
+          log.debug("Place", placeItem)
           self.navigator.navigate(to: .selectMap(placeItem))
         }
       })
