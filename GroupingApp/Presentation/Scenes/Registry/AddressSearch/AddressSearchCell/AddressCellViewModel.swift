@@ -9,28 +9,17 @@
 import UIKit
 
 struct AddressCellViewModel {
-  
-  var jibunAddress: String
-  var roadAddress: String?
-  var x: String
-  var y: String
-  var distance: Double
-  
-  
-  init(item: Addresses) {
-    
-    self.jibunAddress = item.jibunAddress
 
-    if let road = item.roadAddress {
-      if road != "" {
-        self.roadAddress = "[도로명] " + road
-      } else {
-        self.roadAddress = ""
-      }
-    }
+  var address: String
+  var lat: Double = 0.0
+  var lng: Double = 0.0
 
-    self.x = item.x
-    self.y = item.y
-    self.distance = item.distance
+
+  init(item: GeocoderResult) {
+
+    self.address = item.address
+    let location = item.geometry.location
+    self.lat = location.lat
+    self.lng = location.lng
   }
 }

@@ -8,33 +8,37 @@
 
 import Foundation
 
-struct Geocode: Codable {
-  var addresses: [Addresses]
-  
+struct Geocoder: Decodable {
+
+  var status: String
+  var results: [GeocoderResult]
+
   init() {
-    addresses = []
+    self.status = ""
+    self.results = []
   }
 }
 
-struct Addresses: Codable {
+struct GeocoderResult: Decodable {
 
-  var jibunAddress: String
-  var roadAddress: String?
-  var x: String
-  var y: String
-  var distance: Double
-  
+  var address: String
+  var geometry: Geometry
+
   enum CodingKeys: String, CodingKey {
-    case jibunAddress
-    case roadAddress
-    case x, y, distance
+    case address = "formatted_address"
+    case geometry
   }
+}
 
-  init() {
-    roadAddress = ""
-    jibunAddress = ""
-    x = ""
-    y = ""
-    distance = 0.0
-  }
+// MARK: - Geometry
+struct Geometry: Decodable {
+    let location: Location
+
+    enum CodingKeys: String, CodingKey {
+        case location
+    }
+}
+
+struct Location: Decodable {
+    let lat, lng: Double
 }

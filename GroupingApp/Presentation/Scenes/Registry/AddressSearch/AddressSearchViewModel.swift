@@ -40,22 +40,22 @@ final class AddressSearchViewModel: BindViewModelType {
   enum State {
     case didTapPopState
     case didSearchState(viewModel: [SearchSection])
-    case didTapCellState(selectedItem: Addresses)
+    case didTapCellState(selectedItem: GeocoderResult)
   }
   
   var command = PublishSubject<Command>()
   var state = Driver<State>.empty()
   var stateSubject = PublishSubject<State>()
-  var placeList: [Addresses] = []
-  
-  
+  var geocodeList: [GeocoderResult] = []
+
+
   //MARK: - Properties
-  let naverUseCase: NaverUseCase
+  let googleUseCase: GoogleUseCase
   
   
   //MARK: - Initialize
-  init(naverUseCase: NaverUseCase) {
-    self.naverUseCase = naverUseCase
+  init(googleUseCase: GoogleUseCase) {
+    self.googleUseCase = googleUseCase
     
     self.bind()
   }
@@ -80,21 +80,24 @@ final class AddressSearchViewModel: BindViewModelType {
       return Observable<State>.just(.didTapPopState)
       
     case .didSearchAction(let address):
-      return naverUseCase.requestAddress(address: address)
+      return googleUseCase.requestGeocoding(addrsss: address)
         .asObservable()
         .observeOn(ConcurrentDispatchQueueScheduler(qos: .default))
-        .map { geocode in
-          self.placeList = geocode.addresses
-          return geocode.addresses.map {
-            SearchSectionItem.addressItem(cellViewModel: AddressCellViewModel(item: $0))
+        .map { geocoder in
+          //TODO: Error Handling
+
+          self.geocodeList = geocoder.results
+
+          return geocoder.results.map { result in
+            SearchSectionItem.addressItem(cellViewModel: AddressCellViewModel(item: result))
           }
         }
         .map { [SearchSection.address(title: "", items: $0)] }
         .flatMap { Observable<State>.just(.didSearchState(viewModel: $0)).retry(3) }
         .catchErrorJustReturn(.didSearchState(viewModel: []))
-      
+
     case .didTapCellAction(let indexPath):
-      return Observable<State>.just(.didTapCellState(selectedItem: placeList[indexPath.row]))
+      return Observable<State>.just(.didTapCellState(selectedItem: geocodeList[indexPath.row]))
     }
   }
 }

@@ -1,5 +1,5 @@
 //
-//  NetworkService.swift
+//  AppNetworkService.swift
 //  GroupingApp
 //
 //  Created by Seungjin on 04/10/2019.
@@ -10,9 +10,9 @@ import RxSwift
 import Moya
 import Alamofire
 
-struct NetworkService {
+struct AppNetworkService {
 
-  static let shared = NetworkService()
+  static let shared = AppNetworkService()
 
   static private let sharedManager: Alamofire.SessionManager = {
     let configuration = URLSessionConfiguration.default
@@ -23,9 +23,9 @@ struct NetworkService {
     return Alamofire.SessionManager(configuration: configuration)
   }()
 
-  private let provider: MoyaProvider<Router> = {
-    let provider = MoyaProvider<Router>(endpointClosure: MoyaProvider.defaultEndpointMapping,
-                                        requestClosure: MoyaProvider<Router>.defaultRequestMapping,
+  private let provider: MoyaProvider<AppRouter> = {
+    let provider = MoyaProvider<AppRouter>(endpointClosure: MoyaProvider.defaultEndpointMapping,
+                                        requestClosure: MoyaProvider<AppRouter>.defaultRequestMapping,
                                         stubClosure: MoyaProvider.neverStub,
                                         callbackQueue: nil,
                                         manager: sharedManager,
@@ -35,7 +35,7 @@ struct NetworkService {
   }()
 
 
-  func buildRequest(to router: Router) -> Single<NetworkDataResponse> {
+  func buildRequest(to router: AppRouter) -> Single<NetworkDataResponse> {
       return self.provider.rx.request(router)
         .flatMap { response -> Single<NetworkDataResponse> in
           return Single.create(subscribe: { single -> Disposable in
@@ -53,4 +53,5 @@ struct NetworkService {
   }
 
 }
+
 

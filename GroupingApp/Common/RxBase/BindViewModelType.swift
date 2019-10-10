@@ -34,5 +34,4 @@ extension BindViewModelType {
         return Driver.empty()
     }
   }
-  
 }

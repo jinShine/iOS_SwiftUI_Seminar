@@ -1,33 +1,34 @@
 //
-//  NaverRouter.swift
+//  AppRouter.swift
 //  GroupingApp
 //
-//  Created by Seungjin on 04/10/2019.
+//  Created by Seungjin on 10/10/2019.
 //  Copyright © 2019 Jinnify. All rights reserved.
 //
 
+import Foundation
+import Alamofire
 import Moya
 
-enum Router {
+
+enum AppRouter {
   case geocode(address: String)
 }
 
-enum RouterError: Error {
+enum AppRouterError: Error {
   case message
 }
 
-
-extension Router: TargetType {
+extension AppRouter: TargetType {
 
   //네이버 Key
-  static let naverAPIKeyID = "dykuz0db92"
-  static let naverAPIKey = "WHZf2S82iMi8YJMSv2Mnjkzva43An0jbyRvuOFhj"
+  static let apiKey = "AIzaSyDikvJDwE2XbzKNQ-AUOfxDXq9ivvsPg3Y"
 
   var baseURL: URL {
     #if DEBUG
-    return URL(string: "https://naveropenapi.apigw.ntruss.com")!
+    return URL(string: "https://maps.googleapis.com")!
     #else
-    return URL(string: "https://naveropenapi.apigw.ntruss.com")!
+    return URL(string: "https://maps.googleapis.com")!
     #endif
 
   }
@@ -35,11 +36,11 @@ extension Router: TargetType {
   var path: String {
     switch self {
     case .geocode:
-      return "/map-geocode/v2/geocode"
+      return "/maps/api/geocode/json"
     }
   }
 
-  var method: Method {
+  var method: Alamofire.HTTPMethod {
     switch self {
     case .geocode:
       return .get
@@ -50,7 +51,9 @@ extension Router: TargetType {
     switch self {
     case .geocode(let address):
       return [
-        "query" : address,
+        "address" : address,
+        "language" : "ko",
+        "key" : GoogleRouter.apiKey
       ]
     }
   }
@@ -65,10 +68,7 @@ extension Router: TargetType {
   var headers: [String : String]? {
     switch self {
     case .geocode:
-      return [
-        "X-NCP-APIGW-API-KEY-ID" : Router.naverAPIKeyID,
-        "X-NCP-APIGW-API-KEY" : Router.naverAPIKey
-      ]
+      return [:]
     }
   }
 
@@ -78,7 +78,7 @@ extension Router: TargetType {
 }
 
 //MARK: - Error
-extension RouterError: CustomStringConvertible {
+extension AppRouterError: CustomStringConvertible {
   var description: String {
     switch self {
     case .message:
@@ -86,6 +86,9 @@ extension RouterError: CustomStringConvertible {
     }
   }
 }
+
+
+
 
 
 

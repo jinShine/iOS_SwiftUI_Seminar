@@ -8,7 +8,6 @@
 
 import UIKit
 import CoreData
-import NMapsMap
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,9 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
    
     //CoreData
     App.coreData.setup(modelName: "GroupingApp")
-    
-    //Naver Map Key
-    NMFAuthManager.shared().clientId = "dykuz0db92"
     
     return true
   }

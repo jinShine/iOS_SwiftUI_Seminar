@@ -21,15 +21,15 @@ final class SelectMapViewModel: BindViewModelType {
   //MARK: - Unidirection
 
   enum Command {
-    case bindPlaceData
+//    case bindPlaceData
   }
 
   enum Action {
-    case bindPlaceDataAction
+
   }
 
   enum State {
-    case bindPlaceDataState(plceInfo: Addresses)
+//    case bindPlaceDataState(plceInfo: Geocoder)
   }
 
   var command = PublishSubject<Command>()
@@ -41,12 +41,12 @@ final class SelectMapViewModel: BindViewModelType {
 
   //MARK: - Properties
 
-  let placeModel: Addresses
+  let geocoderModel: GeocoderResult
 
 
   //MARK: - Initialize
-  init(placeModel: Addresses) {
-    self.placeModel = placeModel
+  init(geocoderModel: GeocoderResult) {
+    self.geocoderModel = geocoderModel
     
     self.bind()
   }
@@ -56,15 +56,17 @@ final class SelectMapViewModel: BindViewModelType {
 
   func toAction(from command: Command) -> Observable<Action> {
     switch command {
-    case .bindPlaceData:
-      return Observable<Action>.just(.bindPlaceDataAction)
+//    case .bindPlaceData:
+//      return Observable<Action>.empty()
+//      return Observable<Action>.just(.bindPlaceDataAction)
     }
   }
 
   func toState(from action: Action) -> Observable<State> {
     switch action {
-    case .bindPlaceDataAction:
-      return Observable<State>.just(.bindPlaceDataState(plceInfo: placeModel))
+//    case .bindPlaceDataAction:
+//      return Observable<State>.empty()
+//      return Observable<State>.just(.bindPlaceDataState(geocodeInfo: geocoderModel))
     }
   }
 

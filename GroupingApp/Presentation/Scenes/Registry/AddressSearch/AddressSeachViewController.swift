@@ -149,6 +149,7 @@ extension AddressSearchViewController {
           self.navigationController?.popViewController(animated: true)
           
         case .didSearchState(let cellViewModel):
+          print("View Model", cellViewModel)
           self.tableView.delegate = nil
           self.tableView.dataSource = nil
           self.datasource = RxTableViewSectionedReloadDataSource<SearchSection> (
@@ -158,6 +159,7 @@ extension AddressSearchViewController {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: AddressCell.reuseIdentifier) as? AddressCell else {
                   return UITableViewCell()
                 }
+                print("View Model", viewmodel)
                 cell.viewModel = viewmodel
                 return cell
               }
@@ -168,7 +170,7 @@ extension AddressSearchViewController {
           
         case .didTapCellState(let placeItem):
           log.debug("Place", placeItem)
-          self.navigator.navigate(to: .selectMap(placeItem))
+//          self.navigator.navigate(to: .selectMap(placeItem))
         }
       })
       .disposed(by: self.disposeBag)

@@ -22,9 +22,6 @@ target 'GroupingApp' do
   # DI
   pod 'FlowInject'
   
-  # Map
-  pod 'NMapsMap'
-  
   # Log
   pod 'CocoaLumberjack/Swift'
   

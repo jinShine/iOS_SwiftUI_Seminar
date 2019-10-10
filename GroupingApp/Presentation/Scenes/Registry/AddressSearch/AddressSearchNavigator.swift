@@ -10,17 +10,18 @@ import Foundation
 import FlowInject
 
 enum AddressSearch: Route {
-  case selectMap(Addresses)
+  case selectMap(Geocoder)
 }
 
 class AddressSearchNavigator: Navigator<AddressSearch> {
   
   func navigate(to destination: AddressSearch) {
     switch destination {
-    case .selectMap(let placeModel):
-      let viewModel = SelectMapViewModel(placeModel: placeModel)
-      let viewController = SelectMapViewController(viewModel: viewModel)
-      presenter?.pushViewController(viewController, animated: true)
+    case .selectMap(let geocoderModel):
+      return
+//      let viewModel = SelectMapViewModel(geocoderModel: geocoderModel)
+//      let viewController = SelectMapViewController(viewModel: viewModel)
+//      presenter?.pushViewController(viewController, animated: true)
     }
   }
   

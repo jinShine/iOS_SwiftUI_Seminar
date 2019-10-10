@@ -9,5 +9,5 @@
 import RxSwift
 
 protocol NaverUseCase {
-  func requestAddress(address: String) -> Single<Geocode>
+  func requestAddress(address: String) -> Single<Geocoder>
 }

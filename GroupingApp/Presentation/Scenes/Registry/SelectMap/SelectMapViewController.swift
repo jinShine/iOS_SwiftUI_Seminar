@@ -8,7 +8,6 @@
 
 import RxSwift
 import RxCocoa
-import NMapsMap
 
 class SelectMapViewController: BaseViewController, BindViewType {
   
@@ -55,11 +54,11 @@ class SelectMapViewController: BaseViewController, BindViewType {
     return label
   }()
 
-  let mapView: NMFMapView = {
-    let map = NMFMapView()
-    return map
-  }()
-  
+//  let mapView: NMFMapView = {
+//    let map = NMFMapView()
+//    return map
+//  }()
+//
   override var preferredStatusBarStyle: UIStatusBarStyle {
     return .default
   }
@@ -100,12 +99,12 @@ extension SelectMapViewController {
   //OUTPUT
   func command(viewModel: ViewModel) {
 
-    let obBindPlaceData = rx.viewWillAppear.map { _ in
-      ViewModel.Command.bindPlaceData
-    }
+//    let obBindPlaceData = rx.viewWillAppear.map { _ in
+//      ViewModel.Command.bindPlaceData
+//    }
     
     Observable.merge([
-      obBindPlaceData
+//      obBindPlaceData
     ])
     .bind(to: viewModel.command)
     .disposed(by: disposeBag)
@@ -121,14 +120,14 @@ extension SelectMapViewController {
         guard let self = self else { return }
         
         switch state {
-        case .bindPlaceDataState(let placeInfo):
-          self.jibunAddressLabel.text = placeInfo.jibunAddress
-          self.roadAddressLabel.text = placeInfo.roadAddress
-          let latlng = NMGLatLng(lat: Double(placeInfo.y)!, lng: Double(placeInfo.x)!)
-          let cameraPosition = NMFCameraUpdate(scrollTo: latlng, zoomTo: 17)
-          self.mapView.moveCamera(cameraPosition)
-          let marker = NMFMarker(position: latlng, iconImage: NMFOverlayImage(image: UIImage(named: "Icon_pin") ?? UIImage()))
-          marker.mapView = self.mapView
+//        case .bindPlaceDataState(let placeInfo):
+//          self.jibunAddressLabel.text = placeInfo.jibunAddress
+//          self.roadAddressLabel.text = placeInfo.roadAddress
+//          let latlng = NMGLatLng(lat: Double(placeInfo.y)!, lng: Double(placeInfo.x)!)
+//          let cameraPosition = NMFCameraUpdate(scrollTo: latlng, zoomTo: 17)
+//          self.mapView.moveCamera(cameraPosition)
+//          let marker = NMFMarker(position: latlng, iconImage: NMFOverlayImage(image: UIImage(named: "Icon_pin") ?? UIImage()))
+//          marker.mapView = self.mapView
         }
       })
       .disposed(by: self.disposeBag)
@@ -143,7 +142,7 @@ extension SelectMapViewController {
     
     setupNavigationBar(at: view, leftItem: popButton, titleItem: naviTitleLabel)
 
-    [jibunAddressLabel, roadAddressLabel, mapView].forEach {
+    [jibunAddressLabel, roadAddressLabel].forEach {
       view.addSubview($0)
     }
   }
@@ -161,10 +160,10 @@ extension SelectMapViewController {
       $0.leading.trailing.equalTo(jibunAddressLabel)
     }
 
-    mapView.snp.makeConstraints {
-      $0.top.equalTo(roadAddressLabel.snp.bottom).offset(32)
-      $0.leading.trailing.bottom.equalToSuperview()
-    }
+//    mapView.snp.makeConstraints {
+//      $0.top.equalTo(roadAddressLabel.snp.bottom).offset(32)
+//      $0.leading.trailing.bottom.equalToSuperview()
+//    }
   }
 }
 

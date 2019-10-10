@@ -38,8 +38,8 @@ class AddressCell: UITableViewCell {
   
   var viewModel: AddressCellViewModel! {
     didSet {
-      self.jibunAddressLabel.text = viewModel.jibunAddress
-      self.roadAddressLabel.text = viewModel.roadAddress
+      self.jibunAddressLabel.text = viewModel.address
+//      self.roadAddressLabel.text = viewModel.
     }
   }
 
