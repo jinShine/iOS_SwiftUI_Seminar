@@ -43,6 +43,10 @@
 		5C66EA69234F5B2200A290CE /* GoogleNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C66EA68234F5B2200A290CE /* GoogleNetworkService.swift */; };
 		5C66EA6B234F5BE500A290CE /* GoogleUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C66EA6A234F5BE500A290CE /* GoogleUseCase.swift */; };
 		5C66EA6D234F5C7500A290CE /* GoogleInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C66EA6C234F5C7500A290CE /* GoogleInteractor.swift */; };
+		5C66EA72235014E800A290CE /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C66EA71235014E800A290CE /* UserDefaultsManager.swift */; };
+		5C66EA752350262600A290CE /* SessionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C66EA742350262600A290CE /* SessionModel.swift */; };
+		5C66EA7B23504D0B00A290CE /* Configuration.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5C66EA7A23504D0B00A290CE /* Configuration.plist */; };
+		5C66EA7D23504D1B00A290CE /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C66EA7C23504D1B00A290CE /* Configuration.swift */; };
 		5C8764CA2342F19000201833 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8764C92342F19000201833 /* AppDelegate.swift */; };
 		5C8764D42342F19000201833 /* GroupingApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5C8764D22342F19000201833 /* GroupingApp.xcdatamodeld */; };
 		5C8764EE2342F51B00201833 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8764ED2342F51B00201833 /* SplashViewController.swift */; };
@@ -107,6 +111,10 @@
 		5C66EA68234F5B2200A290CE /* GoogleNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleNetworkService.swift; sourceTree = "<group>"; };
 		5C66EA6A234F5BE500A290CE /* GoogleUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleUseCase.swift; sourceTree = "<group>"; };
 		5C66EA6C234F5C7500A290CE /* GoogleInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleInteractor.swift; sourceTree = "<group>"; };
+		5C66EA71235014E800A290CE /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
+		5C66EA742350262600A290CE /* SessionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionModel.swift; sourceTree = "<group>"; };
+		5C66EA7A23504D0B00A290CE /* Configuration.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Configuration.plist; sourceTree = "<group>"; };
+		5C66EA7C23504D1B00A290CE /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		5C8764C62342F19000201833 /* GroupingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GroupingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C8764C92342F19000201833 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5C8764CB2342F19000201833 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -200,6 +208,7 @@
 		5C01E92023465C1E0051CA68 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				5C66EA732350260A00A290CE /* Session */,
 				5C01E92123465C850051CA68 /* UserModel.swift */,
 				5C17C044234773D80097490E /* GeocodeModel.swift */,
 			);
@@ -267,6 +276,31 @@
 			path = AddressSearchCell;
 			sourceTree = "<group>";
 		};
+		5C66EA732350260A00A290CE /* Session */ = {
+			isa = PBXGroup;
+			children = (
+				5C66EA742350262600A290CE /* SessionModel.swift */,
+			);
+			path = Session;
+			sourceTree = "<group>";
+		};
+		5C66EA7623504C6E00A290CE /* Configurtions */ = {
+			isa = PBXGroup;
+			children = (
+				5C66EA7C23504D1B00A290CE /* Configuration.swift */,
+				5C66EA7A23504D0B00A290CE /* Configuration.plist */,
+			);
+			path = Configurtions;
+			sourceTree = "<group>";
+		};
+		5C66EA7723504C8B00A290CE /* CoreDataModel */ = {
+			isa = PBXGroup;
+			children = (
+				5C8764D22342F19000201833 /* GroupingApp.xcdatamodeld */,
+			);
+			path = CoreDataModel;
+			sourceTree = "<group>";
+		};
 		5C8764BD2342F19000201833 = {
 			isa = PBXGroup;
 			children = (
@@ -288,6 +322,8 @@
 		5C8764C82342F19000201833 /* GroupingApp */ = {
 			isa = PBXGroup;
 			children = (
+				5C8764C92342F19000201833 /* AppDelegate.swift */,
+				5C8764CB2342F19000201833 /* SceneDelegate.swift */,
 				5C8764E02342F37C00201833 /* Core */,
 				5C8764E12342F38800201833 /* Presentation */,
 				5C8764E22342F3AA00201833 /* Domain */,
@@ -302,10 +338,9 @@
 		5C8764E02342F37C00201833 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				5C8764C92342F19000201833 /* AppDelegate.swift */,
-				5C8764CB2342F19000201833 /* SceneDelegate.swift */,
 				5C87653B23443D7E00201833 /* App.swift */,
-				5C8764D22342F19000201833 /* GroupingApp.xcdatamodeld */,
+				5C66EA7723504C8B00A290CE /* CoreDataModel */,
+				5C66EA7623504C6E00A290CE /* Configurtions */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -383,6 +418,7 @@
 				5CE85FDB234E1648009A27FD /* Logging */,
 				5C8765432344403F00201833 /* Theme */,
 				5C87654023443EAA00201833 /* Extensions */,
+				5C66EA71235014E800A290CE /* UserDefaultsManager.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -530,6 +566,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5C87650823432B1800201833 /* LaunchScreen.storyboard in Resources */,
+				5C66EA7B23504D0B00A290CE /* Configuration.plist in Resources */,
 				5C8765372343579F00201833 /* Assets.xcassets in Resources */,
 				5C01E92E234917A80051CA68 /* AddressCell.xib in Resources */,
 				5C876532234346D200201833 /* Main.storyboard in Resources */,
@@ -590,6 +627,7 @@
 				5C57DB5A234CF396007686CB /* AddressSection.swift in Sources */,
 				5C8765342343530800201833 /* HomeViewModel.swift in Sources */,
 				5C253DCD234A347F009CDAA4 /* SelectMapViewController.swift in Sources */,
+				5C66EA72235014E800A290CE /* UserDefaultsManager.swift in Sources */,
 				5C01E930234920BD0051CA68 /* UIViewController+Rx.swift in Sources */,
 				5CB124652344E52A00E61A49 /* SearchViewController.swift in Sources */,
 				5C17C03C234772F30097490E /* NetworkErrorBuilder.swift in Sources */,
@@ -598,6 +636,7 @@
 				5C253DCF234A3488009CDAA4 /* SelectMapViewModel.swift in Sources */,
 				5C01E9282347AF700051CA68 /* AddressSearchViewModel.swift in Sources */,
 				5C66EA6B234F5BE500A290CE /* GoogleUseCase.swift in Sources */,
+				5C66EA752350262600A290CE /* SessionModel.swift in Sources */,
 				5C01E9262347AF640051CA68 /* AddressSeachViewController.swift in Sources */,
 				5C66EA69234F5B2200A290CE /* GoogleNetworkService.swift in Sources */,
 				5C17C036234772820097490E /* String+Extension.swift in Sources */,
@@ -619,6 +658,7 @@
 				5C17C045234773D80097490E /* GeocodeModel.swift in Sources */,
 				5C66EA6D234F5C7500A290CE /* GoogleInteractor.swift in Sources */,
 				5C0C7B3823452566002E4B50 /* Font.swift in Sources */,
+				5C66EA7D23504D1B00A290CE /* Configuration.swift in Sources */,
 				5C87654223443FD900201833 /* UIColor+Extension.swift in Sources */,
 				5C66EA65234F5A4F00A290CE /* AppRouter.swift in Sources */,
 				5C17C02B2347230E0097490E /* SJTextField.swift in Sources */,
