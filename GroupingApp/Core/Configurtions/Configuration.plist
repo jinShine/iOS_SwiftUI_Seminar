@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<!--
-   Configuration.plist
-   GroupingApp
-
-   Created by Seungjin on 11/10/2019.
-   Copyright (c) 2019 Jinnify. All rights reserved.
--->
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-    <dict>
-    
-    </dict>
+<dict>
+	<key>Release</key>
+	<dict>
+		<key>google-api-key</key>
+		<string>AIzaSyDikvJDwE2XbzKNQ-AUOfxDXq9ivvsPg3Y</string>
+	</dict>
+	<key>Dev</key>
+	<dict>
+		<key>google-api-key</key>
+		<string>AIzaSyDikvJDwE2XbzKNQ-AUOfxDXq9ivvsPg3Y</string>
+	</dict>
+</dict>
 </plist>

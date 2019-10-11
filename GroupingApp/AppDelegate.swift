@@ -15,7 +15,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
    
 
-    
+    let dd = Configuration()
+    print(dd.getConfigurations())
+    print(dd.accessGoogleAPIKey)
+    print(dd.scheme)
     return true
   }
   
