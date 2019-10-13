@@ -7,10 +7,5 @@
 		<key>google-api-key</key>
 		<string>AIzaSyDikvJDwE2XbzKNQ-AUOfxDXq9ivvsPg3Y</string>
 	</dict>
-	<key>Dev</key>
-	<dict>
-		<key>google-api-key</key>
-		<string>AIzaSyDikvJDwE2XbzKNQ-AUOfxDXq9ivvsPg3Y</string>
-	</dict>
 </dict>
 </plist>

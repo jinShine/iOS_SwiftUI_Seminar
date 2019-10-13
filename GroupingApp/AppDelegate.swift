@@ -13,12 +13,9 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-   
 
-    let dd = Configuration()
-    print(dd.getConfigurations())
-    print(dd.accessGoogleAPIKey)
-    print(dd.scheme)
+    print(App.configuration.accessGoogleAPIKey)
+    
     return true
   }
   
@@ -30,10 +27,6 @@ extension AppDelegate {
 
     //CoreData
     App.coreData.setup(modelName: "GroupingApp")
-
-    //Session
-    let googleAPIKey = "AIzaSyDikvJDwE2XbzKNQ-AUOfxDXq9ivvsPg3Y"
-    App.userDefaultsManager.setObejct(object: googleAPIKey, key: SessionKey.googleToken, type: .keychain)
 
   }
 }
