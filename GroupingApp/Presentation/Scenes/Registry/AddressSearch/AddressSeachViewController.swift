@@ -9,6 +9,7 @@
 import RxSwift
 import RxCocoa
 import RxDataSources
+import GoogleMaps
 
 class AddressSearchViewController: BaseViewController, BindViewType {
   
@@ -20,48 +21,35 @@ class AddressSearchViewController: BaseViewController, BindViewType {
   
   //MARK: - UI Properties
   
+  lazy var mapView: GMSMapView = {
+    let mapView = GMSMapView()
+    mapView.settings.consumesGesturesInView = false
+    mapView.delegate = self
+    return mapView
+  }()
+  
   let popButton: UIButton = {
     let button = UIButton()
-    let image = UIImage(named: "Icon-Arrow-Left")
+    let image = UIImage(named: "Icon_Round_Left")
     button.setImage(image, for: .normal)
-    button.imageView?.tintColor = .black
     button.contentMode = .scaleAspectFit
     return button
   }()
   
-  let naviTitleLabel: UILabel = {
-    let label = UILabel()
-    label.text = "주소 설정"
-    label.textColor = .black
-    label.textAlignment = .center
-    label.font = App.font.bold(size: 18)
-    return label
-  }()
-  
-  let searchBaseView: UIView = {
-    let view = UIView()
-    view.backgroundColor = .white
-    return view
-  }()
-  
-  let searchIcon: UIImageView = {
+  let searchBaseView: UIImageView = {
     let imageView = UIImageView()
-    let image = UIImage(named: "Icon-Search")
+    let image = UIImage(named: "Search_Base")
     imageView.image = image
+    imageView.contentMode = .scaleAspectFill
+    imageView.isUserInteractionEnabled = true
     return imageView
   }()
   
-  let searchTextField: UITextField = {
+  lazy var searchTextField: UITextField = {
     let searchBar = UITextField()
     searchBar.placeholder = "주소 검색"
     searchBar.clearButtonMode = .whileEditing
     return searchBar
-  }()
-  
-  let line: UIView = {
-    let view = UIView()
-    view.backgroundColor = App.color.main
-    return view
   }()
   
   let tableView: UITableView = {
@@ -99,13 +87,14 @@ class AddressSearchViewController: BaseViewController, BindViewType {
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+
   //MARK: - Life Cycle
   override func viewDidLoad() {
     super.viewDidLoad()
     
     setupUI()
     setupConstraint()
+    searchTextField.becomeFirstResponder()
   }
   
 }
@@ -185,51 +174,49 @@ extension AddressSearchViewController {
   
   private func setupUI() {
     
-    [searchBaseView, tableView ].forEach {
-      view.addSubview($0)
+    view.insertSubview(mapView, at: 0)
+    
+    [searchBaseView].forEach {
+      mapView.addSubview($0)
     }
     
-    [searchIcon, searchTextField, line].forEach {
+    [searchTextField].forEach {
       searchBaseView.addSubview($0)
     }
     
-    setupNavigationBar(at: view,
-                       leftItem: popButton,
-                       titleItem: naviTitleLabel)
-    
-    navigationBaseView.backgroundColor = .white
+    setupNavigationBar(at: view, leftItem: popButton)
+    navigationBaseView.backgroundColor = .clear
   }
   
   private func setupConstraint() {
     
+    mapView.snp.makeConstraints {
+      $0.edges.equalToSuperview()
+    }
+
     searchBaseView.snp.makeConstraints {
-      $0.top.equalTo(navigationBaseView.snp.bottom)
-      $0.leading.trailing.equalToSuperview()
-      $0.height.equalTo(70)
-    }
-    
-    searchIcon.snp.makeConstraints {
-      $0.centerY.equalToSuperview().offset(8)
+      $0.top.equalTo(navigationBaseView.snp.bottom).offset(32)
       $0.leading.equalToSuperview().offset(32)
-      $0.size.equalTo(18)
-    }
-    
-    searchTextField.snp.makeConstraints {
-      $0.centerY.equalTo(searchBaseView).offset(8)
-      $0.leading.equalTo(searchIcon.snp.trailing).offset(14)
       $0.trailing.equalToSuperview().offset(-32)
     }
-    
-    line.snp.makeConstraints {
-      $0.bottom.equalToSuperview()
-      $0.leading.equalTo(searchIcon)
-      $0.trailing.equalTo(searchTextField)
-      $0.height.equalTo(2)
+
+    searchTextField.snp.makeConstraints {
+      $0.centerY.equalToSuperview().offset(-4)
+      $0.leading.equalToSuperview().offset(36)
+      $0.trailing.equalToSuperview().offset(-8)
     }
     
-    tableView.snp.makeConstraints {
-      $0.top.equalTo(searchBaseView.snp.bottom)
-      $0.leading.trailing.bottom.equalToSuperview()
-    }
+  }
+}
+
+//MARK: - GMSMapView Delegate
+extension AddressSearchViewController: GMSMapViewDelegate {
+
+  func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
+    dismissKeyboard()
+  }
+  
+  func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
+    dismissKeyboard()
   }
 }

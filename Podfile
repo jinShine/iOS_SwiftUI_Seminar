@@ -25,5 +25,8 @@ target 'GroupingApp' do
   pod 'FlowInject'
   pod 'CocoaLumberjack/Swift'
   pod 'KeychainAccess'
+  pod 'GoogleMaps'
+  pod 'GooglePlaces'
+  
   
 end

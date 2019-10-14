@@ -8,13 +8,14 @@
 
 import UIKit
 import CoreData
+import GoogleMaps
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
-    print(App.configuration.accessGoogleAPIKey)
+    setup()
     
     return true
   }
@@ -27,6 +28,9 @@ extension AppDelegate {
 
     //CoreData
     App.coreData.setup(modelName: "GroupingApp")
+    
+    //Google
+    GMSServices.provideAPIKey(App.configuration.accessGoogleAPIKey)
 
   }
 }
