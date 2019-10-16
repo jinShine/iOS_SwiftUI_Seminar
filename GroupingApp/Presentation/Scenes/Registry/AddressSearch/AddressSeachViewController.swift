@@ -105,6 +105,18 @@ extension AddressSearchViewController {
   //OUTPUT
   func command(viewModel: ViewModel) {
     
+    let obLocationStart = rx.viewDidLoad.map {
+      ViewModel.Command.locationStart
+    }
+    
+    let obLocationFetch = rx.viewDidLoad.map {
+      ViewModel.Command.locationFetch
+    }
+    
+    let obLocationStop = rx.viewDidDisappear.map { _ in
+      ViewModel.Command.locationStop
+    }
+    
     let obDidTapPop = popButton.rx.tap
       .map { ViewModel.Command.didTapPop }
     
@@ -116,6 +128,9 @@ extension AddressSearchViewController {
       .map { ViewModel.Command.didTapCell(indexPath: $0)}
     
     Observable<ViewModel.Command>.merge([
+      obLocationStart,
+      obLocationStop,
+      obLocationFetch,
       obDidTapPop,
       obDidSearchText,
       obDidCellSelected
@@ -134,6 +149,12 @@ extension AddressSearchViewController {
         guard let self = self else { return }
         
         switch state {
+        case .locationStartState: return
+        case .locationStopState: return
+        case .locationFetchState(let locationResonse):
+          let lat = locationResonse.0?.coordinate.latitude ?? 0.0
+          let lon = locationResonse.0?.coordinate.longitude ?? 0.0
+          self.mapView.camera = GMSCameraPosition(latitude: lat, longitude: lon, zoom: 17.0)
         case .didTapPopState:
           self.navigationController?.popViewController(animated: true)
           
@@ -218,5 +239,14 @@ extension AddressSearchViewController: GMSMapViewDelegate {
   
   func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
     dismissKeyboard()
+  }
+}
+
+
+extension AddressSearchViewController: UITextFieldDelegate {
+  
+  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    
+    return true
   }
 }

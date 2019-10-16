@@ -23,7 +23,8 @@ class RegistryNavigator: Navigator<RegistryRoute> {
   func navigate(to destination: RegistryRoute) {
     switch destination {
     case .addressSearch:
-      let viewModel = AddressSearchViewModel(googleUseCase: GoogleInteractor())
+      let viewModel = AddressSearchViewModel(googleUseCase: GoogleInteractor(),
+                                             locationUseCase: LocationInteractor())
       let viewController = AddressSearchViewController(viewModel: viewModel, navigator: AddressSearchNavigator(with: presenter))
       presenter?.pushViewController(viewController, animated: true)
     }

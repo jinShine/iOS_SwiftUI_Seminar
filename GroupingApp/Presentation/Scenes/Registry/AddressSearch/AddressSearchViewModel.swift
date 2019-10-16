@@ -26,18 +26,27 @@ final class AddressSearchViewModel: BindViewModelType {
   //MARK: - Unidirection
   
   enum Command {
+    case locationStart
+    case locationStop
+    case locationFetch
     case didTapPop
     case didSearch(address: String)
     case didTapCell(indexPath: IndexPath)
   }
   
   enum Action {
+    case locationStartAction
+    case locationStopAction
+    case locationFetchAction
     case didTapPopAction
     case didSearchAction(address: String)
     case didTapCellAction(indexPath: IndexPath)
   }
   
   enum State {
+    case locationStartState
+    case locationStopState
+    case locationFetchState(LocationResponse)
     case didTapPopState
     case didSearchState(viewModel: [SearchSection])
     case didTapCellState(selectedItem: GeocoderResult)
@@ -51,11 +60,13 @@ final class AddressSearchViewModel: BindViewModelType {
 
   //MARK: - Properties
   let googleUseCase: GoogleUseCase
+  let locationUseCase: LocationUseCase
   
   
   //MARK: - Initialize
-  init(googleUseCase: GoogleUseCase) {
+  init(googleUseCase: GoogleUseCase, locationUseCase: LocationUseCase) {
     self.googleUseCase = googleUseCase
+    self.locationUseCase = locationUseCase
     
     self.bind()
   }
@@ -65,6 +76,12 @@ final class AddressSearchViewModel: BindViewModelType {
   
   func toAction(from command: Command) -> Observable<Action> {
     switch command {
+    case .locationStart:
+      return Observable<Action>.just(.locationStartAction)
+    case .locationStop:
+      return Observable<Action>.just(.locationStopAction)
+    case .locationFetch:
+      return Observable<Action>.just(.locationFetchAction)
     case .didTapPop:
       return Observable<Action>.just(.didTapPopAction)
     case .didSearch(let address):
@@ -76,6 +93,23 @@ final class AddressSearchViewModel: BindViewModelType {
   
   func toState(from action: Action) -> Observable<State> {
     switch action {
+    case .locationStartAction:
+      locationUseCase.start()
+      return Observable<State>.just(.locationStartState)
+//      return locationUseCase.start().asObservable()
+//        .flatMap { _ in Observable<State>.just(.locationStartState) }
+      
+    case .locationStopAction:
+      locationUseCase.stop()
+      return Observable<State>.just(.locationStopState)
+//      return locationUseCase.stop().asObservable()
+//        .flatMap { _ in Observable<State>.just(.locationStopState) }
+      
+    case .locationFetchAction:
+      return locationUseCase.fetch().flatMap { (location, error) in
+        return Observable<State>.just(.locationFetchState((location, error)))
+      }
+      
     case .didTapPopAction:
       return Observable<State>.just(.didTapPopState)
       

@@ -23,6 +23,7 @@ class SplashViewController: BaseViewController {
 
     setupUI()
     setupNavigator()
+    let dd = LocationManager()
     
   }
 

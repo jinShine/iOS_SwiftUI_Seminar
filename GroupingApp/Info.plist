@@ -56,10 +56,14 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-  <key>LSApplicationQueriesSchemes</key>
-  <array>
-      <string>googlechromes</string>
-      <string>comgooglemaps</string>
-  </array>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>googlechromes</string>
+		<string>comgooglemaps</string>
+	</array>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>$(PRODUCT_NAME)에서 유저의 주소를 검색하기 위해 필요합니다.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>$(PRODUCT_NAME)에서 유저의 주소를 검색하기 위해 필요합니다.</string>
 </dict>
 </plist>

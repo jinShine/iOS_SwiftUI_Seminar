@@ -71,6 +71,9 @@
 		5CE85FD8234E15B0009A27FD /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE85FD5234E15B0009A27FD /* BaseNavigationController.swift */; };
 		5CE85FD9234E15B0009A27FD /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE85FD6234E15B0009A27FD /* BaseTabBarController.swift */; };
 		5CE85FDD234E1655009A27FD /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE85FDC234E1655009A27FD /* Logger.swift */; };
+		5CE85FE123575F78009A27FD /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE85FE023575F78009A27FD /* LocationManager.swift */; };
+		5CE85FE32357644F009A27FD /* LocationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE85FE22357644F009A27FD /* LocationUseCase.swift */; };
+		5CE85FE5235764B8009A27FD /* LocationInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE85FE4235764B8009A27FD /* LocationInteractor.swift */; };
 		B6A36A733CE89D0E7D3AB033 /* Pods_GroupingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A779397F6095BB719DE4D7B /* Pods_GroupingApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -141,6 +144,9 @@
 		5CE85FD5234E15B0009A27FD /* BaseNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseNavigationController.swift; path = GroupingApp/Common/BaseNavigationController.swift; sourceTree = SOURCE_ROOT; };
 		5CE85FD6234E15B0009A27FD /* BaseTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseTabBarController.swift; path = GroupingApp/Common/BaseTabBarController.swift; sourceTree = SOURCE_ROOT; };
 		5CE85FDC234E1655009A27FD /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		5CE85FE023575F78009A27FD /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		5CE85FE22357644F009A27FD /* LocationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationUseCase.swift; sourceTree = "<group>"; };
+		5CE85FE4235764B8009A27FD /* LocationInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInteractor.swift; sourceTree = "<group>"; };
 		6EF01C972792DDD61480E721 /* Pods-GroupingApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GroupingApp.release.xcconfig"; path = "Target Support Files/Pods-GroupingApp/Pods-GroupingApp.release.xcconfig"; sourceTree = "<group>"; };
 		8A779397F6095BB719DE4D7B /* Pods_GroupingApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GroupingApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE55CE162F5FF925DECC3D35 /* Pods-GroupingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GroupingApp.debug.xcconfig"; path = "Target Support Files/Pods-GroupingApp/Pods-GroupingApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -191,6 +197,7 @@
 				5C17C03F234773700097490E /* Service */,
 				5C17C030234771320097490E /* Router */,
 				5C66EA6C234F5C7500A290CE /* GoogleInteractor.swift */,
+				5CE85FE4235764B8009A27FD /* LocationInteractor.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -201,6 +208,7 @@
 				5C01E91E23464FA70051CA68 /* UserUseCase.swift */,
 				5C17C03D234773340097490E /* NaverUseCase.swift */,
 				5C66EA6A234F5BE500A290CE /* GoogleUseCase.swift */,
+				5CE85FE22357644F009A27FD /* LocationUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -339,6 +347,7 @@
 			isa = PBXGroup;
 			children = (
 				5C87653B23443D7E00201833 /* App.swift */,
+				5CE85FDF23575F6B009A27FD /* Location */,
 				5C66EA7723504C8B00A290CE /* CoreDataModel */,
 				5C66EA7623504C6E00A290CE /* Configurtions */,
 			);
@@ -494,6 +503,14 @@
 				5CE85FDC234E1655009A27FD /* Logger.swift */,
 			);
 			path = Logging;
+			sourceTree = "<group>";
+		};
+		5CE85FDF23575F6B009A27FD /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				5CE85FE023575F78009A27FD /* LocationManager.swift */,
+			);
+			path = Location;
 			sourceTree = "<group>";
 		};
 		A6CA7D407CE00D3B88BBB560 /* Pods */ = {
@@ -672,7 +689,9 @@
 				5C253DD1234A3518009CDAA4 /* AddressSearchNavigator.swift in Sources */,
 				5C17C03A234772D20097490E /* NetworkError.swift in Sources */,
 				5C01E91B23464F790051CA68 /* UserInteractor.swift in Sources */,
+				5CE85FE123575F78009A27FD /* LocationManager.swift in Sources */,
 				5C0C7B3623451493002E4B50 /* UINavigationController+Extension.swift in Sources */,
+				5CE85FE32357644F009A27FD /* LocationUseCase.swift in Sources */,
 				5C17C045234773D80097490E /* GeocodeModel.swift in Sources */,
 				5C66EA6D234F5C7500A290CE /* GoogleInteractor.swift in Sources */,
 				5C0C7B3823452566002E4B50 /* Font.swift in Sources */,
@@ -681,6 +700,7 @@
 				5C66EA65234F5A4F00A290CE /* AppRouter.swift in Sources */,
 				5C17C02B2347230E0097490E /* SJTextField.swift in Sources */,
 				5C8764D42342F19000201833 /* GroupingApp.xcdatamodeld in Sources */,
+				5CE85FE5235764B8009A27FD /* LocationInteractor.swift in Sources */,
 				5C01E934234928110051CA68 /* AddressCellViewModel.swift in Sources */,
 				5C8764FB234310B600201833 /* HomeViewController.swift in Sources */,
 				5C87653023432E8500201833 /* SceneDelegate.swift in Sources */,
