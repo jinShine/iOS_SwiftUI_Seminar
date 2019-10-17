@@ -34,15 +34,10 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
   
   private var didUpdateLocation: LocationDidUpdate?
   var running = false
-  
-  override init() {
-    super.init()
-    checkAuthorizationStatus()
-  }
-  
+
   // MARK: Deint
   deinit {
-      stopMonitoringUpdates()
+    stopMonitoringUpdates()
   }
   
   // MARK: Location Authorization Status Changed
@@ -78,10 +73,8 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
   
   func fetchWithCompletion(completion: @escaping LocationDidUpdate) {
       //store the completion closure
-    checkAuthorizationStatus()
       didUpdateLocation = completion
-//      grantPermissons()
-      
+      grantPermissons()
   }
   
   func startMonitoringUpdates() {
@@ -103,32 +96,17 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
       running = false
   }
   
-  func checkAuthorizationStatus() {
+  func grantPermissons() {
       switch CLLocationManager.authorizationStatus() {
       case .notDetermined:
-        locationManager?.requestAlwaysAuthorization()
         locationManager?.requestWhenInUseAuthorization()
+        locationManager?.requestAlwaysAuthorization()
       case .restricted, .denied:
           break
       case .authorizedWhenInUse, .authorizedAlways:
           startMonitoringUpdates()
       @unknown default:
-        return
+        fatalError("To use location in iOS8 you need to define either NSLocationWhenInUseUsageDescription or NSLocationAlwaysUsageDescription in the app bundle's Info.plist file")
     }
   }
-  
-  private func grantPermissons() {
-      //check for description key and ask permissions
-      if (Bundle.main.object(forInfoDictionaryKey: "NSLocationAlwaysUsageDescription") != nil) {
-          locationManager?.requestAlwaysAuthorization()
-      } else if (Bundle.main.object(forInfoDictionaryKey: "NSLocationWhenInUseUsageDescription") != nil) {
-          locationManager?.requestWhenInUseAuthorization()
-      } else if (Bundle.main.object(forInfoDictionaryKey: "NSLocationAlwaysAndWhenInUseUsageDescription") != nil) {
-          locationManager?.requestAlwaysAuthorization()
-      }
-      else {
-          fatalError("To use location in iOS8 you need to define either NSLocationWhenInUseUsageDescription or NSLocationAlwaysUsageDescription in the app bundle's Info.plist file")
-      }
-  }
-  
 }

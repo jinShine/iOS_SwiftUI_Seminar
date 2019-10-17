@@ -26,27 +26,19 @@ final class LocationInteractor: LocationUseCase {
     }
   }
   
-  func start() {
-    locationManager.startMonitoringUpdates()
+  func start() -> Completable {
+    return Completable.create { (completable) -> Disposable in
+      self.locationManager.startMonitoringUpdates()
+      completable(.completed)
+      return Disposables.create()
+    }
   }
-  
-  func stop() {
-    locationManager.stopMonitoringUpdates()
+
+  func stop() -> Completable {
+    return Completable.create { (completable) -> Disposable in
+      self.locationManager.stopMonitoringUpdates()
+      completable(.completed)
+      return Disposables.create()
+    }
   }
-  
-//  func start() -> Completable {
-//    return Completable.create { (completable) -> Disposable in
-//      self.locationManager.startMonitoringUpdates()
-//      completable(.completed)
-//      return Disposables.create()
-//    }
-//  }
-//
-//  func stop() -> Completable {
-//    return Completable.create { (completable) -> Disposable in
-//      self.locationManager.stopMonitoringUpdates()
-//      completable(.completed)
-//      return Disposables.create()
-//    }
-//  }
 }

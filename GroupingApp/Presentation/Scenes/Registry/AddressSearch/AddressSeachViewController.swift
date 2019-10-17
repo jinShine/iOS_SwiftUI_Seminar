@@ -28,6 +28,8 @@ class AddressSearchViewController: BaseViewController, BindViewType {
     return mapView
   }()
   
+  let marker = GMSMarker()
+  
   let popButton: UIButton = {
     let button = UIButton()
     let image = UIImage(named: "Icon_Round_Left")
@@ -50,6 +52,11 @@ class AddressSearchViewController: BaseViewController, BindViewType {
     searchBar.placeholder = "주소 검색"
     searchBar.clearButtonMode = .whileEditing
     return searchBar
+  }()
+  
+  let searchButton: SJButton = {
+    let button = SJButton(title: "검색", image: UIImage(named: "Icon-Menu"))
+    return button
   }()
   
   let tableView: UITableView = {
@@ -155,11 +162,17 @@ extension AddressSearchViewController {
           let lat = locationResonse.0?.coordinate.latitude ?? 0.0
           let lon = locationResonse.0?.coordinate.longitude ?? 0.0
           self.mapView.camera = GMSCameraPosition(latitude: lat, longitude: lon, zoom: 17.0)
+          self.mapView.isMyLocationEnabled = true
+          
+          
+          self.marker.position = CLLocationCoordinate2DMake(lat, lon)
+          self.marker.map = self.mapView
         case .didTapPopState:
           self.navigationController?.popViewController(animated: true)
           
         case .didSearchState(let cellViewModel):
           print("View Model", cellViewModel)
+          
           self.tableView.delegate = nil
           self.tableView.dataSource = nil
           self.datasource = RxTableViewSectionedReloadDataSource<SearchSection> (
@@ -197,7 +210,7 @@ extension AddressSearchViewController {
     
     view.insertSubview(mapView, at: 0)
     
-    [searchBaseView].forEach {
+    [searchBaseView, searchButton].forEach {
       mapView.addSubview($0)
     }
     
@@ -225,6 +238,13 @@ extension AddressSearchViewController {
       $0.centerY.equalToSuperview().offset(-4)
       $0.leading.equalToSuperview().offset(36)
       $0.trailing.equalToSuperview().offset(-8)
+    }
+    
+    searchButton.snp.makeConstraints {
+      $0.top.equalTo(searchBaseView.snp.bottom).offset(-8)
+      $0.leading.equalTo(searchBaseView)
+      $0.trailing.equalTo(searchBaseView)
+      $0.height.equalTo(56)
     }
     
   }

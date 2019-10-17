@@ -94,16 +94,12 @@ final class AddressSearchViewModel: BindViewModelType {
   func toState(from action: Action) -> Observable<State> {
     switch action {
     case .locationStartAction:
-      locationUseCase.start()
-      return Observable<State>.just(.locationStartState)
-//      return locationUseCase.start().asObservable()
-//        .flatMap { _ in Observable<State>.just(.locationStartState) }
+      return locationUseCase.start().asObservable()
+        .flatMap { _ in Observable<State>.just(.locationStartState) }
       
     case .locationStopAction:
-      locationUseCase.stop()
-      return Observable<State>.just(.locationStopState)
-//      return locationUseCase.stop().asObservable()
-//        .flatMap { _ in Observable<State>.just(.locationStopState) }
+      return locationUseCase.stop().asObservable()
+        .flatMap { _ in Observable<State>.just(.locationStopState) }
       
     case .locationFetchAction:
       return locationUseCase.fetch().flatMap { (location, error) in

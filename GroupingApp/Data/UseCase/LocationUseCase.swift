@@ -10,6 +10,6 @@ import RxSwift
 
 protocol LocationUseCase {
   func fetch() -> Observable<LocationResponse>
-  func start()
-  func stop()
+  func start() -> Completable
+  func stop() -> Completable
 }
