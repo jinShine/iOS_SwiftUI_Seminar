@@ -96,7 +96,7 @@ class SelectMapViewController: BaseViewController, BindViewType {
 //MARK: - Bind
 extension SelectMapViewController {
   
-  //OUTPUT
+  //INPUT
   func command(viewModel: ViewModel) {
 
 //    let obBindPlaceData = rx.viewWillAppear.map { _ in
@@ -112,7 +112,7 @@ extension SelectMapViewController {
   }
   
   
-  //INPUT
+  //OUTPUT
   func state(viewModel: ViewModel) {
     
     viewModel.state

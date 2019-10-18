@@ -10,16 +10,4 @@ import UIKit
 
 struct AddressCellViewModel {
 
-  var address: String
-  var lat: Double = 0.0
-  var lng: Double = 0.0
-
-
-  init(item: GeocoderResult) {
-
-    self.address = item.address
-    let location = item.geometry.location
-    self.lat = location.lat
-    self.lng = location.lng
-  }
 }

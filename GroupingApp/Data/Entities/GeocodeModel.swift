@@ -22,7 +22,7 @@ struct Geocoder: Decodable {
 struct GeocoderResult: Decodable {
 
   var address: String
-  var geometry: Geometry
+  var geometry: Geometry?
 
   enum CodingKeys: String, CodingKey {
     case address = "formatted_address"

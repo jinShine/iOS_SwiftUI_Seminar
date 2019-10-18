@@ -31,7 +31,8 @@ final class AddressSearchViewModel: BindViewModelType {
     case locationFetch
     case didTapPop
     case didSearch(address: String)
-    case didTapCell(indexPath: IndexPath)
+    case keyboardWillShow(Notification)
+    case keyboardWillHide
   }
   
   enum Action {
@@ -40,7 +41,8 @@ final class AddressSearchViewModel: BindViewModelType {
     case locationFetchAction
     case didTapPopAction
     case didSearchAction(address: String)
-    case didTapCellAction(indexPath: IndexPath)
+    case keyboardWillShowAction(Notification)
+    case keyboardWillHideAction
   }
   
   enum State {
@@ -48,14 +50,14 @@ final class AddressSearchViewModel: BindViewModelType {
     case locationStopState
     case locationFetchState(LocationResponse)
     case didTapPopState
-    case didSearchState(viewModel: [SearchSection])
-    case didTapCellState(selectedItem: GeocoderResult)
+    case didSearchState(result: GeocoderResult)
+    case keyboardWillShowState(CGFloat)
+    case keyboardWillHideState
   }
   
   var command = PublishSubject<Command>()
   var state = Driver<State>.empty()
   var stateSubject = PublishSubject<State>()
-  var geocodeList: [GeocoderResult] = []
 
 
   //MARK: - Properties
@@ -86,8 +88,10 @@ final class AddressSearchViewModel: BindViewModelType {
       return Observable<Action>.just(.didTapPopAction)
     case .didSearch(let address):
       return Observable<Action>.just(.didSearchAction(address: address))
-    case .didTapCell(let indexPath):
-      return Observable<Action>.just(.didTapCellAction(indexPath: indexPath))
+    case .keyboardWillShow(let noti):
+      return Observable<Action>.just(.keyboardWillShowAction(noti))
+    case .keyboardWillHide:
+      return Observable<Action>.just(.keyboardWillHideAction)
     }
   }
   
@@ -110,24 +114,22 @@ final class AddressSearchViewModel: BindViewModelType {
       return Observable<State>.just(.didTapPopState)
       
     case .didSearchAction(let address):
+      print(address)
       return googleUseCase.requestGeocoding(addrsss: address)
         .asObservable()
         .observeOn(ConcurrentDispatchQueueScheduler(qos: .default))
         .map { geocoder in
-          //TODO: Error Handling
-
-          self.geocodeList = geocoder.results
-
-          return geocoder.results.map { result in
-            SearchSectionItem.addressItem(cellViewModel: AddressCellViewModel(item: result))
-          }
+          return geocoder.results.first ?? GeocoderResult(address: "", geometry: nil)
         }
-        .map { [SearchSection.address(title: "", items: $0)] }
-        .flatMap { Observable<State>.just(.didSearchState(viewModel: $0)).retry(3) }
-        .catchErrorJustReturn(.didSearchState(viewModel: []))
+        .flatMap { Observable<State>.just(.didSearchState(result: $0)).retry(3) }
 
-    case .didTapCellAction(let indexPath):
-      return Observable<State>.just(.didTapCellState(selectedItem: geocodeList[indexPath.row]))
+    case .keyboardWillShowAction(let noti):
+      let keyboardFrame = noti.userInfo?["UIKeyboardFrameEndUserInfoKey"] as? CGRect
+      let keyboardHeight = keyboardFrame?.height
+      return Observable<State>.just(.keyboardWillShowState(keyboardHeight ?? 0))
+      
+    case .keyboardWillHideAction:
+      return Observable<State>.just(.keyboardWillHideState)
     }
   }
 }

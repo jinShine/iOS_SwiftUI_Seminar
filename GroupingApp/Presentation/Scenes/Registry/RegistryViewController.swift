@@ -153,7 +153,7 @@ class RegistryViewController: BaseViewController, BindViewType {
 //MARK: - Bind
 extension RegistryViewController {
 
-  //OUTPUT
+  //INPUT
   func command(viewModel: ViewModel) {
     
     let obDidTapDismiss = dismissButton.rx.tap
@@ -206,7 +206,7 @@ extension RegistryViewController {
   }
 
 
-  //INPUT
+  //OUTPUT
   func state(viewModel: ViewModel) {
 
     viewModel.state

@@ -55,14 +55,14 @@ class SearchViewController: BaseViewController, BindViewType {
 //MARK: - Bind
 extension SearchViewController {
 
-  //OUTPUT
+  //INPUT
   func command(viewModel: ViewModel) {
 
 
   }
 
 
-  //INPUT
+  //OUTPUT
   func state(viewModel: ViewModel) {
 
     viewModel.state

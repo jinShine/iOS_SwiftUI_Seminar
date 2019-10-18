@@ -16,8 +16,7 @@ final class GoogleInteractor: GoogleUseCase {
       .map { response in
         do {
           let result = try JSONDecoder().decode(Geocoder.self, from: response.jsonData ?? Data())
-          print("Result: ", result)
-
+          print(result)
           return result
         }
     }

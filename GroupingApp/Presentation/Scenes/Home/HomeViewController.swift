@@ -85,14 +85,14 @@ class HomeViewController: BaseViewController, BindViewType {
 //MARK: - Bind
 extension HomeViewController {
 
-  //OUTPUT
+  //INPUT
   func command(viewModel: ViewModel) {
 
 
   }
 
 
-  //INPUT
+  //OUTPUT
   func state(viewModel: ViewModel) {
 
     viewModel.state

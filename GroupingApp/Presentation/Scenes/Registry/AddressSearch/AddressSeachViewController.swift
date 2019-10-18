@@ -28,7 +28,14 @@ class AddressSearchViewController: BaseViewController, BindViewType {
     return mapView
   }()
   
-  let marker = GMSMarker()
+  let marker: GMSMarker = {
+    let marker = GMSMarker()
+    marker.icon = UIImage(named: "Icon_pin")
+    let tes = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
+    tes.numberOfLines = 0
+    marker.iconView?.addSubview(tes)
+    return marker
+  }()
   
   let popButton: UIButton = {
     let button = UIButton()
@@ -37,40 +44,15 @@ class AddressSearchViewController: BaseViewController, BindViewType {
     button.contentMode = .scaleAspectFit
     return button
   }()
-  
-  let searchBaseView: UIImageView = {
-    let imageView = UIImageView()
-    let image = UIImage(named: "Search_Base")
-    imageView.image = image
-    imageView.contentMode = .scaleAspectFill
-    imageView.isUserInteractionEnabled = true
-    return imageView
-  }()
-  
-  lazy var searchTextField: UITextField = {
-    let searchBar = UITextField()
-    searchBar.placeholder = "주소 검색"
-    searchBar.clearButtonMode = .whileEditing
+
+  lazy var searchBar: SJSearchBar = {
+    let searchBar = SJSearchBar()
+    searchBar.textField.placeholder = "주소 검색"
     return searchBar
   }()
   
-  let searchButton: SJButton = {
-    let button = SJButton(title: "검색", image: UIImage(named: "Icon-Menu"))
-    return button
-  }()
-  
-  let tableView: UITableView = {
-    let tableView = UITableView()
-    tableView.estimatedRowHeight = 100
-    tableView.rowHeight = UITableView.automaticDimension
-    tableView.separatorStyle = .none
-    tableView.keyboardDismissMode = .onDrag
-    tableView.backgroundColor = .white
-    tableView.contentInset = UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
-    tableView.register(AddressCell.nib(), forCellReuseIdentifier: AddressCell.reuseIdentifier)
-    return tableView
-  }()
-  
+  let searchButton = SJButton(title: "검색", image: UIImage(named: "Icon_Checkmark"))
+
   override var preferredStatusBarStyle: UIStatusBarStyle {
     return .default
   }
@@ -79,7 +61,6 @@ class AddressSearchViewController: BaseViewController, BindViewType {
   typealias ViewModel = AddressSearchViewModel
   var disposeBag = DisposeBag()
   let navigator: AddressSearchNavigator
-  var datasource: RxTableViewSectionedReloadDataSource<SearchSection>?
   
   //MARK: - Inintialize
   init(viewModel: ViewModel, navigator: AddressSearchNavigator) {
@@ -101,7 +82,7 @@ class AddressSearchViewController: BaseViewController, BindViewType {
     
     setupUI()
     setupConstraint()
-    searchTextField.becomeFirstResponder()
+    searchBar.textField.becomeFirstResponder()
   }
   
 }
@@ -109,7 +90,7 @@ class AddressSearchViewController: BaseViewController, BindViewType {
 //MARK: - Bind
 extension AddressSearchViewController {
   
-  //OUTPUT
+  //INPUT
   func command(viewModel: ViewModel) {
     
     let obLocationStart = rx.viewDidLoad.map {
@@ -127,28 +108,33 @@ extension AddressSearchViewController {
     let obDidTapPop = popButton.rx.tap
       .map { ViewModel.Command.didTapPop }
     
-    let obDidSearchText = searchTextField.rx.text.asObservable()
-      .distinctUntilChanged()
-      .map { ViewModel.Command.didSearch(address: $0 ?? "") }
+    let obDidTapSearch = searchButton.rx.tap
+      .withLatestFrom(searchBar.textField.rx.text.orEmpty)
+      .map { ViewModel.Command.didSearch(address: $0)}
     
-    let obDidCellSelected = tableView.rx.itemSelected
-      .map { ViewModel.Command.didTapCell(indexPath: $0)}
+    let obKeyboardWillShow = NotificationCenter.default.rx
+      .notification(UIApplication.keyboardWillShowNotification)
+      .map { ViewModel.Command.keyboardWillShow($0) }
+    
+    let obKeyboardWillHide = NotificationCenter.default.rx
+      .notification(UIApplication.keyboardWillHideNotification)
+      .map { _ in ViewModel.Command.keyboardWillHide }
     
     Observable<ViewModel.Command>.merge([
-      obLocationStart,
-      obLocationStop,
-      obLocationFetch,
-      obDidTapPop,
-      obDidSearchText,
-      obDidCellSelected
-    ])
+        obLocationStart,
+        obLocationStop,
+        obLocationFetch,
+        obDidTapPop,
+        obDidTapSearch,
+        obKeyboardWillShow,
+        obKeyboardWillHide
+      ])
       .bind(to: viewModel.command)
       .disposed(by: disposeBag)
     
   }
   
-  
-  //INPUT
+  //OUTPUT
   func state(viewModel: ViewModel) {
     
     viewModel.state
@@ -161,39 +147,44 @@ extension AddressSearchViewController {
         case .locationFetchState(let locationResonse):
           let lat = locationResonse.0?.coordinate.latitude ?? 0.0
           let lon = locationResonse.0?.coordinate.longitude ?? 0.0
-          self.mapView.camera = GMSCameraPosition(latitude: lat, longitude: lon, zoom: 17.0)
+          self.mapView.camera = GMSCameraPosition(latitude: lat, longitude: lon, zoom: 16.0)
           self.mapView.isMyLocationEnabled = true
-          
-          
-          self.marker.position = CLLocationCoordinate2DMake(lat, lon)
-          self.marker.map = self.mapView
+  
         case .didTapPopState:
           self.navigationController?.popViewController(animated: true)
           
-        case .didSearchState(let cellViewModel):
-          print("View Model", cellViewModel)
+        case .didSearchState(let geocoder):
+          guard geocoder.address != "" && geocoder.geometry != nil else {
+            //Error
+            
+            return
+          }
           
-          self.tableView.delegate = nil
-          self.tableView.dataSource = nil
-          self.datasource = RxTableViewSectionedReloadDataSource<SearchSection> (
-            configureCell: { ( datasource, tableView, indexPath, item) -> UITableViewCell in
-              switch item {
-              case .addressItem(let viewmodel):
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: AddressCell.reuseIdentifier) as? AddressCell else {
-                  return UITableViewCell()
-                }
-                print("View Model", viewmodel)
-                cell.viewModel = viewmodel
-                return cell
-              }
-          })
-          Observable.just(cellViewModel)
-            .bind(to: self.tableView.rx.items(dataSource: self.datasource!))
-            .disposed(by: self.disposeBag)
+          self.dismissKeyboard()
+          if let location = geocoder.geometry?.location {
+            let coordinate = CLLocationCoordinate2DMake(location.lat, location.lng)
+            self.mapView.animate(toLocation: coordinate)
+            self.marker.position = coordinate
+            self.marker.title = geocoder.address
+            self.marker.appearAnimation = GMSMarkerAnimation.pop
+            
+            self.marker.map = self.mapView
+            self.mapView.selectedMarker = self.marker
+          }
+
+        case .keyboardWillShowState(let keyboardHeight):
+          self.searchButton.isHidden = false
           
-        case .didTapCellState(let placeItem):
-          log.debug("Place", placeItem)
-//          self.navigator.navigate(to: .selectMap(placeItem))
+          let keyboardHeightMargin = keyboardHeight + 16
+          self.searchButton.snp.updateConstraints {
+            $0.bottom.equalToSuperview().offset(-keyboardHeightMargin)
+            $0.leading.equalTo(self.searchBar)
+            $0.trailing.equalTo(self.searchBar)
+            $0.height.equalTo(56)
+          }
+          
+        case .keyboardWillHideState:
+          self.searchButton.isHidden = true
         }
       })
       .disposed(by: self.disposeBag)
@@ -209,13 +200,8 @@ extension AddressSearchViewController {
   private func setupUI() {
     
     view.insertSubview(mapView, at: 0)
-    
-    [searchBaseView, searchButton].forEach {
+    [searchBar, searchButton].forEach {
       mapView.addSubview($0)
-    }
-    
-    [searchTextField].forEach {
-      searchBaseView.addSubview($0)
     }
     
     setupNavigationBar(at: view, leftItem: popButton)
@@ -228,22 +214,17 @@ extension AddressSearchViewController {
       $0.edges.equalToSuperview()
     }
 
-    searchBaseView.snp.makeConstraints {
+    searchBar.snp.makeConstraints {
       $0.top.equalTo(navigationBaseView.snp.bottom).offset(32)
       $0.leading.equalToSuperview().offset(32)
       $0.trailing.equalToSuperview().offset(-32)
+      $0.height.equalTo(56)
     }
 
-    searchTextField.snp.makeConstraints {
-      $0.centerY.equalToSuperview().offset(-4)
-      $0.leading.equalToSuperview().offset(36)
-      $0.trailing.equalToSuperview().offset(-8)
-    }
-    
     searchButton.snp.makeConstraints {
-      $0.top.equalTo(searchBaseView.snp.bottom).offset(-8)
-      $0.leading.equalTo(searchBaseView)
-      $0.trailing.equalTo(searchBaseView)
+      $0.bottom.equalToSuperview().offset(-16)
+      $0.leading.equalTo(searchBar)
+      $0.trailing.equalTo(searchBar)
       $0.height.equalTo(56)
     }
     
@@ -252,21 +233,7 @@ extension AddressSearchViewController {
 
 //MARK: - GMSMapView Delegate
 extension AddressSearchViewController: GMSMapViewDelegate {
-
-  func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
-    dismissKeyboard()
-  }
-  
   func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
     dismissKeyboard()
-  }
-}
-
-
-extension AddressSearchViewController: UITextFieldDelegate {
-  
-  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-    
-    return true
   }
 }
