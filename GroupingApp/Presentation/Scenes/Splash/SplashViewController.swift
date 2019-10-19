@@ -11,7 +11,11 @@ import UIKit
 class SplashViewController: BaseViewController {
 
   //MARK: - UI Properties
-  
+  let logoImageView: UIImageView = {
+    let imgView = UIImageView(image: UIImage(named: "Logo"))
+    imgView.contentMode = .scaleAspectFit
+    return imgView
+  }()
   
   //MARK: - Properties
   var splashNavigator: SplashNavigator?
@@ -23,14 +27,12 @@ class SplashViewController: BaseViewController {
 
     setupUI()
     setupNavigator()
-    let dd = LocationManager()
-    
   }
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
 
-    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
       self.splashNavigator?.navigate(to: .home)
     }
 
@@ -38,7 +40,12 @@ class SplashViewController: BaseViewController {
   
   //MARK: - Methods
   private func setupUI() {
-    self.view.backgroundColor = .red
+
+    view.addSubview(logoImageView)
+    logoImageView.snp.makeConstraints {
+      $0.center.equalToSuperview()
+      $0.size.equalTo(96)
+    }
   }
 
   private func setupNavigator() {
