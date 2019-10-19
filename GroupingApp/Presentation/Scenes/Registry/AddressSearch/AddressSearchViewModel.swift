@@ -11,11 +11,6 @@ import RxCocoa
 
 final class AddressSearchViewModel: BindViewModelType {
   
-  
-  enum ModelType: Int {
-    case address = 0
-  }
-  
   //MARK: - Constant
   
   struct Constant {
@@ -58,6 +53,7 @@ final class AddressSearchViewModel: BindViewModelType {
   var command = PublishSubject<Command>()
   var state = Driver<State>.empty()
   var stateSubject = PublishSubject<State>()
+  private var geocoderData = GeocoderResult(address: "", geometry: nil)
 
 
   //MARK: - Properties
@@ -114,12 +110,16 @@ final class AddressSearchViewModel: BindViewModelType {
       return Observable<State>.just(.didTapPopState)
       
     case .didSearchAction(let address):
-      print(address)
+      log.debug(address)
       return googleUseCase.requestGeocoding(addrsss: address)
         .asObservable()
         .observeOn(ConcurrentDispatchQueueScheduler(qos: .default))
         .map { geocoder in
-          return geocoder.results.first ?? GeocoderResult(address: "", geometry: nil)
+          if let result = geocoder.results.first {
+            self.geocoderData = result
+            return result
+          }
+          return GeocoderResult(address: "", geometry: nil)
         }
         .flatMap { Observable<State>.just(.didSearchState(result: $0)).retry(3) }
 
@@ -136,5 +136,7 @@ final class AddressSearchViewModel: BindViewModelType {
 
 //MARK: - Method Handler
 extension AddressSearchViewModel {
-  
+  func getGeocoder() -> GeocoderResult {
+    return geocoderData
+  }
 }

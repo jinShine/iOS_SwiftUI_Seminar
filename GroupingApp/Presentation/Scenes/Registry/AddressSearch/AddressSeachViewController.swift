@@ -10,6 +10,7 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 import GoogleMaps
+import Loaf
 
 class AddressSearchViewController: BaseViewController, BindViewType {
   
@@ -24,18 +25,18 @@ class AddressSearchViewController: BaseViewController, BindViewType {
   lazy var mapView: GMSMapView = {
     let mapView = GMSMapView()
     mapView.settings.consumesGesturesInView = false
+    mapView.isMyLocationEnabled = true
     mapView.delegate = self
     return mapView
   }()
   
-  let marker: GMSMarker = {
+  var marker: GMSMarker = {
     let marker = GMSMarker()
     marker.icon = UIImage(named: "Icon_pin")
-    let tes = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
-    tes.numberOfLines = 0
-    marker.iconView?.addSubview(tes)
     return marker
   }()
+  
+  var infoMarkerWindow: MapMarkerWindow?
   
   let popButton: UIButton = {
     let button = UIButton()
@@ -93,17 +94,14 @@ extension AddressSearchViewController {
   //INPUT
   func command(viewModel: ViewModel) {
     
-    let obLocationStart = rx.viewDidLoad.map {
-      ViewModel.Command.locationStart
-    }
+    let obLocationStart = rx.viewDidLoad
+      .map { ViewModel.Command.locationStart }
     
-    let obLocationFetch = rx.viewDidLoad.map {
-      ViewModel.Command.locationFetch
-    }
+    let obLocationFetch = rx.viewDidLoad
+      .map { ViewModel.Command.locationFetch }
     
-    let obLocationStop = rx.viewDidDisappear.map { _ in
-      ViewModel.Command.locationStop
-    }
+    let obLocationStop = rx.viewDidDisappear
+      .map { _ in ViewModel.Command.locationStop }
     
     let obDidTapPop = popButton.rx.tap
       .map { ViewModel.Command.didTapPop }
@@ -143,31 +141,31 @@ extension AddressSearchViewController {
         
         switch state {
         case .locationStartState: return
+          
         case .locationStopState: return
+          
         case .locationFetchState(let locationResonse):
           let lat = locationResonse.0?.coordinate.latitude ?? 0.0
           let lon = locationResonse.0?.coordinate.longitude ?? 0.0
           self.mapView.camera = GMSCameraPosition(latitude: lat, longitude: lon, zoom: 16.0)
-          self.mapView.isMyLocationEnabled = true
   
         case .didTapPopState:
           self.navigationController?.popViewController(animated: true)
           
         case .didSearchState(let geocoder):
           guard geocoder.address != "" && geocoder.geometry != nil else {
-            //Error
-            
+            App.toast.info(message: "주소 결과가 없습니다.\n정확한 주소로 검색해주세요.", sender: self)
             return
           }
           
           self.dismissKeyboard()
+
           if let location = geocoder.geometry?.location {
             let coordinate = CLLocationCoordinate2DMake(location.lat, location.lng)
             self.mapView.animate(toLocation: coordinate)
             self.marker.position = coordinate
             self.marker.title = geocoder.address
             self.marker.appearAnimation = GMSMarkerAnimation.pop
-            
             self.marker.map = self.mapView
             self.mapView.selectedMarker = self.marker
           }
@@ -175,7 +173,7 @@ extension AddressSearchViewController {
         case .keyboardWillShowState(let keyboardHeight):
           self.searchButton.isHidden = false
           
-          let keyboardHeightMargin = keyboardHeight + 16
+          let keyboardHeightMargin = keyboardHeight + 8
           self.searchButton.snp.updateConstraints {
             $0.bottom.equalToSuperview().offset(-keyboardHeightMargin)
             $0.leading.equalTo(self.searchBar)
@@ -203,9 +201,10 @@ extension AddressSearchViewController {
     [searchBar, searchButton].forEach {
       mapView.addSubview($0)
     }
-    
+    infoMarkerWindow = MapMarkerWindow.loadView()
     setupNavigationBar(at: view, leftItem: popButton)
     navigationBaseView.backgroundColor = .clear
+    
   }
   
   private func setupConstraint() {
@@ -227,13 +226,25 @@ extension AddressSearchViewController {
       $0.trailing.equalTo(searchBar)
       $0.height.equalTo(56)
     }
-    
+
   }
 }
 
 //MARK: - GMSMapView Delegate
 extension AddressSearchViewController: GMSMapViewDelegate {
+  
   func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
     dismissKeyboard()
   }
+  
+  func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+    return false
+  }
+  
+  func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
+    let geocoder = viewModel?.getGeocoder()
+    infoMarkerWindow?.addressLabel.text = geocoder?.address
+    return infoMarkerWindow
+  }
+  
 }

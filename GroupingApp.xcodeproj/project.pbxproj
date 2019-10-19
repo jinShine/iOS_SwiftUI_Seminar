@@ -35,7 +35,9 @@
 		5C253DCF234A3488009CDAA4 /* SelectMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C253DCE234A3488009CDAA4 /* SelectMapViewModel.swift */; };
 		5C253DD1234A3518009CDAA4 /* AddressSearchNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C253DD0234A3518009CDAA4 /* AddressSearchNavigator.swift */; };
 		5C253DD4234A3D21009CDAA4 /* CALayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C253DD3234A3D21009CDAA4 /* CALayer+Extension.swift */; };
+		5C47A947235AEBAE0031106E /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C47A946235AEBAE0031106E /* Toast.swift */; };
 		5C57DB5A234CF396007686CB /* AddressSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C57DB59234CF396007686CB /* AddressSection.swift */; };
+		5C5BE35F235AD9F400869E2F /* MapMarkerWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C5BE35E235AD9F400869E2F /* MapMarkerWindow.xib */; };
 		5C66EA5F234F556C00A290CE /* GoogleRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C66EA5E234F556C00A290CE /* GoogleRouter.swift */; };
 		5C66EA63234F569500A290CE /* BindViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C66EA62234F569500A290CE /* BindViewType.swift */; };
 		5C66EA65234F5A4F00A290CE /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C66EA64234F5A4F00A290CE /* AppRouter.swift */; };
@@ -67,6 +69,7 @@
 		5CB124672344E53300E61A49 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB124662344E53300E61A49 /* SearchViewModel.swift */; };
 		5CBA444A2358795200A0A4B6 /* SJButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBA44492358795200A0A4B6 /* SJButton.swift */; };
 		5CBA444E235A29D100A0A4B6 /* SJSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBA444D235A29D100A0A4B6 /* SJSearchBar.swift */; };
+		5CBA4450235AB87000A0A4B6 /* MapMarkerWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBA444F235AB87000A0A4B6 /* MapMarkerWindow.swift */; };
 		5CE6D2032345CFFA00E090A2 /* UIViewController+NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE6D2022345CFFA00E090A2 /* UIViewController+NavigationBar.swift */; };
 		5CE85FD3234E159D009A27FD /* BindViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE85FD1234E159D009A27FD /* BindViewModelType.swift */; };
 		5CE85FD7234E15B0009A27FD /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE85FD4234E15B0009A27FD /* BaseViewController.swift */; };
@@ -108,7 +111,9 @@
 		5C253DCE234A3488009CDAA4 /* SelectMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMapViewModel.swift; sourceTree = "<group>"; };
 		5C253DD0234A3518009CDAA4 /* AddressSearchNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSearchNavigator.swift; sourceTree = "<group>"; };
 		5C253DD3234A3D21009CDAA4 /* CALayer+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Extension.swift"; sourceTree = "<group>"; };
+		5C47A946235AEBAE0031106E /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		5C57DB59234CF396007686CB /* AddressSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSection.swift; sourceTree = "<group>"; };
+		5C5BE35E235AD9F400869E2F /* MapMarkerWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapMarkerWindow.xib; sourceTree = "<group>"; };
 		5C66EA5E234F556C00A290CE /* GoogleRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleRouter.swift; sourceTree = "<group>"; };
 		5C66EA62234F569500A290CE /* BindViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindViewType.swift; sourceTree = "<group>"; };
 		5C66EA64234F5A4F00A290CE /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
@@ -142,6 +147,7 @@
 		5CB124662344E53300E61A49 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		5CBA44492358795200A0A4B6 /* SJButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SJButton.swift; sourceTree = "<group>"; };
 		5CBA444D235A29D100A0A4B6 /* SJSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SJSearchBar.swift; sourceTree = "<group>"; };
+		5CBA444F235AB87000A0A4B6 /* MapMarkerWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMarkerWindow.swift; sourceTree = "<group>"; };
 		5CE6D2022345CFFA00E090A2 /* UIViewController+NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+NavigationBar.swift"; sourceTree = "<group>"; };
 		5CE85FD1234E159D009A27FD /* BindViewModelType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BindViewModelType.swift; path = GroupingApp/Common/RxBase/BindViewModelType.swift; sourceTree = SOURCE_ROOT; };
 		5CE85FD4234E15B0009A27FD /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseViewController.swift; path = GroupingApp/Common/BaseViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -432,6 +438,7 @@
 				5C8765432344403F00201833 /* Theme */,
 				5C87654023443EAA00201833 /* Extensions */,
 				5C66EA71235014E800A290CE /* UserDefaultsManager.swift */,
+				5C47A946235AEBAE0031106E /* Toast.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -490,6 +497,8 @@
 				5C17C02A2347230E0097490E /* SJTextField.swift */,
 				5CBA44492358795200A0A4B6 /* SJButton.swift */,
 				5CBA444D235A29D100A0A4B6 /* SJSearchBar.swift */,
+				5CBA444F235AB87000A0A4B6 /* MapMarkerWindow.swift */,
+				5C5BE35E235AD9F400869E2F /* MapMarkerWindow.xib */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -593,6 +602,7 @@
 				5C66EA7B23504D0B00A290CE /* Configuration.plist in Resources */,
 				5C8765372343579F00201833 /* Assets.xcassets in Resources */,
 				5C01E92E234917A80051CA68 /* AddressCell.xib in Resources */,
+				5C5BE35F235AD9F400869E2F /* MapMarkerWindow.xib in Resources */,
 				5C876532234346D200201833 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -682,6 +692,7 @@
 				5C66EA69234F5B2200A290CE /* GoogleNetworkService.swift in Sources */,
 				5C17C036234772820097490E /* String+Extension.swift in Sources */,
 				5CE85FD8234E15B0009A27FD /* BaseNavigationController.swift in Sources */,
+				5C47A947235AEBAE0031106E /* Toast.swift in Sources */,
 				5C66EA5F234F556C00A290CE /* GoogleRouter.swift in Sources */,
 				5C01E9132345F37F0051CA68 /* UserInfomation+CoreDataProperties.swift in Sources */,
 				5CE85FD3234E159D009A27FD /* BindViewModelType.swift in Sources */,
@@ -711,6 +722,7 @@
 				5C01E934234928110051CA68 /* AddressCellViewModel.swift in Sources */,
 				5C8764FB234310B600201833 /* HomeViewController.swift in Sources */,
 				5C87653023432E8500201833 /* SceneDelegate.swift in Sources */,
+				5CBA4450235AB87000A0A4B6 /* MapMarkerWindow.swift in Sources */,
 				5CE85FD9234E15B0009A27FD /* BaseTabBarController.swift in Sources */,
 				5C01E90E2345F0BB0051CA68 /* CoreDataManager.swift in Sources */,
 				5C8764CA2342F19000201833 /* AppDelegate.swift in Sources */,

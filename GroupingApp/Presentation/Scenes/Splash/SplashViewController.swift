@@ -40,7 +40,7 @@ class SplashViewController: BaseViewController {
   
   //MARK: - Methods
   private func setupUI() {
-
+    view.backgroundColor = .white
     view.addSubview(logoImageView)
     logoImageView.snp.makeConstraints {
       $0.center.equalToSuperview()
