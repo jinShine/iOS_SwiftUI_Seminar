@@ -19,6 +19,7 @@ target 'GroupingApp' do
   # UI
   pod 'SnapKit', '~> 5.0.0'
   pod 'JVFloatLabeledTextField'
+  pod 'Loaf'
 
   # Util
   pod 'Kingfisher', '~> 4.0'

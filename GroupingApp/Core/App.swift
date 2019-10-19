@@ -14,6 +14,7 @@ struct App {
   static let userDefaultsManager = UserDefaultsManger.default
   static let coreData = CoreDataManager.shared
   static let configuration = Configuration.shared
+  static let toast = Toast()
   
   static let AppService = AppNetworkService.shared
   static let googleService = GoogleNetworkService.shared
