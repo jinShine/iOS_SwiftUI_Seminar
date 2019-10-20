@@ -84,15 +84,11 @@ class AddressSearchViewController: BaseViewController, BindViewType {
     setupUI()
     setupConstraint()
     searchBar.textField.becomeFirstResponder()
-//    loadingView.show()
   }
   
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-
-    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-//      self.loadingView.hide()
-    }
+    App.loading.hide()
   }
   
 }
@@ -138,7 +134,6 @@ extension AddressSearchViewController {
       ])
       .bind(to: viewModel.command)
       .disposed(by: disposeBag)
-    
   }
   
   //OUTPUT
@@ -162,22 +157,7 @@ extension AddressSearchViewController {
           self.navigationController?.popViewController(animated: true)
           
         case .didSearchState(let geocoder):
-          guard geocoder.address != "" && geocoder.geometry != nil else {
-            App.toast.info(message: "주소 결과가 없습니다.\n정확한 주소로 검색해주세요.", sender: self)
-            return
-          }
-          
-          self.dismissKeyboard()
-
-          if let location = geocoder.geometry?.location {
-            let coordinate = CLLocationCoordinate2DMake(location.lat, location.lng)
-            self.mapView.animate(toLocation: coordinate)
-            self.marker.position = coordinate
-            self.marker.title = geocoder.address
-            self.marker.appearAnimation = GMSMarkerAnimation.pop
-            self.marker.map = self.mapView
-            self.mapView.selectedMarker = self.marker
-          }
+          self.updateLocation(from: geocoder)
 
         case .keyboardWillShowState(let keyboardHeight):
           self.searchButton.isHidden = false
@@ -195,7 +175,6 @@ extension AddressSearchViewController {
         }
       })
       .disposed(by: self.disposeBag)
-    
   }
   
 }
@@ -235,25 +214,43 @@ extension AddressSearchViewController {
       $0.trailing.equalTo(searchBar)
       $0.height.equalTo(56)
     }
+  }
+  
+  private func updateLocation(from geocoder: GeocoderResult) {
+    guard geocoder.address != "" && geocoder.geometry != nil else {
+      App.toast.info(message: "주소 결과가 없습니다.\n정확한 주소로 검색해주세요.", sender: self)
+      return
+    }
+    
+    self.dismissKeyboard()
 
+    self.mapView.selectedMarker = nil
+    if let location = geocoder.geometry?.location {
+      let coordinate = CLLocationCoordinate2DMake(location.lat, location.lng)
+      self.mapView.animate(toLocation: coordinate)
+      self.marker.position = coordinate
+      self.marker.title = geocoder.address
+      self.marker.appearAnimation = GMSMarkerAnimation.pop
+      self.marker.map = self.mapView
+      self.mapView.selectedMarker = self.marker
+    }
   }
 }
 
-//MARK: - GMSMapView Delegate
+////MARK: - GMSMapView Delegate
 extension AddressSearchViewController: GMSMapViewDelegate {
-  
+
   func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
     dismissKeyboard()
   }
-  
+
   func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
     return false
   }
-  
+
   func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
     let geocoder = viewModel?.getGeocoder()
     infoMarkerWindow?.addressLabel.text = geocoder?.address
     return infoMarkerWindow
   }
-  
 }

@@ -405,6 +405,7 @@ extension RegistryViewController: UITextFieldDelegate {
 
   func textFieldDidBeginEditing(_ textField: UITextField) {
     dismissKeyboard()
+    App.loading.show()
     navigator?.navigate(to: .addressSearch)
   }
 
