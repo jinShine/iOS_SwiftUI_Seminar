@@ -32,7 +32,7 @@ class AddressCell: UITableViewCell {
     self.jibunAddressLabel.textColor = .black
     self.jibunAddressLabel.font = App.font.regular(size: 14)
     
-    self.roadAddressLabel.textColor = App.color.sub
+    self.roadAddressLabel.textColor = App.color.lightGray
     self.roadAddressLabel.font = App.font.regular(size: 12)
   }
   

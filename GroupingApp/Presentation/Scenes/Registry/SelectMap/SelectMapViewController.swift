@@ -48,7 +48,7 @@ class SelectMapViewController: BaseViewController, BindViewType {
   
   let roadAddressLabel: UILabel = {
     let label = UILabel()
-    label.textColor = App.color.sub
+    label.textColor = App.color.lightGray
     label.textAlignment = .left
     label.font = App.font.bold(size: 14)
     return label
