@@ -50,6 +50,7 @@
 		5C66EA752350262600A290CE /* SessionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C66EA742350262600A290CE /* SessionModel.swift */; };
 		5C66EA7B23504D0B00A290CE /* Configuration.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5C66EA7A23504D0B00A290CE /* Configuration.plist */; };
 		5C66EA7D23504D1B00A290CE /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C66EA7C23504D1B00A290CE /* Configuration.swift */; };
+		5C7AEEB8235C8B9C00B07CD7 /* GMSMapView+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7AEEB7235C8B9C00B07CD7 /* GMSMapView+Rx.swift */; };
 		5C8764CA2342F19000201833 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8764C92342F19000201833 /* AppDelegate.swift */; };
 		5C8764D42342F19000201833 /* GroupingApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5C8764D22342F19000201833 /* GroupingApp.xcdatamodeld */; };
 		5C8764EE2342F51B00201833 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8764ED2342F51B00201833 /* SplashViewController.swift */; };
@@ -127,6 +128,7 @@
 		5C66EA742350262600A290CE /* SessionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionModel.swift; sourceTree = "<group>"; };
 		5C66EA7A23504D0B00A290CE /* Configuration.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Configuration.plist; sourceTree = "<group>"; };
 		5C66EA7C23504D1B00A290CE /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		5C7AEEB7235C8B9C00B07CD7 /* GMSMapView+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GMSMapView+Rx.swift"; sourceTree = "<group>"; };
 		5C8764C62342F19000201833 /* GroupingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GroupingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C8764C92342F19000201833 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5C8764CB2342F19000201833 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -502,6 +504,7 @@
 				5CBA444F235AB87000A0A4B6 /* MapMarkerWindow.swift */,
 				5C5BE35E235AD9F400869E2F /* MapMarkerWindow.xib */,
 				5C47A968235C32850031106E /* LoadingView.swift */,
+				5C7AEEB7235C8B9C00B07CD7 /* GMSMapView+Rx.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -743,6 +746,7 @@
 				5C01E92223465C850051CA68 /* UserModel.swift in Sources */,
 				5C01E9172345F61F0051CA68 /* CoreDataResponse.swift in Sources */,
 				5C66EA67234F5ADF00A290CE /* AppNetworkService.swift in Sources */,
+				5C7AEEB8235C8B9C00B07CD7 /* GMSMapView+Rx.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
