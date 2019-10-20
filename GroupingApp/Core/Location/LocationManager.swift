@@ -80,7 +80,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
   func startMonitoringUpdates() {
       //fire the location manager
       locationManager?.distanceFilter = distanceFilter
-      locationManager?.desiredAccuracy = kCLLocationAccuracyBest
+      locationManager?.desiredAccuracy = kCLLocationAccuracyHundredMeters
       locationManager?.pausesLocationUpdatesAutomatically = pausesLocationUpdatesAutomatically
       locationManager?.delegate = self
       locationManager?.startUpdatingLocation()
