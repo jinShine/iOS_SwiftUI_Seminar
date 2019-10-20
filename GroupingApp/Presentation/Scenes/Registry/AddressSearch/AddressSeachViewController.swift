@@ -84,6 +84,15 @@ class AddressSearchViewController: BaseViewController, BindViewType {
     setupUI()
     setupConstraint()
     searchBar.textField.becomeFirstResponder()
+//    loadingView.show()
+  }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+
+    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+//      self.loadingView.hide()
+    }
   }
   
 }

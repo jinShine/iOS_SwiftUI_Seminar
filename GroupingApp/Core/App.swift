@@ -15,6 +15,7 @@ struct App {
   static let coreData = CoreDataManager.shared
   static let configuration = Configuration.shared
   static let toast = Toast()
+  static let loading = LoadingView.shared
   
   static let AppService = AppNetworkService.shared
   static let googleService = GoogleNetworkService.shared

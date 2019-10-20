@@ -36,6 +36,7 @@
 		5C253DD1234A3518009CDAA4 /* AddressSearchNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C253DD0234A3518009CDAA4 /* AddressSearchNavigator.swift */; };
 		5C253DD4234A3D21009CDAA4 /* CALayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C253DD3234A3D21009CDAA4 /* CALayer+Extension.swift */; };
 		5C47A947235AEBAE0031106E /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C47A946235AEBAE0031106E /* Toast.swift */; };
+		5C47A969235C32850031106E /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C47A968235C32850031106E /* LoadingView.swift */; };
 		5C57DB5A234CF396007686CB /* AddressSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C57DB59234CF396007686CB /* AddressSection.swift */; };
 		5C5BE35F235AD9F400869E2F /* MapMarkerWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C5BE35E235AD9F400869E2F /* MapMarkerWindow.xib */; };
 		5C66EA5F234F556C00A290CE /* GoogleRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C66EA5E234F556C00A290CE /* GoogleRouter.swift */; };
@@ -112,6 +113,7 @@
 		5C253DD0234A3518009CDAA4 /* AddressSearchNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSearchNavigator.swift; sourceTree = "<group>"; };
 		5C253DD3234A3D21009CDAA4 /* CALayer+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Extension.swift"; sourceTree = "<group>"; };
 		5C47A946235AEBAE0031106E /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
+		5C47A968235C32850031106E /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		5C57DB59234CF396007686CB /* AddressSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSection.swift; sourceTree = "<group>"; };
 		5C5BE35E235AD9F400869E2F /* MapMarkerWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapMarkerWindow.xib; sourceTree = "<group>"; };
 		5C66EA5E234F556C00A290CE /* GoogleRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleRouter.swift; sourceTree = "<group>"; };
@@ -499,6 +501,7 @@
 				5CBA444D235A29D100A0A4B6 /* SJSearchBar.swift */,
 				5CBA444F235AB87000A0A4B6 /* MapMarkerWindow.swift */,
 				5C5BE35E235AD9F400869E2F /* MapMarkerWindow.xib */,
+				5C47A968235C32850031106E /* LoadingView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -728,6 +731,7 @@
 				5C8764CA2342F19000201833 /* AppDelegate.swift in Sources */,
 				5C17C038234772AE0097490E /* NetworkDataResponse.swift in Sources */,
 				5CBA444E235A29D100A0A4B6 /* SJSearchBar.swift in Sources */,
+				5C47A969235C32850031106E /* LoadingView.swift in Sources */,
 				5C01E92A2347B01C0051CA68 /* RegistryNavigator.swift in Sources */,
 				5CB1245E2344E00900E61A49 /* RegistryViewController.swift in Sources */,
 				5C253DD4234A3D21009CDAA4 /* CALayer+Extension.swift in Sources */,

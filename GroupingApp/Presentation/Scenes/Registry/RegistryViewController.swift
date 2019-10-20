@@ -19,6 +19,7 @@ class RegistryViewController: BaseViewController, BindViewType {
 
 
   //MARK: - UI Properties
+
   let baseScrollView: UIScrollView = {
     let scrollview = UIScrollView()
     scrollview.bounces = false
@@ -136,7 +137,7 @@ class RegistryViewController: BaseViewController, BindViewType {
   //MARK: - Life Cycle
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+
     setupUI()
     setupConstraint()
     setupNavigator()
@@ -145,9 +146,8 @@ class RegistryViewController: BaseViewController, BindViewType {
     
     baseScrollView.delegate = self
     addressField.delegate = self
-    
   }
-  
+
 }
 
 //MARK: - Bind
@@ -236,7 +236,8 @@ extension RegistryViewController {
           result ? self.saveButton.activate() : self.saveButton.unActivate()
 
         case .didTapSaveState:
-          self.dismiss(animated: true, completion: nil)
+          self.dismiss(animated: true) {
+          }
         }
       })
       .disposed(by: self.disposeBag)
