@@ -21,7 +21,7 @@ class AddressSearchViewController: BaseViewController, ViewType {
     let mapView = GMSMapView()
     mapView.settings.consumesGesturesInView = false
     mapView.isMyLocationEnabled = true
-//    mapView.delegate = self
+    mapView.delegate = self
     return mapView
   }()
 
@@ -105,31 +105,68 @@ class AddressSearchViewController: BaseViewController, ViewType {
   
   //MARK: - Bind
   func bindViewModel() {
-    
-    searchBar.textField.rx.text.orEmpty
-      .asObservable()
-      .subscribe(onNext: { str in
-        print(str)
-      })
-      .disposed(by: disposeBag)
-
 
     //INPUT
     let didTapPopButton = popButton.rx.tap.asDriver()
 
-    let input = AddressSearchViewModel.Input(didTapPopButton: didTapPopButton)
+    let locatoinStart = rx.viewWillAppear
+      .mapToVoid()
+      .asDriver(onErrorJustReturn: ())
+
+    let locationFetch = rx.viewWillAppear
+      .mapToVoid()
+      .asDriver(onErrorJustReturn: ())
+
+    let input = AddressSearchViewModel.Input(didTapPopButton: didTapPopButton,
+                                             locationStart: locatoinStart,
+                                             locationFetch: locationFetch)
 
     //OUTPUT
     let output = viewModel.transform(input: input)
 
     output.popViewController
-    output.popViewController.drive(onNext: { _ in
-//      print("1231231232123")
-    })
+      .drive()
+      .disposed(by: disposeBag)
+
+    output.locationStart
+      .drive()
+      .disposed(by: disposeBag)
+
+    output.locationUpdate
+    .drive(locationUpdateBinding)
+//      .drive(onNext: { (location, error) in
+//        guard let location = location else { return }
+//        print("", error)
+//        self.mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 16.0)
+//      })
     .disposed(by: disposeBag)
+
 
   }
 }
+
+extension AddressSearchViewController {
+
+  var locationUpdateBinding: Binder<LocationResponse> {
+    return Binder(self) { (vc, response) in
+      let error = response.1
+      guard error == nil else {
+        switch error {
+        case .authorizationDenied:
+          App.toast.error(message: "원활한 서비스를 위해\n위치서비스를 활성화 시켜주세요.\n\n* 설정 -> Grouping앱 -> 위치 활성화", sender: self, location: .top)
+        default:
+          App.toast.error(message: "지도 업데이트 에러", sender: self, location: .top)
+        }
+        return
+      }
+
+      if let location = response.0 {
+        vc.mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 16.0)
+      }
+    }
+  }
+}
+
 //  //MARK: - Constant
 //  struct Constant {
 //
@@ -353,20 +390,20 @@ class AddressSearchViewController: BaseViewController, ViewType {
 //  }
 //}
 //
-//////MARK: - GMSMapView Delegate
-//extension AddressSearchViewController: GMSMapViewDelegate {
-//
-//  func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
-//    dismissKeyboard()
-//  }
-//
-//  func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-//    return false
-//  }
-//
-//  func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
+////MARK: - GMSMapView Delegate
+extension AddressSearchViewController: GMSMapViewDelegate {
+
+  func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
+    dismissKeyboard()
+  }
+
+  func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+    return false
+  }
+
+  func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
 //    let geocoder = viewModel?.getGeocoder()
 //    infoMarkerWindow?.addressLabel.text = geocoder?.address
-//    return infoMarkerWindow
-//  }
-//}
+    return infoMarkerWindow
+  }
+}

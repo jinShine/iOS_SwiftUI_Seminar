@@ -51,7 +51,7 @@ DEPENDENCIES:
   - SnapKit (~> 5.0.0)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - Alamofire
     - CocoaLumberjack
     - Differentiator
@@ -89,4 +89,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: f96a57f86b2d470cdec1b7288a84bf667bbcee49
 
-COCOAPODS: 1.7.5
+COCOAPODS: 1.8.0.beta.1

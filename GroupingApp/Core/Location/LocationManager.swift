@@ -9,16 +9,18 @@
 import Foundation
 import CoreLocation
 
-typealias LocationDidUpdate = ((_ location: CLLocation?, _ error: Error?)->())
-typealias LocationResponse = (CLLocation?, Error?)
+typealias LocationDidUpdate = ((_ location: CLLocation?, _ error: LocationError?) -> Void)
+typealias LocationResponse = (CLLocation?, LocationError?)
 
-class LocationManager: NSObject, CLLocationManagerDelegate {
-  
-  enum LocationError: Error {
-    case authorizationDenied
-  }
-  
+enum LocationError: Error {
+  case authorizationDenied
+  case updateFail
+}
+
+final class LocationManager: NSObject, CLLocationManagerDelegate {
+
   // MARK: Properties
+
   var distanceFilter: CLLocationDistance {
       return kCLDistanceFilterNone
   }
@@ -35,30 +37,36 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
   private var didUpdateLocation: LocationDidUpdate?
   var running = false
 
+  override init() {
+    super.init()
+    locationManager?.delegate = self
+  }
+
   // MARK: Deint
   deinit {
     stopMonitoringUpdates()
   }
   
   // MARK: Location Authorization Status Changed
-  private func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-      switch status {
-      case .authorizedWhenInUse, .authorizedAlways:
-          running = true
-          locationManager?.startUpdatingLocation()
-      case .denied, .restricted, .notDetermined:
-          didUpdateLocation?(nil, LocationError.authorizationDenied)
-          running = false
-          locationManager?.stopUpdatingLocation()
-          log.error(LocationError.authorizationDenied)
-      @unknown default:
-        fatalError()
+
+  func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+    switch status {
+    case .authorizedWhenInUse, .authorizedAlways:
+      running = true
+      locationManager?.startUpdatingLocation()
+    case .denied, .restricted:
+      didUpdateLocation?(nil, LocationError.authorizationDenied)
+      running = false
+      locationManager?.stopUpdatingLocation()
+      log.error(LocationError.authorizationDenied)
+    default:
+      break
     }
   }
   
   // MARK: Location Manager Delegate
   func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-      didUpdateLocation?(nil, error)
+      didUpdateLocation?(nil, LocationError.updateFail)
       log.error(error)
   }
   
@@ -74,7 +82,6 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
   func fetchWithCompletion(completion: @escaping LocationDidUpdate) {
       //store the completion closure
       didUpdateLocation = completion
-      grantPermissons()
   }
   
   func startMonitoringUpdates() {
@@ -82,7 +89,6 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
       locationManager?.distanceFilter = distanceFilter
       locationManager?.desiredAccuracy = kCLLocationAccuracyHundredMeters
       locationManager?.pausesLocationUpdatesAutomatically = pausesLocationUpdatesAutomatically
-      locationManager?.delegate = self
       locationManager?.startUpdatingLocation()
       running = true
   }
@@ -100,11 +106,10 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
       switch CLLocationManager.authorizationStatus() {
       case .notDetermined:
         locationManager?.requestWhenInUseAuthorization()
-        locationManager?.requestAlwaysAuthorization()
       case .restricted, .denied:
-          break
+        break
       case .authorizedWhenInUse, .authorizedAlways:
-          startMonitoringUpdates()
+          self.startMonitoringUpdates()
       @unknown default:
         fatalError("To use location in iOS8 you need to define either NSLocationWhenInUseUsageDescription or NSLocationAlwaysUsageDescription in the app bundle's Info.plist file")
     }

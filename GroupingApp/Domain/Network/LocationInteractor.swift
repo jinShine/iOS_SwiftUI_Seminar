@@ -25,20 +25,8 @@ final class LocationInteractor: LocationUseCase {
       return Disposables.create()
     }
   }
-  
-  func start() -> Completable {
-    return Completable.create { (completable) -> Disposable in
-      self.locationManager.startMonitoringUpdates()
-      completable(.completed)
-      return Disposables.create()
-    }
-  }
 
-  func stop() -> Completable {
-    return Completable.create { (completable) -> Disposable in
-      self.locationManager.stopMonitoringUpdates()
-      completable(.completed)
-      return Disposables.create()
-    }
+  func start() -> Observable<Void> {
+    return Observable<Void>.just(locationManager.grantPermissons())
   }
 }

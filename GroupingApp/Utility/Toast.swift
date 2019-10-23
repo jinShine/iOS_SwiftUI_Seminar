@@ -12,23 +12,27 @@ import Loaf
 final class Toast {
   
   func error(message: String,
-             sender: UIViewController) {
-    Loaf(message, state: .error, location: .bottom, presentingDirection: .vertical, dismissingDirection: .vertical, sender: sender).show()
+             sender: UIViewController,
+             location: Loaf.Location = Loaf.Location.bottom) {
+    Loaf(message, state: .error, location: location, presentingDirection: .vertical, dismissingDirection: .vertical, sender: sender).show()
   }
   
   func info(message: String,
-             sender: UIViewController) {
-    Loaf(message, state: .info, location: .bottom, presentingDirection: .vertical, dismissingDirection: .vertical, sender: sender).show()
+             sender: UIViewController,
+             location: Loaf.Location = Loaf.Location.bottom) {
+    Loaf(message, state: .info, location: location, presentingDirection: .vertical, dismissingDirection: .vertical, sender: sender).show()
   }
   
   func success(message: String,
-             sender: UIViewController) {
-    Loaf(message, state: .success, location: .bottom, presentingDirection: .vertical, dismissingDirection: .vertical, sender: sender).show()
+             sender: UIViewController,
+             location: Loaf.Location = Loaf.Location.bottom) {
+    Loaf(message, state: .success, location: location, presentingDirection: .vertical, dismissingDirection: .vertical, sender: sender).show()
   }
   
   func warning(message: String,
-             sender: UIViewController) {
-    Loaf(message, state: .warning, location: .bottom, presentingDirection: .vertical, dismissingDirection: .vertical, sender: sender).show()
+             sender: UIViewController,
+             location: Loaf.Location = Loaf.Location.bottom) {
+    Loaf(message, state: .warning, location: location, presentingDirection: .vertical, dismissingDirection: .vertical, sender: sender).show()
   }
   
 }

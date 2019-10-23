@@ -13,10 +13,14 @@ final class AddressSearchViewModel: ViewModelType {
 
   struct Input {
     let didTapPopButton: Driver<Void>
+    let locationStart: Driver<Void>
+    let locationFetch: Driver<Void>
   }
   
   struct Output {
     let popViewController: Driver<Void>
+    let locationStart: Driver<Void>
+    let locationUpdate: Driver<LocationResponse>
   }
   
   //MARK: - Properties
@@ -35,16 +39,23 @@ final class AddressSearchViewModel: ViewModelType {
   }
 
   func transform(input: Input) -> Output {
-    
-    
-//    let pop = input.didTapPopButton
-//      .do { print("asdfasdfasdf") }
-//      .do { self.navigator.navigate(to: .registry) }
-//
-    let pop = input.didTapPopButton
-      .do(onNext: { self.navigator.navigate(to: .registry) })
-    
-    return Output(popViewController: pop)
+
+    let popViewController = input.didTapPopButton
+      .map { self.navigator.navigate(to: .registry) }
+
+    let starting = input.locationStart.flatMapLatest {
+      self.locationUseCase.start().asDriver(onErrorJustReturn: ())
+    }
+
+    let fetching = input.locationFetch.flatMapLatest {
+      self.locationUseCase.fetch().asDriver(onErrorJustReturn: (nil, nil))
+    }
+
+    return Output(
+      popViewController: popViewController,
+      locationStart: starting,
+      locationUpdate: fetching
+    )
     
   }
 
@@ -132,7 +143,7 @@ final class AddressSearchViewModel: ViewModelType {
 //      return locationUseCase.stop().asObservable()
 //        .flatMap { _ in Observable<State>.just(.locationStopState) }
 //
-//    case .locationFetchAction:
+//    case .disAction:
 //      return locationUseCase.fetch().flatMap { (location, error) in
 //        return Observable<State>.just(.locationFetchState((location, error)))
 //      }
