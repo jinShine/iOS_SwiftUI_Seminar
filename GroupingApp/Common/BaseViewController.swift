@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Loaf
 
 class BaseViewController: UIViewController {
 

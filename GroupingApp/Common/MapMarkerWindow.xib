@@ -13,7 +13,7 @@
             <rect key="frame" x="0.0" y="0.0" width="280" height="61"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="서울시 동대문구 답십리2동" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="7" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hPD-BH-qL6">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="7" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hPD-BH-qL6">
                     <rect key="frame" x="16" y="8" width="202" height="45"/>
                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                     <nil key="textColor"/>
@@ -26,6 +26,9 @@
                         <constraint firstAttribute="width" constant="30" id="hO1-Ni-kPh"/>
                     </constraints>
                     <state key="normal" image="Icon-Button"/>
+                    <connections>
+                        <action selector="add:" destination="iN0-l3-epB" eventType="touchUpInside" id="a64-I7-6Yd"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -39,6 +42,7 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="addButton" destination="4jf-O5-MyC" id="Uex-Eq-jog"/>
                 <outlet property="addressLabel" destination="hPD-BH-qL6" id="6bT-b9-Y5r"/>
             </connections>
             <point key="canvasLocation" x="-647.82608695652175" y="-13.727678571428571"/>

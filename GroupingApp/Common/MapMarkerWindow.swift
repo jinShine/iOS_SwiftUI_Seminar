@@ -7,11 +7,15 @@
 //
 
 import UIKit
+import RxSwift
 
 class MapMarkerWindow: UIView {
   
   @IBOutlet weak var addressLabel: UILabel!
-  
+  @IBOutlet weak var addButton: UIButton!
+
+  public var addSubject = PublishSubject<UIButton>()
+
   override init(frame: CGRect) {
     super.init(frame: frame)
     setupUI()
@@ -29,7 +33,11 @@ class MapMarkerWindow: UIView {
     self.layer.borderColor = App.color.main.cgColor
     self.backgroundColor = .white
   }
-  
+
+  @IBAction func add(_ sender: UIButton) {
+    addSubject.onNext(sender)
+  }
+
   static func loadView() -> MapMarkerWindow {
     let infoWindow = MapMarkerWindow.newFromNib() as! MapMarkerWindow
     return infoWindow

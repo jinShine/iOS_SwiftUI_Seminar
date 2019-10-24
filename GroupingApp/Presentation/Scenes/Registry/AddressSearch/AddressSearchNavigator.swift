@@ -10,14 +10,16 @@ import Foundation
 import FlowInject
 
 enum AddressSearch: Route {
-  case registry
+  case registry(address: String?)
 }
 
 class AddressSearchNavigator: Navigator<AddressSearch> {
   
   func navigate(to destination: AddressSearch) {
     switch destination {
-    case .registry:
+    case .registry(let address):
+
+//      presenter?.popToViewController(<#T##viewController: UIViewController##UIViewController#>, animated: <#T##Bool#>)
       presenter?.popViewController(animated: true)
     }
   }
