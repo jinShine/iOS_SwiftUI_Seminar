@@ -10,7 +10,7 @@ import Foundation
 import CoreLocation
 
 typealias LocationDidUpdate = ((_ location: CLLocation?, _ error: LocationError?) -> Void)
-typealias LocationResponse = (CLLocation?, LocationError?)
+typealias LocationResponse = (location: CLLocation?, error: LocationError?)
 
 enum LocationError: Error {
   case authorizationDenied

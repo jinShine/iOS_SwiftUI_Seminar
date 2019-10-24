@@ -15,12 +15,14 @@ final class AddressSearchViewModel: ViewModelType {
     let didTapPopButton: Driver<Void>
     let locationStart: Driver<Void>
     let locationFetch: Driver<Void>
+    let didSearch: Driver<String>
   }
   
   struct Output {
     let popViewController: Driver<Void>
     let locationStart: Driver<Void>
     let locationUpdate: Driver<LocationResponse>
+    let searchedGeocoder: Driver<GeocoderResult>
   }
   
   //MARK: - Properties
@@ -41,7 +43,8 @@ final class AddressSearchViewModel: ViewModelType {
   func transform(input: Input) -> Output {
 
     let popViewController = input.didTapPopButton
-      .map { self.navigator.navigate(to: .registry) }
+      .map { self.navigator.navigate(to: .registry)
+    }
 
     let starting = input.locationStart.flatMapLatest {
       self.locationUseCase.start().asDriver(onErrorJustReturn: ())
@@ -51,14 +54,20 @@ final class AddressSearchViewModel: ViewModelType {
       self.locationUseCase.fetch().asDriver(onErrorJustReturn: (nil, nil))
     }
 
+    let didSearch = input.didSearch.flatMapLatest {
+      self.googleUseCase.requestGeocoding(addrsss: $0)
+        .map { $0.results.first ?? GeocoderResult(address: "", geometry: nil) }
+        .asDriver(onErrorJustReturn: GeocoderResult(address: "", geometry: nil))
+    }.do(onNext: { log.debug($0) })
+
+
     return Output(
       popViewController: popViewController,
       locationStart: starting,
-      locationUpdate: fetching
+      locationUpdate: fetching,
+      searchedGeocoder: didSearch
     )
-    
   }
-
 }
 //  //MARK: - Unidirection
 //

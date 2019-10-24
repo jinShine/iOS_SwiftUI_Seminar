@@ -117,9 +117,17 @@ class AddressSearchViewController: BaseViewController, ViewType {
       .mapToVoid()
       .asDriver(onErrorJustReturn: ())
 
+    let didSearch = searchButton.rx.tap
+      .throttle(0.8, scheduler: MainScheduler.instance)
+      .withLatestFrom(searchBar.textField.rx.text.orEmpty)
+      .asDriver(onErrorJustReturn: "")
+
+
+
     let input = AddressSearchViewModel.Input(didTapPopButton: didTapPopButton,
                                              locationStart: locatoinStart,
-                                             locationFetch: locationFetch)
+                                             locationFetch: locationFetch,
+                                             didSearch: didSearch)
 
     //OUTPUT
     let output = viewModel.transform(input: input)
@@ -133,35 +141,60 @@ class AddressSearchViewController: BaseViewController, ViewType {
       .disposed(by: disposeBag)
 
     output.locationUpdate
-    .drive(locationUpdateBinding)
-//      .drive(onNext: { (location, error) in
-//        guard let location = location else { return }
-//        print("", error)
-//        self.mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 16.0)
-//      })
-    .disposed(by: disposeBag)
+      .drive(cameraUpdateBinding)
+      .disposed(by: disposeBag)
 
+    let searchedShared = output.searchedGeocoder
+      .asSharedSequence()
+
+    searchedShared
+      .filter { $0.address == "" && $0.geometry == nil }
+      .drive(onNext: { _ in
+        App.toast.info(message: "주소 결과가 없습니다.\n정확한 주소로 검색해주세요.", sender: self)
+      })
+      .disposed(by: disposeBag)
+
+    searchedShared
+      .filter { $0.address != "" && $0.geometry != nil }
+      .do(onNext: { _ in self.dismissKeyboard() })
+      .drive(locationUpdate)
+      .disposed(by: disposeBag)
 
   }
 }
 
 extension AddressSearchViewController {
 
-  var locationUpdateBinding: Binder<LocationResponse> {
+  var cameraUpdateBinding: Binder<LocationResponse> {
     return Binder(self) { (vc, response) in
-      let error = response.1
-      guard error == nil else {
-        switch error {
+      guard response.error == nil else {
+        switch response.error {
         case .authorizationDenied:
-          App.toast.error(message: "원활한 서비스를 위해\n위치서비스를 활성화 시켜주세요.\n\n* 설정 -> Grouping앱 -> 위치 활성화", sender: self, location: .top)
+          App.toast.error(message: "원활한 서비스를 위해\n위치서비스를 활성화 시켜주세요.\n\n* 설정 -> Grouping앱 -> 위치 활성화",
+                          sender: self, location: .top)
         default:
           App.toast.error(message: "지도 업데이트 에러", sender: self, location: .top)
         }
         return
       }
 
-      if let location = response.0 {
+      if let location = response.location {
         vc.mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 16.0)
+      }
+    }
+  }
+
+  var locationUpdate: Binder<GeocoderResult> {
+    return Binder(self) { (vc, geocoder) in
+      self.mapView.selectedMarker = nil
+      if let location = geocoder.geometry?.location {
+        let coordinate = CLLocationCoordinate2DMake(location.lat, location.lng)
+        self.mapView.animate(toLocation: coordinate)
+        self.marker.position = coordinate
+        self.marker.title = geocoder.address
+        self.marker.appearAnimation = GMSMarkerAnimation.pop
+        self.marker.map = self.mapView
+        self.mapView.selectedMarker = self.marker
       }
     }
   }
