@@ -10,6 +10,7 @@ import Foundation
 import FlowInject
 
 enum RegistryRoute: Route {
+  case main
   case addressSearch
 }
 
@@ -22,6 +23,8 @@ class RegistryNavigator: Navigator<RegistryRoute> {
   
   func navigate(to destination: RegistryRoute) {
     switch destination {
+    case .main:
+      presenter?.dismiss(animated: true, completion: nil)
     case .addressSearch:
       let viewModel = AddressSearchViewModel(navigator: AddressSearchNavigator(with: presenter),
                                              googleUseCase: GoogleInteractor(),

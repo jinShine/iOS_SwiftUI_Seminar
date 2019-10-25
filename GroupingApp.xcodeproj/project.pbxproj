@@ -480,9 +480,9 @@
 		5CB1245F2344E00F00E61A49 /* Registry */ = {
 			isa = PBXGroup;
 			children = (
+				5C01E9292347B01C0051CA68 /* RegistryNavigator.swift */,
 				5CB1245D2344E00900E61A49 /* RegistryViewController.swift */,
 				5CB124612344E03700E61A49 /* RegistryViewModel.swift */,
-				5C01E9292347B01C0051CA68 /* RegistryNavigator.swift */,
 				5C01E9242347AF270051CA68 /* AddressSearch */,
 				5C253DCB234A3435009CDAA4 /* SelectMap */,
 			);

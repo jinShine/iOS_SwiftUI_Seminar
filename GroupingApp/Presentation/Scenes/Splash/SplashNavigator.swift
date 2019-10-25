@@ -24,7 +24,7 @@ class SplashNavigator: Navigator<SplashRoute> {
         makeRegistryViewController(),
         makeSearchViewController()
       ]
-      
+
       App.window?.rootViewController = tabBarController
     }
   }
