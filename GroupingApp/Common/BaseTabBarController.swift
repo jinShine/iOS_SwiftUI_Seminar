@@ -46,8 +46,11 @@ class BaseTabBarController: UITabBarController {
   
   private func makeRegistry() -> UINavigationController {
     let viewModel = RegistryViewModel(userUseCase: UserInteractor())
-    let viewController = RegistryViewController(viewModel: viewModel)
-    return UINavigationController(rootViewController: viewController)
+    let viewController = RegistryViewController.create(with: viewModel)
+    let navigationController = UINavigationController(rootViewController: viewController)
+    viewModel.navigator = RegistryNavigator(with: navigationController)
+
+    return navigationController
   }
 
 }
@@ -62,6 +65,7 @@ extension BaseTabBarController: UITabBarControllerDelegate {
     let selectedVCIndex = tabBarController.viewControllers?.firstIndex(of: viewController)
     if selectedVCIndex == TabBarType.Registery.rawValue {
       let registryVC = makeRegistry()
+      registryVC.isNavigationBarHidden = true
       registryVC.modalPresentationStyle = .fullScreen
       self.present(registryVC, animated: true, completion: nil)
       return false
