@@ -16,6 +16,8 @@ final class RegistryViewModel: ViewModelType {
     let keyboardWillShowTrigger: Observable<Notification>
     let keyboardWillHideTrigger: Observable<Notification>
     let didTapAddPhoto: Driver<Void>
+    let userModelValidation: Observable<UserModel>
+    let didTapSave: Observable<UserModel>
   }
 
   struct Output {
@@ -23,6 +25,8 @@ final class RegistryViewModel: ViewModelType {
     let keyboardHeight: Driver<CGFloat>
     let keyboardDidHide: Driver<Void>
     let pickerController: Driver<UIImagePickerController>
+    let saveButtonEnable: Driver<Bool>
+    let userInfoSave: Driver<Void>
   }
 
   //MARK: - Properties
@@ -53,15 +57,32 @@ final class RegistryViewModel: ViewModelType {
       .asDriver(onErrorJustReturn: ())
 
     let pickerViewController = input.didTapAddPhoto
+      .do(onNext: { _ in App.loading.show() })
       .map { UIImagePickerController() }
       .asDriver()
 
+    let saveButtonEnable = input.userModelValidation
+      .map { userModel -> Bool in
+        guard userModel.name != "" && userModel.number != "" && userModel.crew != "" else {
+          return false
+        }
+        return true
+      }.asDriver(onErrorJustReturn: false)
+    
+    let userInfoSave = input.didTapSave
+      .flatMap { userModel in
+        return self.userUseCase.create(profileImage: userModel.profileImage, name: userModel.name, number: userModel.number, crew: userModel.crew, address: userModel.address, email: userModel.email, birth: userModel.birth, memo: userModel.memo)
+      }.asDriver(onErrorJustReturn: ())
+      
+    
 
     return Output(
       dismiss: dismiss,
       keyboardHeight: keyboardHeight,
       keyboardDidHide: keyboardDidHide,
-      pickerController: pickerViewController
+      pickerController: pickerViewController,
+      saveButtonEnable: saveButtonEnable,
+      userInfoSave: userInfoSave
     )
   }
 

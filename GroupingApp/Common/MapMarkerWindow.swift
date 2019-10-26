@@ -35,6 +35,7 @@ class MapMarkerWindow: UIView {
   }
 
   @IBAction func add(_ sender: UIButton) {
+    print("1231231231231231231231231231231312123")
     addSubject.onNext(sender)
   }
 

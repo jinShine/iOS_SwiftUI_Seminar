@@ -42,7 +42,7 @@ class RegistryViewController: BaseViewController, ViewType {
   let profileButton: UIButton = {
     let button = UIButton()
     button.setBackgroundImage(UIImage(named: "Empty_Profile"), for: .normal)
-    button.contentMode = .scaleToFill
+    button.contentMode = .scaleAspectFit
     return button
   }()
 
@@ -107,7 +107,7 @@ class RegistryViewController: BaseViewController, ViewType {
     button.setTitle("저장", for: .normal)
     button.titleLabel?.contentMode = .center
     button.titleLabel?.font = App.font.regular(size: 16)
-    button.unActivate()
+    button.inActivate()
     return button
   }()
 
@@ -139,6 +139,9 @@ class RegistryViewController: BaseViewController, ViewType {
     }
 
     setupNavigationBar(at: view, leftItem: dismissButton, titleItem: naviTitleLabel, rightItem: saveButton)
+    addDismissTabGesture(in: baseScrollView)
+    baseScrollView.delegate = self
+    addressField.delegate = self
 
   }
 
@@ -246,11 +249,30 @@ class RegistryViewController: BaseViewController, ViewType {
     let keyboarWillShow = NotificationCenter.default.rx.notification(UIApplication.keyboardWillShowNotification)
     let keyboarWillHide = NotificationCenter.default.rx.notification(UIApplication.keyboardWillHideNotification)
     let didTapAddPhoto = Driver.of(profileButton.rx.tap.asDriver(), addProfileButton.rx.tap.asDriver()).merge()
+    
+    let profileImageData = profileButton.imageView?.image?.jpegData(compressionQuality: 0.5) ?? Data()
+    let userModelCombine = Observable.combineLatest(Observable.of(profileImageData),
+                                                   nameTextField.rx.text,
+                                                   numberTextField.rx.text,
+                                                   crewTextField.rx.text,
+                                                   addressField.rx.text,
+                                                   emailTextField.rx.text,
+                                                   birthTextField.rx.text,
+                                                   memoTextView.rx.text)
+      .map { UserModel(profileImage: $0.0, name: $0.1!, number: $0.2!,
+                       crew: $0.3!, address: $0.4, email: $0.5,
+                       birth: $0.6, memo: $0.7) }.asObservable()
+    
 
+    let didTapSave = saveButton.rx.tap
+      .withLatestFrom(userModelCombine)
+    
     let input = RegistryViewModel.Input(didTapDismiss: didTapDismiss,
                                         keyboardWillShowTrigger: keyboarWillShow,
                                         keyboardWillHideTrigger: keyboarWillHide,
-                                        didTapAddPhoto: didTapAddPhoto)
+                                        didTapAddPhoto: didTapAddPhoto,
+                                        userModelValidation: userModelCombine,
+                                        didTapSave: didTapSave)
 
 
     //OUTPUT
@@ -278,8 +300,18 @@ class RegistryViewController: BaseViewController, ViewType {
     output.pickerController
       .drive(onNext: { pickerVC in
         pickerVC.delegate = self
-        self.present(pickerVC, animated: true, completion: nil)
+        self.present(pickerVC, animated: true) { App.loading.hide() }
       })
+    .disposed(by: disposeBag)
+    
+    output.saveButtonEnable
+      .drive(onNext: { enable in
+        enable ? self.saveButton.activate() : self.saveButton.inActivate()
+      })
+    .disposed(by: disposeBag)
+      
+    output.userInfoSave
+    .drive()
     .disposed(by: disposeBag)
 
   }
@@ -297,6 +329,35 @@ extension RegistryViewController: UIImagePickerControllerDelegate, UINavigationC
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
       self.dismiss(animated: true, completion: nil)
     }
+}
+
+//MARK: - UIScrollViewDelegate
+extension RegistryViewController: UIScrollViewDelegate {
+
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {
+
+    if scrollView.contentOffset.y >= 190 {
+      self.naviTitleLabel.textColor = .black
+      self.dismissButton.imageView?.tintColor = .black
+      self.saveButton.titleLabel?.textColor = .black
+    } else {
+      self.naviTitleLabel.textColor = .white
+      self.dismissButton.imageView?.tintColor = .white
+      self.saveButton.titleLabel?.textColor = .white
+    }
+
+  }
+}
+
+//MARK: - UITextFieldDelegate
+extension RegistryViewController: UITextFieldDelegate {
+
+  func textFieldDidBeginEditing(_ textField: UITextField) {
+    dismissKeyboard()
+    App.loading.show()
+    viewModel.navigator?.navigate(to: .addressSearch)
+  }
+
 }
 
 //import RxSwift

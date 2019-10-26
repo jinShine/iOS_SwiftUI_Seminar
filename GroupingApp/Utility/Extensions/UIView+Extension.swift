@@ -15,7 +15,7 @@ extension UIButton {
     self.alpha = 1.0
   }
 
-  func unActivate() {
+  func inActivate() {
     self.isEnabled = false
     self.alpha = 0.3
   }

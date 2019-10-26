@@ -18,7 +18,7 @@ final class AddressSearchViewModel: ViewModelType {
     let didSearch: Driver<String>
     let keyboardWillShowTrigger: Observable<Notification>
     let keyboardWillHideTrigger: Observable<Notification>
-    let selectedAddress: Observable<UIButton>
+    let didTapAddressSelect: Observable<UIButton>
   }
   
   struct Output {
@@ -28,13 +28,14 @@ final class AddressSearchViewModel: ViewModelType {
     let searchedGeocoder: Driver<GeocoderResult>
     let keyboardHeight: Driver<CGFloat>
     let keyboardDidHide: Driver<Void>
+    let getInfoMarker: Driver<GeocoderResult>
+    let selectedAddress: Driver<Void>
   }
   
   //MARK: - Properties
   let navigator: AddressSearchNavigator
   let googleUseCase: GoogleUseCase
   let locationUseCase: LocationUseCase
-  let geocoderSubject = PublishSubject<GeocoderResult>()
 
 
   //MARK: - Initialize
@@ -57,17 +58,24 @@ final class AddressSearchViewModel: ViewModelType {
     }
 
     let fetching = input.locationFetch.flatMapLatest {
-      self.locationUseCase.fetch().asDriver(onErrorJustReturn: (nil, nil))
+      self.locationUseCase.fetch()
+        .take(1)
+        .asDriver(onErrorJustReturn: (nil, nil))
     }
+    
+    let geocoderSubject = PublishSubject<GeocoderResult>()
 
     let didSearch = input.didSearch.flatMapLatest {
       self.googleUseCase.requestGeocoding(addrsss: $0)
         .map { $0.results.first ?? GeocoderResult(address: "", geometry: nil) }
         .asDriver(onErrorJustReturn: GeocoderResult(address: "", geometry: nil))
     }
-    .do(onNext: { self.geocoderSubject.onNext($0) })
+    .do(onNext: { geocoderSubject.onNext($0) })
     .do(onNext: { log.debug($0) })
-
+    
+    let getInfoMarker = geocoderSubject
+      .map { $0 }
+      .asDriver(onErrorJustReturn: GeocoderResult(address: "", geometry: nil))
 
     let keyboardHeight = input.keyboardWillShowTrigger
       .map { $0.userInfo?["UIKeyboardFrameEndUserInfoKey"] as? CGRect }
@@ -78,10 +86,11 @@ final class AddressSearchViewModel: ViewModelType {
       .mapToVoid()
       .asDriver(onErrorJustReturn: ())
 
-    let navigateToRegistry = input.selectedAddress
+    let navigateToRegistry = input.didTapAddressSelect
       .map { _ in
+        print("123123123123123123123123123123")
 //        navigator.navigate(to: .registry)
-    }
+    }.asDriver(onErrorJustReturn: ())
 
 
     return Output(
@@ -90,7 +99,9 @@ final class AddressSearchViewModel: ViewModelType {
       locationUpdate: fetching,
       searchedGeocoder: didSearch,
       keyboardHeight: keyboardHeight,
-      keyboardDidHide: keyboardDidHide
+      keyboardDidHide: keyboardDidHide,
+      getInfoMarker: getInfoMarker,
+      selectedAddress: navigateToRegistry
     )
   }
 }

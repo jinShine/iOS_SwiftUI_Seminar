@@ -22,6 +22,7 @@ class SJSearchBar: UIControl {
   lazy var textField: UITextField = {
     let textField = UITextField()
     textField.clearButtonMode = .whileEditing
+    textField.returnKeyType = .search
     return textField
   }()
   
