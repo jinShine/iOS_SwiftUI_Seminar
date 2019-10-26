@@ -2,7 +2,7 @@
 //  UserInfomation+CoreDataClass.swift
 //  GroupingApp
 //
-//  Created by seungjin on 2019/10/03.
+//  Created by seungjin on 2019/10/26.
 //  Copyright © 2019 Jinnify. All rights reserved.
 //
 //

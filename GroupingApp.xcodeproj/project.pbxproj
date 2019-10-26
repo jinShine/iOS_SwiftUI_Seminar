@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		5C01E90E2345F0BB0051CA68 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C01E90D2345F0BB0051CA68 /* CoreDataManager.swift */; };
-		5C01E9122345F37F0051CA68 /* UserInfomation+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C01E9102345F37F0051CA68 /* UserInfomation+CoreDataClass.swift */; };
-		5C01E9132345F37F0051CA68 /* UserInfomation+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C01E9112345F37F0051CA68 /* UserInfomation+CoreDataProperties.swift */; };
 		5C01E9172345F61F0051CA68 /* CoreDataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C01E9162345F61F0051CA68 /* CoreDataResponse.swift */; };
 		5C01E91B23464F790051CA68 /* UserInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C01E91A23464F790051CA68 /* UserInteractor.swift */; };
 		5C01E91F23464FA70051CA68 /* UserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C01E91E23464FA70051CA68 /* UserUseCase.swift */; };
@@ -53,6 +51,8 @@
 		5C7AEEB8235C8B9C00B07CD7 /* GMSMapView+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7AEEB7235C8B9C00B07CD7 /* GMSMapView+Rx.swift */; };
 		5C7AEEBA235DEC5300B07CD7 /* ViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7AEEB9235DEC5300B07CD7 /* ViewType.swift */; };
 		5C7AEEBC235DEC6000B07CD7 /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7AEEBB235DEC6000B07CD7 /* ViewModelType.swift */; };
+		5C7AEEBF23634D8800B07CD7 /* UserInfomation+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7AEEBD23634D8800B07CD7 /* UserInfomation+CoreDataClass.swift */; };
+		5C7AEEC023634D8800B07CD7 /* UserInfomation+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7AEEBE23634D8800B07CD7 /* UserInfomation+CoreDataProperties.swift */; };
 		5C8764CA2342F19000201833 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8764C92342F19000201833 /* AppDelegate.swift */; };
 		5C8764D42342F19000201833 /* GroupingApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5C8764D22342F19000201833 /* GroupingApp.xcdatamodeld */; };
 		5C8764EE2342F51B00201833 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8764ED2342F51B00201833 /* SplashViewController.swift */; };
@@ -89,8 +89,6 @@
 
 /* Begin PBXFileReference section */
 		5C01E90D2345F0BB0051CA68 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
-		5C01E9102345F37F0051CA68 /* UserInfomation+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserInfomation+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		5C01E9112345F37F0051CA68 /* UserInfomation+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserInfomation+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		5C01E9162345F61F0051CA68 /* CoreDataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataResponse.swift; sourceTree = "<group>"; };
 		5C01E91A23464F790051CA68 /* UserInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInteractor.swift; sourceTree = "<group>"; };
 		5C01E91E23464FA70051CA68 /* UserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCase.swift; sourceTree = "<group>"; };
@@ -134,6 +132,8 @@
 		5C7AEEB7235C8B9C00B07CD7 /* GMSMapView+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GMSMapView+Rx.swift"; sourceTree = "<group>"; };
 		5C7AEEB9235DEC5300B07CD7 /* ViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewType.swift; sourceTree = "<group>"; };
 		5C7AEEBB235DEC6000B07CD7 /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
+		5C7AEEBD23634D8800B07CD7 /* UserInfomation+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserInfomation+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		5C7AEEBE23634D8800B07CD7 /* UserInfomation+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserInfomation+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		5C8764C62342F19000201833 /* GroupingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GroupingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C8764C92342F19000201833 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5C8764CB2342F19000201833 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -205,8 +205,8 @@
 		5C01E90F2345F30B0051CA68 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				5C01E9102345F37F0051CA68 /* UserInfomation+CoreDataClass.swift */,
-				5C01E9112345F37F0051CA68 /* UserInfomation+CoreDataProperties.swift */,
+				5C7AEEBD23634D8800B07CD7 /* UserInfomation+CoreDataClass.swift */,
+				5C7AEEBE23634D8800B07CD7 /* UserInfomation+CoreDataProperties.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -716,14 +716,13 @@
 				5C17C036234772820097490E /* String+Extension.swift in Sources */,
 				5CE85FD8234E15B0009A27FD /* BaseNavigationController.swift in Sources */,
 				5C47A947235AEBAE0031106E /* Toast.swift in Sources */,
+				5C7AEEC023634D8800B07CD7 /* UserInfomation+CoreDataProperties.swift in Sources */,
 				5C66EA5F234F556C00A290CE /* GoogleRouter.swift in Sources */,
-				5C01E9132345F37F0051CA68 /* UserInfomation+CoreDataProperties.swift in Sources */,
 				5CE85FD3234E159D009A27FD /* BindViewModelType.swift in Sources */,
 				5CE85FDD234E1655009A27FD /* Logger.swift in Sources */,
 				5C8765462344407200201833 /* Color.swift in Sources */,
 				5C66EA63234F569500A290CE /* BindViewType.swift in Sources */,
 				5C87653C23443D7E00201833 /* App.swift in Sources */,
-				5C01E9122345F37F0051CA68 /* UserInfomation+CoreDataClass.swift in Sources */,
 				5CBA444A2358795200A0A4B6 /* SJButton.swift in Sources */,
 				5CB124622344E03700E61A49 /* RegistryViewModel.swift in Sources */,
 				5C8764FD2343112800201833 /* SplashNavigator.swift in Sources */,
@@ -748,6 +747,7 @@
 				5C8764FB234310B600201833 /* HomeViewController.swift in Sources */,
 				5C87653023432E8500201833 /* SceneDelegate.swift in Sources */,
 				5CBA4450235AB87000A0A4B6 /* MapMarkerWindow.swift in Sources */,
+				5C7AEEBF23634D8800B07CD7 /* UserInfomation+CoreDataClass.swift in Sources */,
 				5CE85FD9234E15B0009A27FD /* BaseTabBarController.swift in Sources */,
 				5C01E90E2345F0BB0051CA68 /* CoreDataManager.swift in Sources */,
 				5C8764CA2342F19000201833 /* AppDelegate.swift in Sources */,

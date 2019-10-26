@@ -10,12 +10,13 @@ import RxSwift
 
 protocol UserUseCase {
   
-  func create(name: String,
+  func create(profileImage: Data?,
+              name: String,
               number: String,
               crew: String,
               address: String?,
               email: String?,
-              birth: String?) -> Single<Void>
-  
+              birth: String?,
+              memo: String?) -> Single<Void>
   
 }
