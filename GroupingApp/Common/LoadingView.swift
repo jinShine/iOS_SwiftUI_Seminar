@@ -65,7 +65,7 @@ final class LoadingView: Loadable {
   private func setupLogoImage() {
     keyWindow.addSubview(logoImages)
     logoImages.animationImages = getImageList()
-    logoImages.animationDuration = 1.0
+    logoImages.animationDuration = 0.5
     logoImages.animationRepeatCount = 0
     logoImages.translatesAutoresizingMaskIntoConstraints = false
     NSLayoutConstraint.activate([
