@@ -19,7 +19,9 @@ class AddressSearchNavigator: Navigator<AddressSearch> {
     switch destination {
     case .registry(let address):
 
-//      presenter?.popToViewController(<#T##viewController: UIViewController##UIViewController#>, animated: <#T##Bool#>)
+      
+      let registryVC = presenter?.viewControllers.first { $0 is RegistryViewController } as? RegistryViewController
+      registryVC?.passedAddress = address
       presenter?.popViewController(animated: true)
     }
   }

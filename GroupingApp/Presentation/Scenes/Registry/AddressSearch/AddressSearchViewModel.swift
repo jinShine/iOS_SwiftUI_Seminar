@@ -18,7 +18,7 @@ final class AddressSearchViewModel: ViewModelType {
     let didSearch: Driver<String>
     let keyboardWillShowTrigger: Observable<Notification>
     let keyboardWillHideTrigger: Observable<Notification>
-    let didTapAddressSelect: Observable<UIButton>
+    let saveAddress: Observable<String>
   }
   
   struct Output {
@@ -29,7 +29,7 @@ final class AddressSearchViewModel: ViewModelType {
     let keyboardHeight: Driver<CGFloat>
     let keyboardDidHide: Driver<Void>
     let getInfoMarker: Driver<GeocoderResult>
-    let selectedAddress: Driver<Void>
+    let toRegistryAfterSave: Driver<Void>
   }
   
   //MARK: - Properties
@@ -86,12 +86,10 @@ final class AddressSearchViewModel: ViewModelType {
       .mapToVoid()
       .asDriver(onErrorJustReturn: ())
 
-    let navigateToRegistry = input.didTapAddressSelect
-      .map { _ in
-        print("123123123123123123123123123123")
-//        navigator.navigate(to: .registry)
+    let toRegistryAfterSave = input.saveAddress.map {
+      self.navigator.navigate(to: .registry(address: $0))
     }.asDriver(onErrorJustReturn: ())
-
+    
 
     return Output(
       popViewController: popViewController,
@@ -101,7 +99,7 @@ final class AddressSearchViewModel: ViewModelType {
       keyboardHeight: keyboardHeight,
       keyboardDidHide: keyboardDidHide,
       getInfoMarker: getInfoMarker,
-      selectedAddress: navigateToRegistry
+      toRegistryAfterSave: toRegistryAfterSave
     )
   }
 }

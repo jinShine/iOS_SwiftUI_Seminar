@@ -8,7 +8,7 @@
 
 import RxSwift
 import RxCocoa
-import RxDataSources
+import RxOptional
 import GoogleMaps
 
 class AddressSearchViewController: BaseViewController, ViewType {
@@ -29,9 +29,7 @@ class AddressSearchViewController: BaseViewController, ViewType {
     marker.icon = UIImage(named: "Icon_pin")
     return marker
   }()
-
-  var infoMarkerWindow: MapMarkerWindow?
-
+  
   let popButton: UIButton = {
     let button = UIButton()
     let image = UIImage(named: "Icon_Round_Left")
@@ -68,7 +66,7 @@ class AddressSearchViewController: BaseViewController, ViewType {
     return field
   }()
   
-  let setAddressButton = SJButton(title: "선택한 위치로 설정", image: UIImage(named: "Icon_Checkmark"))
+  let saveAddressButton = SJButton(title: "선택한 위치로 설정", image: UIImage(named: "Icon_Checkmark"))
 
   override var preferredStatusBarStyle: UIStatusBarStyle {
     return .default
@@ -100,11 +98,10 @@ class AddressSearchViewController: BaseViewController, ViewType {
     [searchBar].forEach {
       mapView.addSubview($0)
     }
-    [addressLabel, addressDetailField, setAddressButton].forEach {
+    [addressLabel, addressDetailField, saveAddressButton].forEach {
       addressContainer.addSubview($0)
     }
     
-    infoMarkerWindow = MapMarkerWindow.loadView()
     setupNavigationBar(at: view, leftItem: popButton)
     navigationBaseView.backgroundColor = .clear
   }
@@ -143,7 +140,7 @@ class AddressSearchViewController: BaseViewController, ViewType {
       $0.height.equalTo(32)
     }
     
-    setAddressButton.snp.makeConstraints {
+    saveAddressButton.snp.makeConstraints {
       $0.top.equalTo(addressDetailField.snp.bottom).offset(8)
       $0.leading.trailing.equalToSuperview()
       $0.bottom.equalToSuperview()
@@ -175,8 +172,13 @@ class AddressSearchViewController: BaseViewController, ViewType {
 
     let keyboardWillHide = NotificationCenter.default.rx
       .notification(UIApplication.keyboardWillHideNotification)
-
-    let didTapAddressSelect = infoMarkerWindow!.addSubject.asObserver()
+    
+    
+    let addressCombine = "\(addressLabel.text ?? "") \(addressDetailField.text ?? "")"
+    let saveAddress = saveAddressButton.rx.tap
+      .withLatestFrom(addressDetailField.rx.text.orEmpty)
+//      .map { addressCombine }
+      .asObservable()
 
 
     let input = AddressSearchViewModel.Input(didTapPopButton: didTapPopButton,
@@ -185,7 +187,7 @@ class AddressSearchViewController: BaseViewController, ViewType {
                                              didSearch: didSearch,
                                              keyboardWillShowTrigger: keyboardWillShow,
                                              keyboardWillHideTrigger: keyboardWillHide,
-                                             didTapAddressSelect: didTapAddressSelect)
+                                             saveAddress: saveAddress)
 
     //OUTPUT
     let output = viewModel.transform(input: input)
@@ -242,12 +244,9 @@ class AddressSearchViewController: BaseViewController, ViewType {
       })
       .disposed(by: disposeBag)
     
-    output.getInfoMarker
-      .map { $0.address }
-      .drive(onNext: { self.infoMarkerWindow?.addressLabel.text = $0 })
-      .disposed(by: disposeBag)
-
-
+    output.toRegistryAfterSave
+    .drive()
+    .disposed(by: disposeBag)
   }
 }
 
@@ -287,7 +286,6 @@ extension AddressSearchViewController: GMSMapViewDelegate {
 
   func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
     dismissKeyboard()
-    infoMarkerWindow?.removeFromSuperview()
   }
 }
 
