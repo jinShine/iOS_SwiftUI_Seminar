@@ -8,6 +8,7 @@
 
 import RxSwift
 import RxCocoa
+import GoogleMaps
 
 final class AddressSearchViewModel: ViewModelType {
 
@@ -62,16 +63,16 @@ final class AddressSearchViewModel: ViewModelType {
         .take(1)
         .asDriver(onErrorJustReturn: (nil, nil))
     }
-    
+
     let geocoderSubject = PublishSubject<GeocoderResult>()
 
-    let didSearch = input.didSearch.flatMapLatest {
-      self.googleUseCase.requestGeocoding(addrsss: $0)
-        .map { $0.results.first ?? GeocoderResult(address: "", geometry: nil) }
-        .asDriver(onErrorJustReturn: GeocoderResult(address: "", geometry: nil))
-    }
-    .do(onNext: { geocoderSubject.onNext($0) })
-    .do(onNext: { log.debug($0) })
+    let didSearch = input.didSearch
+      .flatMapLatest {
+        self.googleUseCase.requestGeocoding(addrsss: $0)
+          .map { $0.results.first ?? GeocoderResult(address: "", geometry: nil) }
+          .asDriver(onErrorJustReturn: GeocoderResult(address: "", geometry: nil))
+      }
+      .do(onNext: { geocoderSubject.onNext($0) })
     
     let getInfoMarker = geocoderSubject
       .map { $0 }
@@ -103,3 +104,32 @@ final class AddressSearchViewModel: ViewModelType {
     )
   }
 }
+
+//MARK: - Methods
+extension AddressSearchViewModel {
+
+  func reverseGeocodeCoordinate(geocoder: GMSGeocoder,
+                                location: CLLocation,
+                                completion: @escaping (String?) -> Void) {
+    geocoder.reverseGeocodeCoordinate(location.coordinate) { (response, error) in
+      if let address = response,
+        let result = address.firstResult(),
+        let line = result.lines?.first {
+        completion(line.removalRepublicKorea())
+      }
+    }
+  }
+  
+
+}
+
+extension String {
+  public func removalRepublicKorea() -> String {
+    if self.contains("대한민국 ") {
+      return self.components(separatedBy: "대한민국 ").last ?? ""
+    } else {
+      return self
+    }
+  }
+}
+

@@ -8,25 +8,17 @@
 
 import Foundation
 
-//MARK: - 스트링 로컬라이제이션 적용
 extension String {
+
+  //스트링 로컬라이제이션 적용
   public var localize: String {
     return NSLocalizedString(self, comment: self)
   }
-}
 
-//MARK:- HTML Tag 제거
-extension String {
+  //HTML Tag 제거
   public var removeHTMLTags: String {
-
-//    guard let data = self.data(using: .utf8) else { return nil }
-//    let options: [NSAttributedString.DocumentReadingOptionKey : Any] = [
-//      .documentType: NSAttributedString.DocumentType.html,
-//      .characterEncoding: String.Encoding.utf8.rawValue
-//    ]
-//    guard let attributedString = try? NSAttributedString(data: data, options: options, documentAttributes: .none) else { return nil }
-//    
-//    return attributedString
     return self.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
   }
+
 }
+

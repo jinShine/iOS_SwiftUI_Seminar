@@ -172,14 +172,10 @@ class AddressSearchViewController: BaseViewController, ViewType {
 
     let keyboardWillHide = NotificationCenter.default.rx
       .notification(UIApplication.keyboardWillHideNotification)
-    
-    
-    let addressCombine = "\(addressLabel.text ?? "") \(addressDetailField.text ?? "")"
-    let saveAddress = saveAddressButton.rx.tap
-      .withLatestFrom(addressDetailField.rx.text.orEmpty)
-//      .map { addressCombine }
-      .asObservable()
 
+    let saveAddress = saveAddressButton.rx.tap
+      .map { self.addressLabel.text ?? "" }
+      .map { $0 + " " + (self.addressDetailField.text ?? "") }
 
     let input = AddressSearchViewModel.Input(didTapPopButton: didTapPopButton,
                                              locationStart: locatoinStart,
@@ -202,9 +198,15 @@ class AddressSearchViewController: BaseViewController, ViewType {
     
     output.locationUpdate
       .filter(locationError)
-      .drive(cameraUpdate)
+      .drive(onNext: { [weak self] (location, _) in
+        if let location = location {
+          self?.viewModel.reverseGeocodeCoordinate(geocoder: GMSGeocoder(),
+                                                   location: location,
+                                                   completion: { self?.addressLabel.text = $0 })
+          self?.mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 16.0)
+        }
+      })
       .disposed(by: disposeBag)
-      
 
     let searchedShared = output.searchedGeocoder
       .asSharedSequence()
@@ -212,7 +214,7 @@ class AddressSearchViewController: BaseViewController, ViewType {
     searchedShared
       .filter { $0.address == "" && $0.geometry == nil }
       .drive(onNext: { _ in
-        App.toast.info(message: "주소 결과가 없습니다.\n정확한 주소로 검색해주세요.", sender: self)
+        App.toast.info(message: "주소 결과가 없습니다.\n정확한 주소로 검색해주세요.", sender: self, location: .top)
       })
       .disposed(by: disposeBag)
 
@@ -250,22 +252,8 @@ class AddressSearchViewController: BaseViewController, ViewType {
   }
 }
 
+//MARK: - Methods
 extension AddressSearchViewController {
-
-  var cameraUpdate: Binder<LocationResponse> {
-    return Binder(self) { (vc, response) in
-      if let location = response.location {
-        GMSGeocoder().reverseGeocodeCoordinate(location.coordinate) { (response, error) in
-          if let address = response,
-            let result = address.firstResult(),
-            let line = result.lines?.first {
-            self.addressLabel.text = line
-          }
-        }
-        vc.mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 16.0)
-      }
-    }
-  }
 
   var locationUpdate: Binder<GeocoderResult> {
     return Binder(self) { (vc, geocoder) in
@@ -273,11 +261,28 @@ extension AddressSearchViewController {
         let coordinate = CLLocationCoordinate2DMake(location.lat, location.lng)
         self.mapView.animate(toLocation: coordinate)
         self.marker.position = coordinate
-        self.addressLabel.text = geocoder.address
+        self.addressLabel.text = geocoder.address.removalRepublicKorea()
         self.marker.appearAnimation = GMSMarkerAnimation.pop
         self.marker.map = self.mapView
       }
     }
+  }
+
+  func locationError(location: CLLocation?, error: LocationError?) -> Bool {
+    guard error == nil else {
+      switch error {
+      case .authorizationDenied:
+        App.toast.error(message: "원활한 서비스를 위해\n위치서비스를 활성화 시켜주세요.\n\n* 설정 -> Grouping앱 -> 위치 활성화",
+                        sender: self,
+                        location: .top)
+      default:
+        App.toast.error(message: "지도 업데이트 에러",
+                        sender: self,
+                        location: .top)
+      }
+      return false
+    }
+    return true
   }
 }
 
@@ -289,19 +294,3 @@ extension AddressSearchViewController: GMSMapViewDelegate {
   }
 }
 
-//MARK: - Methods
-extension AddressSearchViewController {
-  func locationError(location: CLLocation?, error: LocationError?) -> Bool {
-    guard error == nil else {
-      switch error {
-      case .authorizationDenied:
-        App.toast.error(message: "원활한 서비스를 위해\n위치서비스를 활성화 시켜주세요.\n\n* 설정 -> Grouping앱 -> 위치 활성화",
-                        sender: self, location: .top)
-      default:
-        App.toast.error(message: "지도 업데이트 에러", sender: self, location: .top)
-      }
-      return false
-    }
-    return true
-  }
-}

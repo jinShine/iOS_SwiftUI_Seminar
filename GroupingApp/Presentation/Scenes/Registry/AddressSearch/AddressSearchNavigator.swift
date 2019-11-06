@@ -18,10 +18,8 @@ class AddressSearchNavigator: Navigator<AddressSearch> {
   func navigate(to destination: AddressSearch) {
     switch destination {
     case .registry(let address):
-
-      
       let registryVC = presenter?.viewControllers.first { $0 is RegistryViewController } as? RegistryViewController
-      registryVC?.passedAddress = address
+      registryVC?.viewModel.receivedAddress = address
       presenter?.popViewController(animated: true)
     }
   }
