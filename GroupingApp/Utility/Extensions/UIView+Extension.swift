@@ -42,5 +42,5 @@ extension UIView {
   class func nib() -> UINib {
     return UINib(nibName: self.reuseIdentifier, bundle: nil)
   }
-  
+
 }
