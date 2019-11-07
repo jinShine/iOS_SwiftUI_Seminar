@@ -18,6 +18,7 @@ class AddressSearchViewController: BaseViewController, ViewType {
   //MARK: - UI Properties
   lazy var mapView: GMSMapView = {
     let mapView = GMSMapView()
+    mapView.padding = UIEdgeInsets(top: UIDevice.current.hasNotch ? 88 : 44, left: 0, bottom: 0, right: 0)
     mapView.settings.consumesGesturesInView = false
     mapView.isMyLocationEnabled = true
     mapView.delegate = self
@@ -65,8 +66,12 @@ class AddressSearchViewController: BaseViewController, ViewType {
     field.font = App.font.regular(size: 14)
     return field
   }()
-  
-  let saveAddressButton = SJButton(title: "선택한 위치로 설정", image: UIImage(named: "Icon_Checkmark"))
+
+  let saveAddressButton: SJButton = {
+    let button = SJButton(title: "선택한 위치로 설정", image: UIImage(named: "Icon_Checkmark"))
+    button.setBackgroundImage(UIImage(named: "Button_Background_Flat"), for: .normal)
+    return button
+  }()
 
   override var preferredStatusBarStyle: UIStatusBarStyle {
     return .default
@@ -199,12 +204,15 @@ class AddressSearchViewController: BaseViewController, ViewType {
     output.locationUpdate
       .filter(locationError)
       .drive(onNext: { [weak self] (location, _) in
-        if let location = location {
-          self?.viewModel.reverseGeocodeCoordinate(geocoder: GMSGeocoder(),
-                                                   location: location,
-                                                   completion: { self?.addressLabel.text = $0 })
-          self?.mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 16.0)
-        }
+        guard let self = self else { return }
+
+        self.viewModel.reverseGeocodeCoordinate(geocoder: GMSGeocoder(),
+                                                 location: location,
+                                                 completion: { self.addressLabel.text = $0 })
+        self.mapView.camera = GMSCameraPosition(
+          target: location?.coordinate ?? self.viewModel.defaultCoordinate,
+          zoom: 16.0
+        )
       })
       .disposed(by: disposeBag)
 
@@ -230,7 +238,7 @@ class AddressSearchViewController: BaseViewController, ViewType {
           $0.bottom.equalToSuperview().offset(-keyboardHeight)
         }
         UIView.animate(withDuration: 0.35) {
-          self.view.layoutIfNeeded()
+          self.addressContainer.layoutIfNeeded()
         }
       })
     .disposed(by: disposeBag)
@@ -241,7 +249,7 @@ class AddressSearchViewController: BaseViewController, ViewType {
           $0.bottom.equalToSuperview().offset(-(App.window?.safeAreaInsets.bottom ?? 0))
         }
         UIView.animate(withDuration: 0.35) {
-          self.view.layoutIfNeeded()
+          self.addressContainer.layoutIfNeeded()
         }
       })
       .disposed(by: disposeBag)
@@ -270,20 +278,21 @@ extension AddressSearchViewController {
 
   func locationError(location: CLLocation?, error: LocationError?) -> Bool {
     guard error == nil else {
+      saveAddressButton.inActivate()
+
       switch error {
       case .authorizationDenied:
-        App.toast.error(message: "원활한 서비스를 위해\n위치서비스를 활성화 시켜주세요.\n\n* 설정 -> Grouping앱 -> 위치 활성화",
-                        sender: self,
-                        location: .top)
+        App.toast.error(message: "원활한 서비스를 위해\n위치서비스를 활성화 시켜주세요.\n\n* 설정 -> Grouping앱 -> 위치 활성화", sender: self, location: .top)
       default:
-        App.toast.error(message: "지도 업데이트 에러",
-                        sender: self,
-                        location: .top)
+        App.toast.error(message: "지도 업데이트 에러", sender: self, location: .top)
       }
       return false
     }
+
+    saveAddressButton.activate()
     return true
   }
+
 }
 
 //MARK: - GMSMapView Delegate

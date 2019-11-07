@@ -23,5 +23,4 @@ class AddressSearchNavigator: Navigator<AddressSearch> {
       presenter?.popViewController(animated: true)
     }
   }
-  
 }

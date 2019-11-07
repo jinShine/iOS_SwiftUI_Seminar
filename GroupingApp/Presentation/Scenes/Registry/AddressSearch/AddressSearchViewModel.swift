@@ -109,15 +109,24 @@ final class AddressSearchViewModel: ViewModelType {
 extension AddressSearchViewModel {
 
   func reverseGeocodeCoordinate(geocoder: GMSGeocoder,
-                                location: CLLocation,
-                                completion: @escaping (String?) -> Void) {
-    geocoder.reverseGeocodeCoordinate(location.coordinate) { (response, error) in
-      if let address = response,
-        let result = address.firstResult(),
-        let line = result.lines?.first {
-        completion(line.removalRepublicKorea())
+                                location: CLLocation?,
+                                completion: @escaping (String) -> Void) {
+    if let location = location {
+      geocoder.reverseGeocodeCoordinate(location.coordinate) { (response, error) in
+        if let address = response,
+          let result = address.firstResult(),
+          let line = result.lines?.first {
+          completion(line.removalRepublicKorea())
+        }
       }
+    } else {
+      completion("현재 위치를 찾을 수 없습니다.")
     }
+  }
+
+  var defaultCoordinate: CLLocationCoordinate2D {
+    // 시청역 기본값
+    return CLLocationCoordinate2DMake(37.566676, 126.978804)
   }
   
 
