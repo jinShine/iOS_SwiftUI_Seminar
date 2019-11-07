@@ -43,7 +43,7 @@ class SJButton: UIButton {
   
   private func setupUI() {
     
-    setBackgroundImage(UIImage(named: "Button_Background"), for: .normal)
+    setBackgroundImage(UIImage(named: "Button_Background_Radius"), for: .normal)
     
     [lbTitle, ivLogo].forEach {
       self.addSubview($0)
