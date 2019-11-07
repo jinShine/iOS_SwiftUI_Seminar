@@ -30,7 +30,7 @@ class SplashNavigator: Navigator<SplashRoute> {
   }
 
   
-  private func makeHomeViewController() -> UIViewController {
+  private func makeHomeViewController() -> UINavigationController {
     let homeViewModel = HomeViewModel()
     let homeVC = HomeViewController(viewModel: homeViewModel)
     return UINavigationController.generate(rootViewController: homeVC,
@@ -38,12 +38,12 @@ class SplashNavigator: Navigator<SplashRoute> {
                                            selectedImage: UIImage(named: "TabBar_Home_Selected")?.withRenderingMode(.alwaysOriginal))
   }
 
-  private func makeRegistryViewController() -> UIViewController {
+  private func makeRegistryViewController() -> UINavigationController {
     return UINavigationController.generate(image: UIImage(named: "TabBar_Registry")?.withRenderingMode(.alwaysOriginal),
                                            selectedImage: UIImage(named: "TabBar_Registry_Selected")?.withRenderingMode(.alwaysOriginal))
   }
 
-  private func makeSearchViewController() -> UIViewController {
+  private func makeSearchViewController() -> UINavigationController {
     let searchViewModel = SearchViewModel()
     let searchVC = SearchViewController(viewModel: searchViewModel)
     return UINavigationController.generate(rootViewController: searchVC,

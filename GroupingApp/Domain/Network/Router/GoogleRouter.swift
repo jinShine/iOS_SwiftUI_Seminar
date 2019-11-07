@@ -21,7 +21,7 @@ enum GoogleRouterError: Error {
 
 extension GoogleRouter: TargetType {
 
-  //네이버 Key
+  //Google Key
   static let apiKey = App.configuration.accessGoogleAPIKey
 
   var baseURL: URL {
