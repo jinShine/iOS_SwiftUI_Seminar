@@ -51,7 +51,7 @@ class SJSearchBar: UIControl {
       searchBaseView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
       
       textField.centerYAnchor.constraint(equalTo: searchBaseView.centerYAnchor),
-      textField.leadingAnchor.constraint(equalTo: searchBaseView.leadingAnchor, constant: 52),
+      textField.leadingAnchor.constraint(equalTo: searchBaseView.leadingAnchor, constant: 60),
       textField.trailingAnchor.constraint(equalTo: searchBaseView.trailingAnchor, constant: -16)
     ])
   }

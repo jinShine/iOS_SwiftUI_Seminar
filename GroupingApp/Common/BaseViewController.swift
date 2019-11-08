@@ -13,7 +13,7 @@ class BaseViewController: UIViewController {
 
   //MARK: - Constant
   struct Constant {
-    static let itemSize: CGFloat = 44
+    static let itemSize: CGFloat = UIDevice.current.isIPhoneSE ? 34 : 44
     static let basicMargin: CGFloat = 12
   }
 

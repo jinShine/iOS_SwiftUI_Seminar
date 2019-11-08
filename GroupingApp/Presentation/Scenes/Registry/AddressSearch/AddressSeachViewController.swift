@@ -123,7 +123,11 @@ class AddressSearchViewController: BaseViewController, ViewType {
       $0.top.equalTo(navigationBaseView.snp.bottom).offset(16)
       $0.leading.equalToSuperview().offset(32)
       $0.trailing.equalToSuperview().offset(-32)
-      $0.height.equalTo(56)
+      if UIDevice.current.isIPhoneSE || UIDevice.current.isIPhone8 {
+        $0.height.equalTo(46)
+      } else {
+        $0.height.equalTo(56)
+      }
     }
 
     addressContainer.snp.makeConstraints {
@@ -135,19 +139,32 @@ class AddressSearchViewController: BaseViewController, ViewType {
       $0.top.equalToSuperview().offset(8)
       $0.leading.equalToSuperview().offset(16)
       $0.trailing.equalToSuperview().offset(-16)
-      $0.height.equalTo(32)
+      if UIDevice.current.isIPhoneSE || UIDevice.current.isIPhone8 {
+        $0.height.equalTo(22)
+      } else {
+        $0.height.equalTo(32)
+      }
     }
     
     addressDetailField.snp.makeConstraints {
       $0.top.equalTo(addressLabel.snp.bottom)
       $0.leading.equalToSuperview().offset(16)
       $0.trailing.equalToSuperview().offset(-16)
-      $0.height.equalTo(32)
+      if UIDevice.current.isIPhoneSE || UIDevice.current.isIPhone8 {
+        $0.height.equalTo(22)
+      } else {
+        $0.height.equalTo(32)
+      }
     }
     
     saveAddressButton.snp.makeConstraints {
       $0.top.equalTo(addressDetailField.snp.bottom).offset(8)
       $0.leading.trailing.equalToSuperview()
+      if UIDevice.current.isIPhoneSE || UIDevice.current.isIPhone8 {
+        $0.height.equalTo(50)
+      } else {
+        $0.height.equalTo(56)
+      }
       $0.bottom.equalToSuperview()
     }
     

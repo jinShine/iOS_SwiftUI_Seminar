@@ -11,11 +11,23 @@ import UIKit
 struct Font {
   
   func regular(size: CGFloat) -> UIFont {
-    return UIFont.systemFont(ofSize: size)
+    if UIDevice.current.isIPhoneSE {
+      return UIFont.systemFont(ofSize: size - 2)
+    } else if UIDevice.current.isIPhone8 {
+      return UIFont.systemFont(ofSize: size - 1)
+    } else {
+      return UIFont.systemFont(ofSize: size)
+    }
   }
   
   func bold(size: CGFloat) -> UIFont {
-    return UIFont.boldSystemFont(ofSize: size)
+    if UIDevice.current.isIPhoneSE {
+      return UIFont.boldSystemFont(ofSize: size - 2)
+    } else if UIDevice.current.isIPhone8 {
+      return UIFont.boldSystemFont(ofSize: size - 1)
+    } else {
+      return UIFont.boldSystemFont(ofSize: size)
+    }
   }
   
 }
