@@ -35,6 +35,8 @@ final class RegistryViewModel: ViewModelType {
   var navigator: RegistryNavigator?
   let userUseCase: UserUseCase
   var receivedAddress: String?
+  let profileImageSubject = PublishSubject<Data?>()
+  let receivedAddressSubject = PublishSubject<String>()
 
 
   //MARK: - Initialize
@@ -78,6 +80,7 @@ final class RegistryViewModel: ViewModelType {
       }.asDriver(onErrorJustReturn: ())
 
     let didSetReceivedAddress = input.showReceivedAddress
+      .map { self.receivedAddressSubject.onNext(self.receivedAddress ?? "") }
       .map { self.receivedAddress ?? "" }
       .asDriver(onErrorJustReturn: "")
 

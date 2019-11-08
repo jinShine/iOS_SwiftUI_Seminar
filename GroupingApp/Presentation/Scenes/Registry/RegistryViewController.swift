@@ -115,7 +115,6 @@ class RegistryViewController: BaseViewController, ViewType {
   var viewModel: RegistryViewModel!
   var disposeBag: DisposeBag!
   
-  
   //MARK: - Life Cycle
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -254,20 +253,18 @@ class RegistryViewController: BaseViewController, ViewType {
     let keyboarWillShow = NotificationCenter.default.rx.notification(UIApplication.keyboardWillShowNotification)
     let keyboarWillHide = NotificationCenter.default.rx.notification(UIApplication.keyboardWillHideNotification)
     let didTapAddPhoto = Driver.of(profileButton.rx.tap.asDriver(), addProfileButton.rx.tap.asDriver()).merge()
-    
-    let profileImageData = profileButton.imageView?.image?.jpegData(compressionQuality: 0.5) ?? Data()
-    let userModelCombine = Observable.combineLatest(Observable.of(profileImageData),
+
+    let userModelCombine = Observable.combineLatest(viewModel.profileImageSubject,
                                                     nameTextField.rx.text,
                                                     numberTextField.rx.text,
                                                     crewTextField.rx.text,
-                                                    addressField.rx.text,
+                                                    viewModel.receivedAddressSubject,
                                                     emailTextField.rx.text,
                                                     birthTextField.rx.text,
                                                     memoTextView.rx.text)
       .map { UserModel(profileImage: $0.0, name: $0.1!, number: $0.2!,
                        crew: $0.3!, address: $0.4, email: $0.5,
                        birth: $0.6, memo: $0.7) }.asObservable()
-    
     
     let didTapSave = saveButton.rx.tap
       .withLatestFrom(userModelCombine)
@@ -334,6 +331,7 @@ extension RegistryViewController: UIImagePickerControllerDelegate, UINavigationC
     
     let originImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
     self.profileButton.setImage(originImage, for: .normal)
+    viewModel.profileImageSubject.onNext(self.profileButton.imageView?.image?.pngData())
     self.dismiss(animated: true, completion: nil)
     
   }
