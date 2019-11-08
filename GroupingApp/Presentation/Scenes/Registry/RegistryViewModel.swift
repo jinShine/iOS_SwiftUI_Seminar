@@ -16,8 +16,8 @@ final class RegistryViewModel: ViewModelType {
     let keyboardWillShowTrigger: Observable<Notification>
     let keyboardWillHideTrigger: Observable<Notification>
     let didTapAddPhoto: Driver<Void>
-    let userModelValidation: Observable<UserModel>
-    let didTapSave: Observable<UserModel>
+    let userModelValidation: Observable<(String, String, String)>
+    let didTapSave: Observable<(Data?, String, String, String, String, String, String, String)>
     let showReceivedAddress: Observable<Void>
   }
 
@@ -67,17 +67,42 @@ final class RegistryViewModel: ViewModelType {
       .asDriver()
 
     let saveButtonEnable = input.userModelValidation
-      .map { userModel -> Bool in
-        guard userModel.name != "" && userModel.number != "" && userModel.crew != "" else {
+      .map { name, number, crew in
+        guard name.isNotEmpty && number.isNotEmpty && crew.isNotEmpty else {
           return false
         }
         return true
       }.asDriver(onErrorJustReturn: false)
-    
+
     let userInfoSave = input.didTapSave
-      .flatMap { userModel in
-        return self.userUseCase.create(profileImage: userModel.profileImage, name: userModel.name, number: userModel.number, crew: userModel.crew, address: userModel.address, email: userModel.email, birth: userModel.birth, memo: userModel.memo)
-      }.asDriver(onErrorJustReturn: ())
+      .flatMap { profile, name, number, crew, address, email, birth, memo in
+        return self.userUseCase.create(profileImage: profile, name: name, number: number, crew: crew, address: address, email: email, birth: birth, memo: memo)
+      }
+      .map { self.navigator?.navigate(to: .main) }
+      .mapToVoid()
+      .asDriver(onErrorJustReturn: ())
+//      .flatMap { profile, name, number, crew, address, email, birth, memo in
+
+//        return self.userUseCase.create(profileImage: userModel.profileImage, name: userModel.name, number: userModel.number, crew: userModel.crew, address: userModel.address, email: userModel.email, birth: userModel.birth, memo: userModel.memo)
+//      }
+//      .map { self.navigator?.navigate(to: .main) }
+//      .mapToVoid()
+//      .asDriver(onErrorJustReturn: ())
+//      .map { profile, name, number, crew, address, email, birth, memo in
+//        let userModel = UserModel(profileImage: profile, name: name, number: number, crew: crew, address: address, email: email, birth: birth, memo: memo)
+//      }
+
+
+
+//      .withLatestFrom((profileImageSubject, receivedAddressSubject))
+
+
+//      .flatMap { userModel in
+//        return self.userUseCase.create(profileImage: userModel.profileImage, name: userModel.name, number: userModel.number, crew: userModel.crew, address: userModel.address, email: userModel.email, birth: userModel.birth, memo: userModel.memo)
+//      }
+//      .map { self.navigator?.navigate(to: .main) }
+//      .mapToVoid()
+//      .asDriver(onErrorJustReturn: ())
 
     let didSetReceivedAddress = input.showReceivedAddress
       .map { self.receivedAddressSubject.onNext(self.receivedAddress ?? "") }

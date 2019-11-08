@@ -252,22 +252,24 @@ class RegistryViewController: BaseViewController, ViewType {
     let didTapDismiss = dismissButton.rx.tap.asDriver()
     let keyboarWillShow = NotificationCenter.default.rx.notification(UIApplication.keyboardWillShowNotification)
     let keyboarWillHide = NotificationCenter.default.rx.notification(UIApplication.keyboardWillHideNotification)
-    let didTapAddPhoto = Driver.of(profileButton.rx.tap.asDriver(), addProfileButton.rx.tap.asDriver()).merge()
+    let didTapAddPhoto = Driver.of(profileButton.rx.tap.asDriver(),
+                                   addProfileButton.rx.tap.asDriver()).merge()
 
-    let userModelCombine = Observable.combineLatest(viewModel.profileImageSubject,
-                                                    nameTextField.rx.text,
-                                                    numberTextField.rx.text,
-                                                    crewTextField.rx.text,
-                                                    viewModel.receivedAddressSubject,
-                                                    emailTextField.rx.text,
-                                                    birthTextField.rx.text,
-                                                    memoTextView.rx.text)
-      .map { UserModel(profileImage: $0.0, name: $0.1!, number: $0.2!,
-                       crew: $0.3!, address: $0.4, email: $0.5,
-                       birth: $0.6, memo: $0.7) }.asObservable()
+    let inputCombine = Observable.combineLatest(viewModel.profileImageSubject.take(1),
+                                                nameTextField.rx.text.orEmpty,
+                                                numberTextField.rx.text.orEmpty,
+                                                crewTextField.rx.text.orEmpty,
+                                                addressField.rx.text.orEmpty,
+                                                emailTextField.rx.text.orEmpty,
+                                                birthTextField.rx.text.orEmpty,
+                                                memoTextView.rx.text.orEmpty)
     
     let didTapSave = saveButton.rx.tap
-      .withLatestFrom(userModelCombine)
+      .withLatestFrom(inputCombine)
+
+    let saveValidation = Observable.combineLatest(nameTextField.rx.text.orEmpty,
+                                                  numberTextField.rx.text.orEmpty,
+                                                  crewTextField.rx.text.orEmpty)
 
     let showReceivedAddress = rx.viewWillAppear.mapToVoid()
     
@@ -275,7 +277,7 @@ class RegistryViewController: BaseViewController, ViewType {
                                         keyboardWillShowTrigger: keyboarWillShow,
                                         keyboardWillHideTrigger: keyboarWillHide,
                                         didTapAddPhoto: didTapAddPhoto,
-                                        userModelValidation: userModelCombine,
+                                        userModelValidation: saveValidation,
                                         didTapSave: didTapSave,
                                         showReceivedAddress: showReceivedAddress)
     
@@ -311,6 +313,7 @@ class RegistryViewController: BaseViewController, ViewType {
     
     output.saveButtonEnable
       .drive(onNext: { enable in
+        print(enable)
         enable ? self.saveButton.activate() : self.saveButton.inActivate()
       })
       .disposed(by: disposeBag)

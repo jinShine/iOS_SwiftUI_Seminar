@@ -9,7 +9,8 @@
 import RxSwift
 
 protocol UserUseCase {
-  
+
+  func showAll()
   func create(profileImage: Data?,
               name: String,
               number: String,

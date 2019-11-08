@@ -8,11 +8,35 @@
 
 import RxSwift
 import RxCocoa
+import CoreData
 
 final class UserInteractor: UserUseCase {
 
   let coreData = App.coreData
-  
+
+  func showAll() {
+    self.coreData.context.performAndWait {
+      let request: NSFetchRequest<UserInfomation> = UserInfomation.fetchRequest()
+      let list = try? self.coreData.context.fetch(request)
+      list?.forEach { log.debug($0) }
+    }
+  }
+
+  func show() {
+    self.coreData.context.performAndWait {
+      let request: NSFetchRequest<UserInfomation> = UserInfomation.fetchRequest()
+      do {
+        if let last = try self.coreData.context.fetch(request).last {
+          #if DEBUG
+          log.debug(last)
+          #endif
+        }
+      } catch {
+        log.error("CoreData Show Error")
+      }
+    }
+  }
+
   func create(profileImage: Data?, name: String, number: String, crew: String, address: String?, email: String?, birth: String?, memo: String?) -> Single<Void> {
 
     return Single.create { (single) -> Disposable in
@@ -29,13 +53,14 @@ final class UserInteractor: UserUseCase {
         newUserInfo.memo = memo
 
         self.coreData.saveContext()
+        self.show()
+
         single(.success(()))
       }
 
       return Disposables.create()
     }
-
   }
-  
-  
+
+
 }
