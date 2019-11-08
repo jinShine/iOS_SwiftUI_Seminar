@@ -15,4 +15,24 @@ extension UIDevice {
     return App.window?.safeAreaInsets.bottom ?? 0 > 0
   }
 
+  var isIPhoneSE: Bool {
+    (userInterfaceIdiom == .phone && UIScreen.main.bounds.size.height == 568) ? true : false
+  }
+
+  var isIPhone8: Bool {
+    (userInterfaceIdiom == .phone && UIScreen.main.bounds.size.height == 667) ? true : false
+  }
+
+  var isIPhonePlus: Bool {
+    (userInterfaceIdiom == .phone && UIScreen.main.bounds.size.height == 736) ? true : false
+  }
+
+  var isIPhoneX: Bool {
+    (userInterfaceIdiom == .phone && UIScreen.main.bounds.size.height == 812) ? true : false
+  }
+
+  var isIPhoneXMax: Bool {
+    (userInterfaceIdiom == .phone && UIScreen.main.bounds.size.height == 812) ? true : false
+  }
+
 }
