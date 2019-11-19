@@ -22,7 +22,6 @@ class BaseViewController: UIViewController {
 
 
   //MARK: - UI Properties
-  
   let navigationBaseView = UIView()
   
   override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -31,7 +30,6 @@ class BaseViewController: UIViewController {
 
 
   //MARK: - Initialization
-
   init() {
     super.init(nibName: nil, bundle: nil)
   }
@@ -47,7 +45,6 @@ class BaseViewController: UIViewController {
   
 
   //MARK: - Life Cycle
-
   override func viewDidLoad() {
     super.viewDidLoad()
 

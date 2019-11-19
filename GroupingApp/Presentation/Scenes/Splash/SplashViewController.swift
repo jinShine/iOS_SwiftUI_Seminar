@@ -20,7 +20,6 @@ class SplashViewController: BaseViewController {
   //MARK: - Properties
   var splashNavigator: SplashNavigator?
 
-  
   //MARK: - Life Cycle
   override func viewDidLoad() {
     super.viewDidLoad()

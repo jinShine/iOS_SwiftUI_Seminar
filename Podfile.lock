@@ -24,9 +24,14 @@ PODS:
   - Moya/RxSwift (13.0.1):
     - Moya/Core
     - RxSwift (~> 4.0)
+  - "NSObject+Rx (4.4.1)":
+    - RxSwift (~> 4.3)
   - Result (4.1.0)
   - RxCocoa (4.5.0):
     - RxSwift (>= 4.4.2, ~> 4.4)
+  - RxCoreData (0.4.0):
+    - RxCocoa (~> 4.0)
+    - RxSwift (~> 4.0)
   - RxDataSources (3.1.0):
     - Differentiator (~> 3.0)
     - RxCocoa (~> 4.0)
@@ -48,7 +53,9 @@ DEPENDENCIES:
   - Loaf
   - Moya (~> 13.0)
   - Moya/RxSwift (~> 13.0.1)
+  - "NSObject+Rx"
   - RxCocoa (~> 4.0)
+  - RxCoreData
   - RxDataSources (~> 3.0)
   - RxOptional
   - RxSwift (~> 4.0)
@@ -73,6 +80,9 @@ SPEC REPOS:
     - RxOptional
     - RxSwift
     - SnapKit
+  trunk:
+    - "NSObject+Rx"
+    - RxCoreData
 
 SPEC CHECKSUMS:
   Alamofire: afc3e7c6db61476cb45cdd23fed06bad03bbc321
@@ -86,13 +96,15 @@ SPEC CHECKSUMS:
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
   Loaf: 0800b444431366bc395d54267975d4ad4ad5c99c
   Moya: f4a4b80ff2f8a4ffc208dfb31cd91636622fee6e
+  "NSObject+Rx": 9884a92f19b610795c431e10b4e601913b59c9e9
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
   RxCocoa: cbf70265dc65a981d4ac982e513c10cf23df24a0
+  RxCoreData: 3717ff29afb7261f8cff4b893ffb0650367d0fe6
   RxDataSources: a843bad90c29817f5923ec8163f4af2de084ceb3
   RxOptional: 80426a0ddbd092573e4c482d8cc13302078c4d5e
   RxSwift: f172070dfd1a93d70a9ab97a5a01166206e1c575
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
-PODFILE CHECKSUM: d648b231774b300427f5086fb1c7dc45ef703113
+PODFILE CHECKSUM: 74ea78fa117a792bb09d1b5520aec887f948be14
 
 COCOAPODS: 1.8.0.beta.1

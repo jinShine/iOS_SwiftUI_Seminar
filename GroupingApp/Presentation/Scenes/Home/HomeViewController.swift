@@ -13,10 +13,7 @@ import SnapKit
 class HomeViewController: BaseViewController, BindViewType {
 
   //MARK: - Constant
-  struct Constant {
-
-  }
-
+  struct Constant {}
 
   //MARK: - UI Properties
   let naviBaseView: UIImageView = {

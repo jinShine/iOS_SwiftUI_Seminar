@@ -13,14 +13,11 @@ import JVFloatLabeledTextField
 class RegistryViewController: BaseViewController, ViewType {
   
   //MARK: - Constant
-  struct Constant {
-    
-  }
-  
+  struct Constant {}
   
   //MARK: - UI Properties
   
-  let baseScrollView: UIScrollView = {
+  let rootScrollView: UIScrollView = {
     let scrollview = UIScrollView()
     scrollview.bounces = false
     scrollview.keyboardDismissMode = .interactive
@@ -58,10 +55,21 @@ class RegistryViewController: BaseViewController, ViewType {
     label.font = App.font.bold(size: 18)
     return label
   }()
-  
-  let nameTextField = SJTextField(placeholder: "이름 *")
-  let numberTextField = SJTextField(placeholder: "전화번호 *")
-  let crewTextField = SJTextField(placeholder: "ex) 동아리명/기수 *")
+
+  let nameTextField: SJTextField = {
+    let textField = SJTextField(placeholder: "이름 *")
+    return textField
+  }()
+
+  let numberTextField: SJTextField = {
+    let textField = SJTextField(placeholder: "전화번호 *")
+    return textField
+  }()
+
+  let crewTextField: SJTextField = {
+    let textField = SJTextField(placeholder: "ex) 동아리명/기수 *")
+    return textField
+  }()
   
   let additionalInfoLabel: UILabel = {
     let label = UILabel()
@@ -69,19 +77,31 @@ class RegistryViewController: BaseViewController, ViewType {
     label.font = App.font.bold(size: 18)
     return label
   }()
-  
-  let addressField = SJTextField(placeholder: "주소")
-  let emailTextField = SJTextField(placeholder: "이메일")
-  let birthTextField = SJTextField(placeholder: "생일")
+
+  let addressField: SJTextField = {
+    let textField = SJTextField(placeholder: "주소")
+    return textField
+  }()
+
+  let emailTextField: SJTextField = {
+    let textField = SJTextField(placeholder: "이메일")
+    return textField
+  }()
+
+  let birthTextField: SJTextField = {
+    let textField = SJTextField(placeholder: "생일")
+    return textField
+  }()
+
   let memoTextView: JVFloatLabeledTextView = {
     let textView = JVFloatLabeledTextView()
     textView.placeholder = "메모"
-    textView.contentInset = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
     textView.floatingLabelYPadding = 12
+    textView.contentInset = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
+    textView.layer.applyShadow(color: .black, alpha: 0.16, x: 0, y: 2, blur: 10)
     textView.layer.cornerRadius = 16
     textView.layer.masksToBounds = true
     textView.clipsToBounds = false
-    textView.layer.applyShadow(color: .black, alpha: 0.16, x: 0, y: 2, blur: 10)
     return textView
   }()
   
@@ -122,18 +142,18 @@ class RegistryViewController: BaseViewController, ViewType {
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-
+    
   }
   
   //MARK: - Setup UI
   func setupUI() {
     
-    [baseScrollView].forEach {
+    [rootScrollView].forEach {
       view.addSubview($0)
     }
     
     [baseContentView].forEach {
-      baseScrollView.addSubview($0)
+      rootScrollView.addSubview($0)
     }
     
     [profileBaseView, profileButton, addProfileButton, essentialInfoLabel,
@@ -143,15 +163,15 @@ class RegistryViewController: BaseViewController, ViewType {
     }
     
     setupNavigationBar(at: view, leftItem: dismissButton, titleItem: naviTitleLabel, rightItem: saveButton)
-    addDismissTabGesture(in: baseScrollView)
-    baseScrollView.delegate = self
+    addDismissTabGesture(in: rootScrollView)
+    rootScrollView.delegate = self
     addressField.delegate = self
     
   }
   
   //MARK: - Setup Constraints
   func setupConstraints() {
-    baseScrollView.snp.makeConstraints {
+    rootScrollView.snp.makeConstraints {
       $0.edges.equalToSuperview()
     }
     
@@ -254,7 +274,7 @@ class RegistryViewController: BaseViewController, ViewType {
     let keyboarWillHide = NotificationCenter.default.rx.notification(UIApplication.keyboardWillHideNotification)
     let didTapAddPhoto = Driver.of(profileButton.rx.tap.asDriver(),
                                    addProfileButton.rx.tap.asDriver()).merge()
-
+    
     let inputCombine = Observable.combineLatest(viewModel.profileImageSubject.take(1),
                                                 nameTextField.rx.text.orEmpty,
                                                 numberTextField.rx.text.orEmpty,
@@ -266,11 +286,11 @@ class RegistryViewController: BaseViewController, ViewType {
     
     let didTapSave = saveButton.rx.tap
       .withLatestFrom(inputCombine)
-
+    
     let saveValidation = Observable.combineLatest(nameTextField.rx.text.orEmpty,
                                                   numberTextField.rx.text.orEmpty,
                                                   crewTextField.rx.text.orEmpty)
-
+    
     let showReceivedAddress = rx.viewWillAppear.mapToVoid()
     
     let input = RegistryViewModel.Input(didTapDismiss: didTapDismiss,
@@ -291,13 +311,13 @@ class RegistryViewController: BaseViewController, ViewType {
     
     output.keyboardHeight
       .drive(onNext: { height in
-        self.baseScrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: height, right: 0)
+        self.rootScrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: height, right: 0)
       })
       .disposed(by: disposeBag)
     
     output.keyboardDidHide
       .drive(onNext: { _ in
-        self.baseScrollView.contentInset = UIEdgeInsets.zero
+        self.rootScrollView.contentInset = UIEdgeInsets.zero
         UIView.animate(withDuration: 0.25) {
           self.view.layoutIfNeeded()
         }
@@ -321,11 +341,11 @@ class RegistryViewController: BaseViewController, ViewType {
     output.userInfoSave
       .drive()
       .disposed(by: disposeBag)
-
+    
     output.didSetReceivedAddress
       .drive(addressField.rx.text)
       .disposed(by: disposeBag)
-
+    
   }
 }
 

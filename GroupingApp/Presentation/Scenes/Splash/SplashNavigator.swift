@@ -47,8 +47,8 @@ class SplashNavigator: Navigator<SplashRoute> {
     let searchViewModel = SearchViewModel()
     let searchVC = SearchViewController(viewModel: searchViewModel)
     return UINavigationController.generate(rootViewController: searchVC,
-                                    image: UIImage(named: "TabBar_Search")?.withRenderingMode(.alwaysOriginal),
-                                    selectedImage: UIImage(named: "TabBar_Search_Selected")?.withRenderingMode(.alwaysOriginal))
+                                           image: UIImage(named: "TabBar_Search")?.withRenderingMode(.alwaysOriginal),
+                                           selectedImage: UIImage(named: "TabBar_Search_Selected")?.withRenderingMode(.alwaysOriginal))
   }
 
 }
