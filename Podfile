@@ -8,9 +8,9 @@ target 'GroupingApp' do
   # Pods for GroupingApp
 
   # Rx
-  pod 'RxSwift', '~> 4.0'
-  pod 'RxCocoa', '~> 4.0'
-  pod 'RxDataSources', '~> 3.0'
+  pod 'RxSwift'
+  pod 'RxCocoa'
+  pod 'RxDataSources'
   pod 'RxCoreData'
   pod 'RxOptional'
   pod 'NSObject+Rx'

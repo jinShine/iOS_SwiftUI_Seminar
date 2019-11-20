@@ -24,7 +24,7 @@ final class RegistryViewModel: ViewModelType {
   struct Output {
     let dismiss: Driver<Void>
     let keyboardHeight: Driver<CGFloat>
-    let keyboardDidHide: Driver<Void>
+//    let keyboardDidHide: Driver<CGFloat>
     let pickerController: Driver<UIImagePickerController>
     let saveButtonEnable: Driver<Bool>
     let userInfoSave: Driver<Void>
@@ -52,14 +52,14 @@ final class RegistryViewModel: ViewModelType {
       }
     }
 
-    let keyboardHeight = input.keyboardWillShowTrigger
-      .map { $0.userInfo?["UIKeyboardFrameEndUserInfoKey"] as? CGRect }
-      .map { $0?.height ?? 0.0 }
+    let keyboardWillShow = input.keyboardWillShowTrigger
+      .map { ($0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height ?? 0 }
+    
+    let keyboardWillHide = input.keyboardWillHideTrigger
+      .map { noti -> CGFloat in return 0 }
+    
+    let keyboardObservable = Observable.merge(keyboardWillShow, keyboardWillHide)
       .asDriver(onErrorJustReturn: 0.0)
-
-    let keyboardDidHide = input.keyboardWillHideTrigger
-      .mapToVoid()
-      .asDriver(onErrorJustReturn: ())
 
     let pickerViewController = input.didTapAddPhoto
       .do(onNext: { _ in App.loading.show() })
@@ -111,8 +111,7 @@ final class RegistryViewModel: ViewModelType {
 
     return Output(
       dismiss: dismiss,
-      keyboardHeight: keyboardHeight,
-      keyboardDidHide: keyboardDidHide,
+      keyboardHeight: keyboardObservable,
       pickerController: pickerViewController,
       saveButtonEnable: saveButtonEnable,
       userInfoSave: userInfoSave,

@@ -28,6 +28,7 @@
 		5C17C03A234772D20097490E /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17C039234772D20097490E /* NetworkError.swift */; };
 		5C17C03C234772F30097490E /* NetworkErrorBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17C03B234772F30097490E /* NetworkErrorBuilder.swift */; };
 		5C17C045234773D80097490E /* GeocodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C17C044234773D80097490E /* GeocodeModel.swift */; };
+		5C19108C2385985700E76FEB /* Binder+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C19108B2385985700E76FEB /* Binder+Extension.swift */; };
 		5C253DCD234A347F009CDAA4 /* SelectMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C253DCC234A347F009CDAA4 /* SelectMapViewController.swift */; };
 		5C253DCF234A3488009CDAA4 /* SelectMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C253DCE234A3488009CDAA4 /* SelectMapViewModel.swift */; };
 		5C253DD1234A3518009CDAA4 /* AddressSearchNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C253DD0234A3518009CDAA4 /* AddressSearchNavigator.swift */; };
@@ -108,6 +109,7 @@
 		5C17C039234772D20097490E /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		5C17C03B234772F30097490E /* NetworkErrorBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorBuilder.swift; sourceTree = "<group>"; };
 		5C17C044234773D80097490E /* GeocodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeocodeModel.swift; sourceTree = "<group>"; };
+		5C19108B2385985700E76FEB /* Binder+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Binder+Extension.swift"; path = "GroupingApp/Common/Utility/Binder+Extension.swift"; sourceTree = SOURCE_ROOT; };
 		5C253DCC234A347F009CDAA4 /* SelectMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMapViewController.swift; sourceTree = "<group>"; };
 		5C253DCE234A3488009CDAA4 /* SelectMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMapViewModel.swift; sourceTree = "<group>"; };
 		5C253DD0234A3518009CDAA4 /* AddressSearchNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSearchNavigator.swift; sourceTree = "<group>"; };
@@ -509,6 +511,7 @@
 			isa = PBXGroup;
 			children = (
 				5CD278E623604BE700696202 /* Observable+Extension.swift */,
+				5C19108B2385985700E76FEB /* Binder+Extension.swift */,
 			);
 			path = Rx;
 			sourceTree = "<group>";
@@ -745,6 +748,7 @@
 				5C66EA65234F5A4F00A290CE /* AppRouter.swift in Sources */,
 				5C17C02B2347230E0097490E /* SJTextField.swift in Sources */,
 				5C8764D42342F19000201833 /* GroupingApp.xcdatamodeld in Sources */,
+				5C19108C2385985700E76FEB /* Binder+Extension.swift in Sources */,
 				5CE85FE5235764B8009A27FD /* LocationInteractor.swift in Sources */,
 				5C01E934234928110051CA68 /* AddressCellViewModel.swift in Sources */,
 				5C7AEEBC235DEC6000B07CD7 /* ViewModelType.swift in Sources */,

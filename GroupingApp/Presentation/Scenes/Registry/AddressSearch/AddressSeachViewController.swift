@@ -79,7 +79,6 @@ class AddressSearchViewController: BaseViewController, ViewType {
   
   //MARK: - Properties
   var viewModel: AddressSearchViewModel!
-  var disposeBag: DisposeBag!
 
   
   //MARK: - Life Cycle
@@ -212,11 +211,11 @@ class AddressSearchViewController: BaseViewController, ViewType {
 
     output.popViewController
       .drive()
-      .disposed(by: disposeBag)
+      .disposed(by: rx.disposeBag)
 
     output.locationStart
       .drive()
-      .disposed(by: disposeBag)
+      .disposed(by: rx.disposeBag)
     
     output.locationUpdate
       .filter(locationError)
@@ -231,7 +230,7 @@ class AddressSearchViewController: BaseViewController, ViewType {
           zoom: 16.0
         )
       })
-      .disposed(by: disposeBag)
+      .disposed(by: rx.disposeBag)
 
     let searchedShared = output.searchedGeocoder
       .asSharedSequence()
@@ -241,13 +240,13 @@ class AddressSearchViewController: BaseViewController, ViewType {
       .drive(onNext: { _ in
         App.toast.info(message: "주소 결과가 없습니다.\n정확한 주소로 검색해주세요.", sender: self, location: .top)
       })
-      .disposed(by: disposeBag)
+      .disposed(by: rx.disposeBag)
 
     searchedShared
       .filter { $0.address != "" && $0.geometry != nil }
       .do(onNext: { _ in self.addressDetailField.becomeFirstResponder() })
       .drive(locationUpdate)
-      .disposed(by: disposeBag)
+      .disposed(by: rx.disposeBag)
 
     output.keyboardHeight
       .drive(onNext: { keyboardHeight in
@@ -258,7 +257,7 @@ class AddressSearchViewController: BaseViewController, ViewType {
           self.addressContainer.layoutIfNeeded()
         }
       })
-    .disposed(by: disposeBag)
+    .disposed(by: rx.disposeBag)
 
     output.keyboardDidHide
       .drive(onNext: { _ in
@@ -269,11 +268,11 @@ class AddressSearchViewController: BaseViewController, ViewType {
           self.addressContainer.layoutIfNeeded()
         }
       })
-      .disposed(by: disposeBag)
+      .disposed(by: rx.disposeBag)
     
     output.toRegistryAfterSave
     .drive()
-    .disposed(by: disposeBag)
+    .disposed(by: rx.disposeBag)
   }
 }
 

@@ -6,6 +6,7 @@
 //  Copyright © 2019 Jinnify. All rights reserved.
 //
 
+import Foundation
 import RxSwift
 import RxCocoa
 
@@ -16,7 +17,17 @@ extension SharedSequenceConvertibleType {
 }
 
 extension ObservableType {
-    func mapToVoid() -> Observable<Void> {
-        return map { _ in }
+  func mapToVoid() -> Observable<Void> {
+    return map { _ in }
+  }
+}
+
+extension ObservableType where E == CGFloat {
+  func toContentInset(of scrollView: UIScrollView) -> Observable<UIEdgeInsets> {
+    return map { height in
+      var inset = scrollView.contentInset
+      inset.bottom = height
+      return inset
     }
+  }
 }

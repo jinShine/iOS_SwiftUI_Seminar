@@ -54,15 +54,15 @@ DEPENDENCIES:
   - Moya (~> 13.0)
   - Moya/RxSwift (~> 13.0.1)
   - "NSObject+Rx"
-  - RxCocoa (~> 4.0)
+  - RxCocoa
   - RxCoreData
-  - RxDataSources (~> 3.0)
+  - RxDataSources
   - RxOptional
-  - RxSwift (~> 4.0)
+  - RxSwift
   - SnapKit (~> 5.0.0)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - Alamofire
     - CocoaLumberjack
     - Differentiator
@@ -74,15 +74,14 @@ SPEC REPOS:
     - Kingfisher
     - Loaf
     - Moya
+    - "NSObject+Rx"
     - Result
     - RxCocoa
+    - RxCoreData
     - RxDataSources
     - RxOptional
     - RxSwift
     - SnapKit
-  trunk:
-    - "NSObject+Rx"
-    - RxCoreData
 
 SPEC CHECKSUMS:
   Alamofire: afc3e7c6db61476cb45cdd23fed06bad03bbc321
@@ -105,6 +104,6 @@ SPEC CHECKSUMS:
   RxSwift: f172070dfd1a93d70a9ab97a5a01166206e1c575
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
-PODFILE CHECKSUM: 74ea78fa117a792bb09d1b5520aec887f948be14
+PODFILE CHECKSUM: 58f1c1c30ecf69abe18460ac24fdb6056c1baec8
 
-COCOAPODS: 1.8.0.beta.1
+COCOAPODS: 1.7.5
