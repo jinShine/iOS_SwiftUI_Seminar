@@ -8,6 +8,7 @@
 
 import RxSwift
 import RxCocoa
+import NSObject_Rx
 import JVFloatLabeledTextField
 
 class RegistryViewController: BaseViewController, ViewType {
@@ -133,7 +134,6 @@ class RegistryViewController: BaseViewController, ViewType {
   
   //MARK: - Properties
   var viewModel: RegistryViewModel!
-  var disposeBag: DisposeBag!
   
   //MARK: - Life Cycle
   override func viewDidLoad() {
@@ -164,6 +164,7 @@ class RegistryViewController: BaseViewController, ViewType {
     
     setupNavigationBar(at: view, leftItem: dismissButton, titleItem: naviTitleLabel, rightItem: saveButton)
     addDismissTabGesture(in: rootScrollView)
+    
     rootScrollView.delegate = self
     addressField.delegate = self
     
@@ -272,6 +273,8 @@ class RegistryViewController: BaseViewController, ViewType {
     let didTapDismiss = dismissButton.rx.tap.asDriver()
     let keyboarWillShow = NotificationCenter.default.rx.notification(UIApplication.keyboardWillShowNotification)
     let keyboarWillHide = NotificationCenter.default.rx.notification(UIApplication.keyboardWillHideNotification)
+//    let keyboardObservable = Observable.merge(keyboarWillShow, keyboarWillHide)
+    
     let didTapAddPhoto = Driver.of(profileButton.rx.tap.asDriver(),
                                    addProfileButton.rx.tap.asDriver()).merge()
     
@@ -307,48 +310,40 @@ class RegistryViewController: BaseViewController, ViewType {
     
     output.dismiss
       .drive()
-      .disposed(by: disposeBag)
+      .disposed(by: rx.disposeBag)
     
-    output.keyboardHeight
-      .drive(onNext: { height in
-        self.rootScrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: height, right: 0)
-      })
-      .disposed(by: disposeBag)
-    
-    output.keyboardDidHide
-      .drive(onNext: { _ in
-        self.rootScrollView.contentInset = UIEdgeInsets.zero
-        UIView.animate(withDuration: 0.25) {
-          self.view.layoutIfNeeded()
-        }
-      })
-      .disposed(by: disposeBag)
+    output.keyboardHeight.asObservable()
+      .toContentInset(of: rootScrollView)
+      .bind(to: rootScrollView.rx.contentInset)
+      .disposed(by: rx.disposeBag)
+
     
     output.pickerController
       .drive(onNext: { pickerVC in
         pickerVC.delegate = self
         self.present(pickerVC, animated: true) { App.loading.hide() }
       })
-      .disposed(by: disposeBag)
+      .disposed(by: rx.disposeBag)
     
     output.saveButtonEnable
       .drive(onNext: { enable in
         print(enable)
         enable ? self.saveButton.activate() : self.saveButton.inActivate()
       })
-      .disposed(by: disposeBag)
+      .disposed(by: rx.disposeBag)
     
     output.userInfoSave
       .drive()
-      .disposed(by: disposeBag)
+      .disposed(by: rx.disposeBag)
     
     output.didSetReceivedAddress
       .drive(addressField.rx.text)
-      .disposed(by: disposeBag)
+      .disposed(by: rx.disposeBag)
     
   }
 }
 
+//MARK: - UIImagePickerController
 extension RegistryViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
     
