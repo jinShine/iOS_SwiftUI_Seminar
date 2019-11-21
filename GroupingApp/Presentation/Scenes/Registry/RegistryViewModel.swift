@@ -23,8 +23,7 @@ final class RegistryViewModel: ViewModelType {
 
   struct Output {
     let dismiss: Driver<Void>
-    let keyboardHeight: Driver<CGFloat>
-//    let keyboardDidHide: Driver<CGFloat>
+    let keyboardHeight: Observable<CGFloat>
     let pickerController: Driver<UIImagePickerController>
     let saveButtonEnable: Driver<Bool>
     let userInfoSave: Driver<Void>
@@ -59,7 +58,6 @@ final class RegistryViewModel: ViewModelType {
       .map { noti -> CGFloat in return 0 }
     
     let keyboardObservable = Observable.merge(keyboardWillShow, keyboardWillHide)
-      .asDriver(onErrorJustReturn: 0.0)
 
     let pickerViewController = input.didTapAddPhoto
       .do(onNext: { _ in App.loading.show() })

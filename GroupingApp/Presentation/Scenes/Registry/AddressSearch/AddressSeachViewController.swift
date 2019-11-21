@@ -14,6 +14,8 @@ import GoogleMaps
 class AddressSearchViewController: BaseViewController, ViewType {
   
   //MARK: - Constant
+  struct Constant {}
+
   
   //MARK: - UI Properties
   lazy var mapView: GMSMapView = {
@@ -27,7 +29,7 @@ class AddressSearchViewController: BaseViewController, ViewType {
 
   var marker: GMSMarker = {
     let marker = GMSMarker()
-    marker.icon = UIImage(named: "Icon_pin")
+    marker.icon = UIImage(named: "Icon_Pin")
     return marker
   }()
   
@@ -76,7 +78,8 @@ class AddressSearchViewController: BaseViewController, ViewType {
   override var preferredStatusBarStyle: UIStatusBarStyle {
     return .default
   }
-  
+
+
   //MARK: - Properties
   var viewModel: AddressSearchViewModel!
 
@@ -92,6 +95,7 @@ class AddressSearchViewController: BaseViewController, ViewType {
     super.viewDidAppear(animated)
     App.loading.hide()
   }
+
 
   //MARK: - Setup UI
   func setupUI() {
@@ -173,51 +177,52 @@ class AddressSearchViewController: BaseViewController, ViewType {
   func bindViewModel() {
 
     //INPUT
-    let didTapPopButton = popButton.rx.tap.asDriver()
+    let popButtonAction = popButton.rx.tap.asDriver()
 
-    let locatoinStart = rx.viewWillAppear
+    let locationStartAction = rx.viewWillAppear
       .mapToVoid()
       .asDriver(onErrorJustReturn: ())
 
-    let locationFetch = rx.viewWillAppear
+    let locationFetchAction = rx.viewWillAppear
       .mapToVoid()
       .asDriver(onErrorJustReturn: ())
     
-    let didSearch = searchBar.textField.rx.controlEvent(.editingDidEndOnExit)
-      .throttle(0.8, scheduler: MainScheduler.instance)
+    let addressSearchAction = searchBar.textField.rx.controlEvent(.editingDidEndOnExit)
+      .throttle(0.5, scheduler: MainScheduler.instance)
       .withLatestFrom(searchBar.textField.rx.text.orEmpty)
       .asDriver(onErrorJustReturn: "")
 
-    let keyboardWillShow = NotificationCenter.default.rx
+    let keyboardWillShowAction = NotificationCenter.default.rx
       .notification(UIApplication.keyboardWillShowNotification)
 
-    let keyboardWillHide = NotificationCenter.default.rx
+    let keyboardWillHideAction = NotificationCenter.default.rx
       .notification(UIApplication.keyboardWillHideNotification)
 
-    let saveAddress = saveAddressButton.rx.tap
+
+    let saveButtonAction = saveAddressButton.rx.tap
       .map { self.addressLabel.text ?? "" }
       .map { $0 + " " + (self.addressDetailField.text ?? "") }
 
-    let input = AddressSearchViewModel.Input(didTapPopButton: didTapPopButton,
-                                             locationStart: locatoinStart,
-                                             locationFetch: locationFetch,
-                                             didSearch: didSearch,
-                                             keyboardWillShowTrigger: keyboardWillShow,
-                                             keyboardWillHideTrigger: keyboardWillHide,
-                                             saveAddress: saveAddress)
+    let input = AddressSearchViewModel.Input(popButtonAction: popButtonAction,
+                                             locationStartAction: locationStartAction,
+                                             locationFetchAction: locationFetchAction,
+                                             addressSearchAction: addressSearchAction,
+                                             keyboardWillShowAction: keyboardWillShowAction,
+                                             keyboardWillHideAction: keyboardWillHideAction,
+                                             saveButtonAction: saveButtonAction)
 
     //OUTPUT
     let output = viewModel.transform(input: input)
 
-    output.popViewController
+    output.popState
       .drive()
       .disposed(by: rx.disposeBag)
 
-    output.locationStart
+    output.locationStartState
       .drive()
       .disposed(by: rx.disposeBag)
     
-    output.locationUpdate
+    output.locationUpdateState
       .filter(locationError)
       .drive(onNext: { [weak self] (location, _) in
         guard let self = self else { return }
@@ -232,7 +237,7 @@ class AddressSearchViewController: BaseViewController, ViewType {
       })
       .disposed(by: rx.disposeBag)
 
-    let searchedShared = output.searchedGeocoder
+    let searchedShared = output.addressSearchState
       .asSharedSequence()
 
     searchedShared
@@ -248,29 +253,15 @@ class AddressSearchViewController: BaseViewController, ViewType {
       .drive(locationUpdate)
       .disposed(by: rx.disposeBag)
 
-    output.keyboardHeight
-      .drive(onNext: { keyboardHeight in
+    output.keyboardHeightState
+      .drive(onNext: { height in
         self.addressContainer.snp.updateConstraints {
-          $0.bottom.equalToSuperview().offset(-keyboardHeight)
-        }
-        UIView.animate(withDuration: 0.35) {
-          self.addressContainer.layoutIfNeeded()
-        }
-      })
-    .disposed(by: rx.disposeBag)
-
-    output.keyboardDidHide
-      .drive(onNext: { _ in
-        self.addressContainer.snp.updateConstraints {
-          $0.bottom.equalToSuperview().offset(-(App.window?.safeAreaInsets.bottom ?? 0))
-        }
-        UIView.animate(withDuration: 0.35) {
-          self.addressContainer.layoutIfNeeded()
+          $0.bottom.equalToSuperview().offset(-height)
         }
       })
       .disposed(by: rx.disposeBag)
-    
-    output.toRegistryAfterSave
+
+    output.popAfterSaveState
     .drive()
     .disposed(by: rx.disposeBag)
   }

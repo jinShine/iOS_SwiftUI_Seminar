@@ -13,24 +13,22 @@ import GoogleMaps
 final class AddressSearchViewModel: ViewModelType {
 
   struct Input {
-    let didTapPopButton: Driver<Void>
-    let locationStart: Driver<Void>
-    let locationFetch: Driver<Void>
-    let didSearch: Driver<String>
-    let keyboardWillShowTrigger: Observable<Notification>
-    let keyboardWillHideTrigger: Observable<Notification>
-    let saveAddress: Observable<String>
+    let popButtonAction: Driver<Void>
+    let locationStartAction: Driver<Void>
+    let locationFetchAction: Driver<Void>
+    let addressSearchAction: Driver<String>
+    let keyboardWillShowAction: Observable<Notification>
+    let keyboardWillHideAction: Observable<Notification>
+    let saveButtonAction: Observable<String>
   }
   
   struct Output {
-    let popViewController: Driver<Void>
-    let locationStart: Driver<Void>
-    let locationUpdate: Driver<LocationResponse>
-    let searchedGeocoder: Driver<GeocoderResult>
-    let keyboardHeight: Driver<CGFloat>
-    let keyboardDidHide: Driver<Void>
-    let getInfoMarker: Driver<GeocoderResult>
-    let toRegistryAfterSave: Driver<Void>
+    let popState: Driver<Void>
+    let locationStartState: Driver<Void>
+    let locationUpdateState: Driver<LocationResponse>
+    let addressSearchState: Driver<GeocoderResult>
+    let keyboardHeightState: Driver<CGFloat>
+    let popAfterSaveState: Driver<Void>
   }
   
   //MARK: - Properties
@@ -50,63 +48,57 @@ final class AddressSearchViewModel: ViewModelType {
 
   func transform(input: Input) -> Output {
 
-    let popViewController = input.didTapPopButton
-      .map { self.navigator.navigate(to: .registry(address: nil))
-    }
+    let popState = input.popButtonAction
+      .map { self.navigator.navigate(to: .registry(address: nil)) }
 
-    let starting = input.locationStart.flatMapLatest {
-      self.locationUseCase.start().asDriver(onErrorJustReturn: ())
-    }
+    let locationStartState = input.locationStartAction
+      .flatMapLatest { self.locationUseCase.start().asDriver(onErrorJustReturn: ()) }
 
-    let fetching = input.locationFetch.flatMapLatest {
+    let locationUpdateState = input.locationFetchAction.flatMapLatest {
       self.locationUseCase.fetch()
         .take(1)
         .asDriver(onErrorJustReturn: (nil, nil))
     }
 
-    let geocoderSubject = PublishSubject<GeocoderResult>()
+    let addressSearchState = input.addressSearchAction.flatMapLatest {
+      self.googleUseCase.requestGeocoding(addrsss: $0)
+        .map { $0.results.first ?? GeocoderResult(address: "", geometry: nil) }
+        .asDriver(onErrorJustReturn: GeocoderResult(address: "", geometry: nil))
+    }
 
-    let didSearch = input.didSearch
-      .flatMapLatest {
-        self.googleUseCase.requestGeocoding(addrsss: $0)
-          .map { $0.results.first ?? GeocoderResult(address: "", geometry: nil) }
-          .asDriver(onErrorJustReturn: GeocoderResult(address: "", geometry: nil))
-      }
-      .do(onNext: { geocoderSubject.onNext($0) })
-    
-    let getInfoMarker = geocoderSubject
-      .map { $0 }
-      .asDriver(onErrorJustReturn: GeocoderResult(address: "", geometry: nil))
-
-    let keyboardHeight = input.keyboardWillShowTrigger
-      .map { $0.userInfo?["UIKeyboardFrameEndUserInfoKey"] as? CGRect }
-      .map { $0?.height ?? 0.0 }
+    let keyboardWillShow = input.keyboardWillShowAction
+      .map { ($0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height ?? 0}
       .asDriver(onErrorJustReturn: 0.0)
 
-    let keyboardDidHide = input.keyboardWillHideTrigger
-      .mapToVoid()
-      .asDriver(onErrorJustReturn: ())
+    let keyboardWillHide = input.keyboardWillHideAction
+      .map { noti -> CGFloat in return 0.0 }
+      .asDriver(onErrorJustReturn: 0.0)
 
-    let toRegistryAfterSave = input.saveAddress.map {
-      self.navigator.navigate(to: .registry(address: $0))
-    }.asDriver(onErrorJustReturn: ())
+    let keyboardHeightState = Driver.merge(keyboardWillShow, keyboardWillHide)
+
+    let popAfterSaveState = input.saveButtonAction
+      .map { self.navigator.navigate(to: .registry(address: $0))}
+      .asDriver(onErrorJustReturn: ())
     
 
     return Output(
-      popViewController: popViewController,
-      locationStart: starting,
-      locationUpdate: fetching,
-      searchedGeocoder: didSearch,
-      keyboardHeight: keyboardHeight,
-      keyboardDidHide: keyboardDidHide,
-      getInfoMarker: getInfoMarker,
-      toRegistryAfterSave: toRegistryAfterSave
+      popState: popState,
+      locationStartState: locationStartState,
+      locationUpdateState: locationUpdateState,
+      addressSearchState: addressSearchState,
+      keyboardHeightState: keyboardHeightState,
+      popAfterSaveState: popAfterSaveState
     )
   }
 }
 
 //MARK: - Methods
 extension AddressSearchViewModel {
+
+  var defaultCoordinate: CLLocationCoordinate2D {
+    // 시청역 기본값
+    return CLLocationCoordinate2DMake(37.566676, 126.978804)
+  }
 
   func reverseGeocodeCoordinate(geocoder: GMSGeocoder,
                                 location: CLLocation?,
@@ -123,13 +115,6 @@ extension AddressSearchViewModel {
       completion("현재 위치를 찾을 수 없습니다.")
     }
   }
-
-  var defaultCoordinate: CLLocationCoordinate2D {
-    // 시청역 기본값
-    return CLLocationCoordinate2DMake(37.566676, 126.978804)
-  }
-  
-
 }
 
 extension String {

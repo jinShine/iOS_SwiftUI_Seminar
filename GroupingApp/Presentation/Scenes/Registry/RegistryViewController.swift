@@ -273,7 +273,6 @@ class RegistryViewController: BaseViewController, ViewType {
     let didTapDismiss = dismissButton.rx.tap.asDriver()
     let keyboarWillShow = NotificationCenter.default.rx.notification(UIApplication.keyboardWillShowNotification)
     let keyboarWillHide = NotificationCenter.default.rx.notification(UIApplication.keyboardWillHideNotification)
-//    let keyboardObservable = Observable.merge(keyboarWillShow, keyboarWillHide)
     
     let didTapAddPhoto = Driver.of(profileButton.rx.tap.asDriver(),
                                    addProfileButton.rx.tap.asDriver()).merge()
@@ -288,6 +287,7 @@ class RegistryViewController: BaseViewController, ViewType {
                                                 memoTextView.rx.text.orEmpty)
     
     let didTapSave = saveButton.rx.tap
+      .throttle(0.5, scheduler: MainScheduler.instance)
       .withLatestFrom(inputCombine)
     
     let saveValidation = Observable.combineLatest(nameTextField.rx.text.orEmpty,
@@ -312,7 +312,7 @@ class RegistryViewController: BaseViewController, ViewType {
       .drive()
       .disposed(by: rx.disposeBag)
     
-    output.keyboardHeight.asObservable()
+    output.keyboardHeight
       .toContentInset(of: rootScrollView)
       .bind(to: rootScrollView.rx.contentInset)
       .disposed(by: rx.disposeBag)
