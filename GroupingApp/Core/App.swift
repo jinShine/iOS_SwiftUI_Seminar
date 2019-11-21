@@ -16,9 +16,9 @@ struct App {
   static let configuration = Configuration.shared
   static let toast = Toast()
   static let loading = LoadingView.shared
-  
-  static let AppService = AppNetworkService.shared
-  static let googleService = GoogleNetworkService.shared
+
+//  static let AppService = AppNetworkService.shared
+//  static let googleService = GoogleNetworkService.shared
   
   static let session = SessionModel()
 

@@ -27,7 +27,7 @@ class RegistryNavigator: Navigator<RegistryRoute> {
       presenter?.dismiss(animated: true, completion: nil)
     case .addressSearch:
       let viewModel = AddressSearchViewModel(navigator: AddressSearchNavigator(with: presenter),
-                                             googleUseCase: GoogleInteractor(),
+                                             googleUseCase: GoogleUseCaseImpl(googleRepository: GoogleRepository()),
                                              locationUseCase: LocationInteractor())
       
       let viewController = AddressSearchViewController.create(with: viewModel)

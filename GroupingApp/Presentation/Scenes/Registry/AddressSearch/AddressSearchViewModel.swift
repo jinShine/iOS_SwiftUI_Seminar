@@ -61,7 +61,7 @@ final class AddressSearchViewModel: ViewModelType {
     }
 
     let addressSearchState = input.addressSearchAction.flatMapLatest {
-      self.googleUseCase.requestGeocoding(addrsss: $0)
+      self.googleUseCase.executeGeocoding(addresss: $0)
         .map { $0.results.first ?? GeocoderResult(address: "", geometry: nil) }
         .asDriver(onErrorJustReturn: GeocoderResult(address: "", geometry: nil))
     }

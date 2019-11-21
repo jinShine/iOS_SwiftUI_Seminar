@@ -12,8 +12,6 @@ import Alamofire
 
 struct GoogleNetworkService {
 
-  static let shared = GoogleNetworkService()
-
   static private let sharedManager: Alamofire.SessionManager = {
     let configuration = URLSessionConfiguration.default
     configuration.httpAdditionalHeaders = Alamofire.SessionManager.defaultHTTPHeaders
