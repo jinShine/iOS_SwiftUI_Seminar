@@ -20,30 +20,21 @@ final class GoogleRepository {
 
 extension GoogleRepository: GoogleRepositoryType {
 
-  func requestGeocoding(addresss: String) -> Single< {
-    let dd = googleNetworkService.buildRequest(to: .geocode(address: addresss))
+  func requestGeocoding(addresss: String) -> Single<Geocoder> {
+    return googleNetworkService.buildRequest(to: .geocode(address: addresss))
       .map { response in
-        
+        let result = try JSONDecoder().decode(Geocoder.self, from: response.jsonData ?? Data())
+        let status = GoogleNetworkStatus(rawValue: result.status)
+
+        guard status == .ok || status == .noResult else {
+          log.error(GoogleNetworkStatus.message(status: status))
+          return result
+        }
+
+        log.debug(result)
+
+        return result
     }
-
-
-//    return googleNetworkService.buildRequest(to: .geocode(address: addresss))
-//      .map { response in
-//        let result = try JSONDecoder().decode(Geocoder.self, from: response.jsonData ?? Data())
-//        let status = GoogleNetworkStatus(rawValue: result.status)
-//
-//        guard status == .ok || status == .noResult else {
-//          log.error(GoogleNetworkStatus.message(status: status))
-//
-//          return
-//        }
-//
-//
-//
-//        log.debug(result)
-//
-//        return result
-//    }
   }
 
 }

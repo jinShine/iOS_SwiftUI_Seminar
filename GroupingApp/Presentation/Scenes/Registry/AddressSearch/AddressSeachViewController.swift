@@ -228,8 +228,8 @@ class AddressSearchViewController: BaseViewController, ViewType {
         guard let self = self else { return }
 
         self.viewModel.reverseGeocodeCoordinate(geocoder: GMSGeocoder(),
-                                                 location: location,
-                                                 completion: { self.addressLabel.text = $0 })
+                                                location: location,
+                                                completion: { self.addressLabel.text = $0 })
         self.mapView.camera = GMSCameraPosition(
           target: location?.coordinate ?? self.viewModel.defaultCoordinate,
           zoom: 16.0
@@ -237,10 +237,22 @@ class AddressSearchViewController: BaseViewController, ViewType {
       })
       .disposed(by: rx.disposeBag)
 
-    let searchedShared = output.addressSearchState
-      .asSharedSequence()
+    let searchedShared = output.addressSearchState.asSharedSequence()
 
     searchedShared
+      .map { GoogleNetworkStatus(rawValue: $0.status) }
+      .filter {
+        if $0 == .ok || $0 == .noResult {
+          return true
+        }
+        App.toast.info(message: GoogleNetworkStatus.message(status: $0), sender: self, location: .top)
+        return false
+      }
+      .drive()
+      .disposed(by: rx.disposeBag)
+
+    searchedShared
+      .map { $0.results.first ?? GeocoderResult(address: "", geometry: nil) }
       .filter { $0.address == "" && $0.geometry == nil }
       .drive(onNext: { _ in
         App.toast.info(message: "주소 결과가 없습니다.\n정확한 주소로 검색해주세요.", sender: self, location: .top)
@@ -248,6 +260,7 @@ class AddressSearchViewController: BaseViewController, ViewType {
       .disposed(by: rx.disposeBag)
 
     searchedShared
+      .map { $0.results.first ?? GeocoderResult(address: "", geometry: nil) }
       .filter { $0.address != "" && $0.geometry != nil }
       .do(onNext: { _ in self.addressDetailField.becomeFirstResponder() })
       .drive(locationUpdate)
@@ -262,8 +275,8 @@ class AddressSearchViewController: BaseViewController, ViewType {
       .disposed(by: rx.disposeBag)
 
     output.popAfterSaveState
-    .drive()
-    .disposed(by: rx.disposeBag)
+      .drive()
+      .disposed(by: rx.disposeBag)
   }
 }
 

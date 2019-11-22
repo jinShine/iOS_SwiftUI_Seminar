@@ -72,9 +72,7 @@
 		5CBA444E235A29D100A0A4B6 /* SJSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBA444D235A29D100A0A4B6 /* SJSearchBar.swift */; };
 		5CC89C2A2386735E0060393F /* GoogleRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC89C292386735E0060393F /* GoogleRepository.swift */; };
 		5CC89C2D23868BB10060393F /* GoogleRepositoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC89C2C23868BB10060393F /* GoogleRepositoryType.swift */; };
-		5CC89C2F238776B60060393F /* ResponseTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC89C2E238776B60060393F /* ResponseTransformer.swift */; };
 		5CC89C352387C18F0060393F /* GoogleNetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC89C342387C18F0060393F /* GoogleNetworkError.swift */; };
-		5CC89C372387D0430060393F /* NetworkDataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC89C362387D0430060393F /* NetworkDataResponse.swift */; };
 		5CD278E723604BE700696202 /* Observable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD278E623604BE700696202 /* Observable+Extension.swift */; };
 		5CD4CF812373E602005738FD /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD4CF802373E602005738FD /* UIDevice+Extension.swift */; };
 		5CE6D2032345CFFA00E090A2 /* UIViewController+NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE6D2022345CFFA00E090A2 /* UIViewController+NavigationBar.swift */; };
@@ -157,9 +155,7 @@
 		5CBA444D235A29D100A0A4B6 /* SJSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SJSearchBar.swift; sourceTree = "<group>"; };
 		5CC89C292386735E0060393F /* GoogleRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleRepository.swift; sourceTree = "<group>"; };
 		5CC89C2C23868BB10060393F /* GoogleRepositoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleRepositoryType.swift; sourceTree = "<group>"; };
-		5CC89C2E238776B60060393F /* ResponseTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseTransformer.swift; sourceTree = "<group>"; };
 		5CC89C342387C18F0060393F /* GoogleNetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleNetworkError.swift; sourceTree = "<group>"; };
-		5CC89C362387D0430060393F /* NetworkDataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDataResponse.swift; sourceTree = "<group>"; };
 		5CD278E623604BE700696202 /* Observable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Observable+Extension.swift"; sourceTree = "<group>"; };
 		5CD4CF802373E602005738FD /* UIDevice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
 		5CE6D2022345CFFA00E090A2 /* UIViewController+NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+NavigationBar.swift"; sourceTree = "<group>"; };
@@ -262,7 +258,6 @@
 			children = (
 				5CC89C302387C0B30060393F /* AppNetwork */,
 				5CC89C312387C0BE0060393F /* GoogleNetwork */,
-				5CC89C2E238776B60060393F /* ResponseTransformer.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -540,7 +535,6 @@
 			children = (
 				5C66EA68234F5B2200A290CE /* GoogleNetworkService.swift */,
 				5CC89C342387C18F0060393F /* GoogleNetworkError.swift */,
-				5CC89C362387D0430060393F /* NetworkDataResponse.swift */,
 			);
 			path = GoogleNetwork;
 			sourceTree = "<group>";
@@ -755,7 +749,6 @@
 				5C01E9282347AF700051CA68 /* AddressSearchViewModel.swift in Sources */,
 				5C66EA6B234F5BE500A290CE /* GoogleUseCase.swift in Sources */,
 				5C66EA752350262600A290CE /* SessionModel.swift in Sources */,
-				5CC89C2F238776B60060393F /* ResponseTransformer.swift in Sources */,
 				5CC89C2D23868BB10060393F /* GoogleRepositoryType.swift in Sources */,
 				5C01E9262347AF640051CA68 /* AddressSeachViewController.swift in Sources */,
 				5C66EA69234F5B2200A290CE /* GoogleNetworkService.swift in Sources */,
@@ -808,7 +801,6 @@
 				5C8765362343559F00201833 /* HomeNavigator.swift in Sources */,
 				5C17C028234711A70097490E /* UIView+Extension.swift in Sources */,
 				5CE85FD7234E15B0009A27FD /* BaseViewController.swift in Sources */,
-				5CC89C372387D0430060393F /* NetworkDataResponse.swift in Sources */,
 				5C01E91F23464FA70051CA68 /* UserUseCase.swift in Sources */,
 				5C8764EE2342F51B00201833 /* SplashViewController.swift in Sources */,
 				5C01E92223465C850051CA68 /* UserModel.swift in Sources */,

@@ -33,16 +33,17 @@ struct GoogleNetworkService {
   }()
 
 
-  func buildRequest(to router: GoogleRouter) -> Single<Data> {
+  func buildRequest(to router: GoogleRouter) -> Single<NetworkDataResponse> {
     return self.provider.rx.request(router)
-      .flatMap { response -> Single<Data> in
+      .flatMap { response -> Single<NetworkDataResponse> in
         return Single.create(subscribe: { single -> Disposable in
           let statusCode = response.response?.statusCode ?? 0
 
           guard statusCode >= 200 && statusCode < 300  else {
+            log.error(RequestError.invalidRequest)
             return single(.error(RequestError.invalidRequest)) as! Disposable
           }
-          
+
           single(.success(NetworkDataResponse(jsonData: response.data)))
           
           return Disposables.create()

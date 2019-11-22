@@ -26,7 +26,7 @@ final class AddressSearchViewModel: ViewModelType {
     let popState: Driver<Void>
     let locationStartState: Driver<Void>
     let locationUpdateState: Driver<LocationResponse>
-    let addressSearchState: Driver<GeocoderResult>
+    let addressSearchState: Driver<Geocoder>
     let keyboardHeightState: Driver<CGFloat>
     let popAfterSaveState: Driver<Void>
   }
@@ -61,10 +61,32 @@ final class AddressSearchViewModel: ViewModelType {
     }
 
     let addressSearchState = input.addressSearchAction.flatMapLatest {
-      self.googleUseCase.executeGeocoding(addresss: $0)
-        .map { $0.results.first ?? GeocoderResult(address: "", geometry: nil) }
-        .asDriver(onErrorJustReturn: GeocoderResult(address: "", geometry: nil))
+      return self.googleUseCase.executeGeocoding(addresss: $0)
+//        .filter {
+//          let status = GoogleNetworkStatus(rawValue: $0.status)
+//          if status == .ok || status == .noResult {
+//            return true
+//          }
+//
+//
+//
+//
+//          return false
+//        }
+        .map { $0 }
+        .asDriver(onErrorJustReturn: Geocoder())
+//      .map { $0.results.first ?? GeocoderResult(address: "", geometry: nil) }
+//      .asDriver(onErrorJustReturn: GeocoderResult(address: "", geometry: nil))
     }
+
+//    let addressSearchState = input.addressSearchAction.flatMapLatest {
+//      self.googleUseCase.executeGeocoding(addresss: $0)
+
+//        .map { $0.status }
+
+//        .map { $0.results.first ?? GeocoderResult(address: "", geometry: nil) }
+//        .asDriver(onErrorJustReturn: GeocoderResult(address: "", geometry: nil))
+//    }
 
     let keyboardWillShow = input.keyboardWillShowAction
       .map { ($0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height ?? 0}
