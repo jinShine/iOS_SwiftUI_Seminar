@@ -18,3 +18,4 @@ struct NetworkError {
   let description: String
   let error: Error?
 }
+

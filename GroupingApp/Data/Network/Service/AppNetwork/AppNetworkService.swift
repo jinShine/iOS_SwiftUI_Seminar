@@ -34,16 +34,16 @@ struct AppNetworkService {
 
 
   func buildRequest(to router: AppRouter) -> Single<NetworkDataResponse> {
-      return self.provider.rx.request(router)
+    return self.provider.rx.request(router)
         .flatMap { response -> Single<NetworkDataResponse> in
           return Single.create(subscribe: { single -> Disposable in
             let requestStatusCode = NetworkStatusCode(rawValue: response.response?.statusCode ?? 0)
+            
             guard requestStatusCode != .unauthorized && requestStatusCode != .forbidden else {
               return single(.error(RequestError.invalidRequest)) as! Disposable
             }
-            single(.success(NetworkDataResponse(jsonData: response.data,
-                                                result: .success,
-                                                error: nil)))
+
+            single(.success(NetworkDataResponse(jsonData: response.data)))
 
             return Disposables.create()
           })

@@ -9,7 +9,7 @@
 import RxSwift
 
 protocol GoogleUseCase {
-  func executeGeocoding(addresss: String) -> Single<Geocoder>
+  func executeGeocoding(addresss: String) -> Geocoder
 }
 
 final class GoogleUseCaseImpl: GoogleUseCase {
@@ -20,7 +20,7 @@ final class GoogleUseCaseImpl: GoogleUseCase {
     self.googleRepository = googleRepository
   }
 
-  func executeGeocoding(addresss: String) -> Single<Geocoder> {
+  func executeGeocoding(addresss: String) -> Geocoder {
     googleRepository.requestGeocoding(addresss: addresss)
   }
 }

@@ -286,7 +286,7 @@ extension AddressSearchViewController {
   func locationError(location: CLLocation?, error: LocationError?) -> Bool {
     guard error == nil else {
       saveAddressButton.inActivate()
-
+      
       switch error {
       case .authorizationDenied:
         App.toast.error(message: "원활한 서비스를 위해\n위치서비스를 활성화 시켜주세요.\n\n* 설정 -> Grouping앱 -> 위치 활성화", sender: self, location: .top)
@@ -304,7 +304,6 @@ extension AddressSearchViewController {
 
 //MARK: - GMSMapView Delegate
 extension AddressSearchViewController: GMSMapViewDelegate {
-
   func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
     dismissKeyboard()
   }
