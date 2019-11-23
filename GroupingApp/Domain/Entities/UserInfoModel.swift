@@ -7,8 +7,12 @@
 //
 
 import Foundation
+import CoreData
+import RxCoreData
 
-struct UserModel {
+struct UserInfoModel: Equatable, Identifiable {
+
+  var id: String
   var profileImage: Data?
   var name: String
   var number: String
@@ -27,6 +31,7 @@ struct UserModel {
        birth: String?,
        memo: String?) {
     
+    self.id = "\(Date().timeIntervalSinceReferenceDate)"
     self.profileImage = profileImage
     self.name = name
     self.number = number

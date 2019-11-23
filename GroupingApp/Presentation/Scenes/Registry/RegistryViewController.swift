@@ -270,11 +270,13 @@ class RegistryViewController: BaseViewController, ViewType {
   func bindViewModel() {
     
     //INPUT
-    let didTapDismiss = dismissButton.rx.tap.asDriver()
-    let keyboarWillShow = NotificationCenter.default.rx.notification(UIApplication.keyboardWillShowNotification)
-    let keyboarWillHide = NotificationCenter.default.rx.notification(UIApplication.keyboardWillHideNotification)
+    let dismissButtonAction = dismissButton.rx.tap.asDriver()
+    let keyboarWillShow = NotificationCenter.default.rx
+      .notification(UIApplication.keyboardWillShowNotification)
+    let keyboarWillHide = NotificationCenter.default.rx
+      .notification(UIApplication.keyboardWillHideNotification)
     
-    let didTapAddPhoto = Driver.of(profileButton.rx.tap.asDriver(),
+    let addPhotoActions = Driver.of(profileButton.rx.tap.asDriver(),
                                    addProfileButton.rx.tap.asDriver()).merge()
     
     let inputCombine = Observable.combineLatest(viewModel.profileImageSubject.take(1),
@@ -286,23 +288,23 @@ class RegistryViewController: BaseViewController, ViewType {
                                                 birthTextField.rx.text.orEmpty,
                                                 memoTextView.rx.text.orEmpty)
     
-    let didTapSave = saveButton.rx.tap
+    let saveButtonAction = saveButton.rx.tap
       .throttle(0.5, scheduler: MainScheduler.instance)
       .withLatestFrom(inputCombine)
     
-    let saveValidation = Observable.combineLatest(nameTextField.rx.text.orEmpty,
+    let checkSaveValidationAction = Observable.combineLatest(nameTextField.rx.text.orEmpty,
                                                   numberTextField.rx.text.orEmpty,
                                                   crewTextField.rx.text.orEmpty)
     
-    let showReceivedAddress = rx.viewWillAppear.mapToVoid()
+    let showReceivedAddressAction = rx.viewWillAppear.mapToVoid()
     
-    let input = RegistryViewModel.Input(didTapDismiss: didTapDismiss,
-                                        keyboardWillShowTrigger: keyboarWillShow,
-                                        keyboardWillHideTrigger: keyboarWillHide,
-                                        didTapAddPhoto: didTapAddPhoto,
-                                        userModelValidation: saveValidation,
-                                        didTapSave: didTapSave,
-                                        showReceivedAddress: showReceivedAddress)
+    let input = RegistryViewModel.Input(dismissAction: dismissButtonAction,
+                                        keyboardWillShowAction: keyboarWillShow,
+                                        keyboardWillHideAction: keyboarWillHide,
+                                        addPhotoAction: addPhotoActions,
+                                        checkSaveValidationAction: checkSaveValidationAction,
+                                        saveButtonAction: saveButtonAction,
+                                        showReceivedAddressAction: showReceivedAddressAction)
     
     
     //OUTPUT
@@ -317,7 +319,6 @@ class RegistryViewController: BaseViewController, ViewType {
       .bind(to: rootScrollView.rx.contentInset)
       .disposed(by: rx.disposeBag)
 
-    
     output.pickerController
       .drive(onNext: { pickerVC in
         pickerVC.delegate = self
