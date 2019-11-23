@@ -28,7 +28,7 @@ final class UserInfoUseCaseImpl: UserInfoUseCase {
   }
   
   func executeCreate(profileImage: Data?, name: String, number: String, crew: String, address: String?, email: String?, birth: String?, memo: String?) -> Observable<Void> {
-    return Observable.empty()
+    userInfoRepository.create(profileImage: profileImage, name: name, number: number, crew: crew, address: address, email: email, birth: birth, memo: memo)
   }
   
   

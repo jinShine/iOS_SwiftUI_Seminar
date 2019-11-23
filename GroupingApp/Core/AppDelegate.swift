@@ -29,7 +29,7 @@ extension AppDelegate {
   private func setup() {
 
     //CoreData
-    App.coreData.setup(modelName: "GroupingApp")
+    CoreDataManager(modelName: "GroupingApp")
     
     //Google
     GMSServices.provideAPIKey(App.configuration.accessGoogleAPIKey)

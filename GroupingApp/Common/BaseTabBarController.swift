@@ -45,7 +45,7 @@ class BaseTabBarController: UITabBarController {
   }
   
   private func makeRegistry() -> UINavigationController {
-    let viewModel = RegistryViewModel(userInfoUseCase: UserInfoUseCaseImpl(userInfoRepository: UserInfoRepository()))
+    let viewModel = RegistryViewModel(userInfoUseCase: UserInfoUseCaseImpl(userInfoRepository: UserInfoRepository(coreDataManager: CoreDataManager(modelName: "GroupingApp"))))
     let viewController = RegistryViewController.create(with: viewModel)
     let navigationController = UINavigationController(rootViewController: viewController)
     viewModel.navigator = RegistryNavigator(with: navigationController)

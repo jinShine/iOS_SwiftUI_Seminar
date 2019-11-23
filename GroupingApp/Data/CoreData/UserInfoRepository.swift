@@ -11,9 +11,20 @@ import RxCocoa
 import RxCoreData
 import CoreData
 
-final class UserInfoRepository: UserInfoRepositoryType {
+final class UserInfoRepository {
+
+  private let coreDataManager: CoreDataManager
+
+  init(coreDataManager: CoreDataManager) {
+    self.coreDataManager = coreDataManager
+  }
+
+}
+
+extension UserInfoRepository: UserInfoRepositoryType {
   
   func create(profileImage: Data?, name: String, number: String, crew: String, address: String?, email: String?, birth: String?, memo: String?) -> Observable<Void> {
+
     return Observable.empty()
   }
   
