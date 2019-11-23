@@ -243,10 +243,7 @@ class AddressSearchViewController: BaseViewController, ViewType {
     
     searchedShared
       .map { GoogleNetworkStatus(rawValue: $0.status) }
-      .filter {
-        if $0 == .ok || $0 == .noResult { return true }
-        return false
-      }
+      .filter { ($0 != .ok || $0 != .noResult || $0 != .none) ? true : false }
       .drive(onNext: {
         App.toast.info(message: GoogleNetworkStatus.message(status: $0), sender: self, location: .top)
       })
