@@ -15,7 +15,7 @@ class AddressSearchViewController: BaseViewController, ViewType {
   
   //MARK: - Constant
   struct Constant {}
-
+  
   
   //MARK: - UI Properties
   lazy var mapView: GMSMapView = {
@@ -26,7 +26,7 @@ class AddressSearchViewController: BaseViewController, ViewType {
     mapView.delegate = self
     return mapView
   }()
-
+  
   var marker: GMSMarker = {
     let marker = GMSMarker()
     marker.icon = UIImage(named: "Icon_Pin")
@@ -40,7 +40,7 @@ class AddressSearchViewController: BaseViewController, ViewType {
     button.contentMode = .scaleAspectFit
     return button
   }()
-
+  
   lazy var searchBar: SJSearchBar = {
     let searchBar = SJSearchBar()
     searchBar.textField.placeholder = "주소 검색"
@@ -68,38 +68,40 @@ class AddressSearchViewController: BaseViewController, ViewType {
     field.font = App.font.regular(size: 14)
     return field
   }()
-
+  
   let saveAddressButton: SJButton = {
     let button = SJButton(title: "선택한 위치로 설정", image: UIImage(named: "Icon_Checkmark"))
     button.setBackgroundImage(UIImage(named: "Button_Background_Flat"), for: .normal)
     return button
   }()
-
+  
   override var preferredStatusBarStyle: UIStatusBarStyle {
     return .default
   }
-
-
+  
+  
   //MARK: - Properties
   var viewModel: AddressSearchViewModel!
-
+  
   
   //MARK: - Life Cycle
   override func viewDidLoad() {
     super.viewDidLoad()
-
+    
     searchBar.textField.becomeFirstResponder()
   }
   
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     App.loading.hide()
+    
+    marker.map = mapView
   }
-
-
+  
+  
   //MARK: - Setup UI
   func setupUI() {
-
+    
     [mapView, addressContainer].forEach {
       self.view.addSubview($0)
     }
@@ -121,7 +123,7 @@ class AddressSearchViewController: BaseViewController, ViewType {
       $0.top.leading.trailing.equalToSuperview()
       $0.bottom.equalTo(addressContainer.snp.top)
     }
-
+    
     searchBar.snp.makeConstraints {
       $0.top.equalTo(navigationBaseView.snp.bottom).offset(16)
       $0.leading.equalToSuperview().offset(32)
@@ -132,7 +134,7 @@ class AddressSearchViewController: BaseViewController, ViewType {
         $0.height.equalTo(56)
       }
     }
-
+    
     addressContainer.snp.makeConstraints {
       $0.leading.trailing.equalToSuperview()
       $0.bottom.equalToSuperview().offset(-(App.window?.safeAreaInsets.bottom ?? 0))
@@ -175,14 +177,14 @@ class AddressSearchViewController: BaseViewController, ViewType {
   
   //MARK: - Bind
   func bindViewModel() {
-
+    
     //INPUT
     let popButtonAction = popButton.rx.tap.asDriver()
-
+    
     let locationStartAction = rx.viewWillAppear
       .mapToVoid()
       .asDriver(onErrorJustReturn: ())
-
+    
     let locationFetchAction = rx.viewWillAppear
       .mapToVoid()
       .asDriver(onErrorJustReturn: ())
@@ -191,18 +193,18 @@ class AddressSearchViewController: BaseViewController, ViewType {
       .throttle(0.5, scheduler: MainScheduler.instance)
       .withLatestFrom(searchBar.textField.rx.text.orEmpty)
       .asDriver(onErrorJustReturn: "")
-
+    
     let keyboardWillShowAction = NotificationCenter.default.rx
       .notification(UIApplication.keyboardWillShowNotification)
-
+    
     let keyboardWillHideAction = NotificationCenter.default.rx
       .notification(UIApplication.keyboardWillHideNotification)
-
-
+    
+    
     let saveButtonAction = saveAddressButton.rx.tap
       .map { self.addressLabel.text ?? "" }
       .map { $0 + " " + (self.addressDetailField.text ?? "") }
-
+    
     let input = AddressSearchViewModel.Input(popButtonAction: popButtonAction,
                                              locationStartAction: locationStartAction,
                                              locationFetchAction: locationFetchAction,
@@ -210,14 +212,14 @@ class AddressSearchViewController: BaseViewController, ViewType {
                                              keyboardWillShowAction: keyboardWillShowAction,
                                              keyboardWillHideAction: keyboardWillHideAction,
                                              saveButtonAction: saveButtonAction)
-
+    
     //OUTPUT
     let output = viewModel.transform(input: input)
-
+    
     output.popState
       .drive()
       .disposed(by: rx.disposeBag)
-
+    
     output.locationStartState
       .drive()
       .disposed(by: rx.disposeBag)
@@ -226,7 +228,7 @@ class AddressSearchViewController: BaseViewController, ViewType {
       .filter(locationError)
       .drive(onNext: { [weak self] (location, _) in
         guard let self = self else { return }
-
+        
         self.viewModel.reverseGeocodeCoordinate(geocoder: GMSGeocoder(),
                                                 location: location,
                                                 completion: { self.addressLabel.text = $0 })
@@ -236,26 +238,17 @@ class AddressSearchViewController: BaseViewController, ViewType {
         )
       })
       .disposed(by: rx.disposeBag)
-
+    
     let searchedShared = output.addressSearchState.asSharedSequence()
-
+    
     searchedShared
       .map { GoogleNetworkStatus(rawValue: $0.status) }
       .filter {
-        if $0 == .ok || $0 == .noResult {
-          return true
-        }
-        App.toast.info(message: GoogleNetworkStatus.message(status: $0), sender: self, location: .top)
+        if $0 == .ok || $0 == .noResult { return true }
         return false
       }
-      .drive()
-      .disposed(by: rx.disposeBag)
-
-    searchedShared
-      .map { $0.results.first ?? GeocoderResult(address: "", geometry: nil) }
-      .filter { $0.address == "" && $0.geometry == nil }
-      .drive(onNext: { _ in
-        App.toast.info(message: "주소 결과가 없습니다.\n정확한 주소로 검색해주세요.", sender: self, location: .top)
+      .drive(onNext: {
+        App.toast.info(message: GoogleNetworkStatus.message(status: $0), sender: self, location: .top)
       })
       .disposed(by: rx.disposeBag)
 
@@ -265,7 +258,7 @@ class AddressSearchViewController: BaseViewController, ViewType {
       .do(onNext: { _ in self.addressDetailField.becomeFirstResponder() })
       .drive(locationUpdate)
       .disposed(by: rx.disposeBag)
-
+    
     output.keyboardHeightState
       .drive(onNext: { height in
         self.addressContainer.snp.updateConstraints {
@@ -273,7 +266,7 @@ class AddressSearchViewController: BaseViewController, ViewType {
         }
       })
       .disposed(by: rx.disposeBag)
-
+    
     output.popAfterSaveState
       .drive()
       .disposed(by: rx.disposeBag)
@@ -282,7 +275,7 @@ class AddressSearchViewController: BaseViewController, ViewType {
 
 //MARK: - Methods
 extension AddressSearchViewController {
-
+  
   var locationUpdate: Binder<GeocoderResult> {
     return Binder(self) { (vc, geocoder) in
       if let location = geocoder.geometry?.location {
@@ -295,7 +288,7 @@ extension AddressSearchViewController {
       }
     }
   }
-
+  
   func locationError(location: CLLocation?, error: LocationError?) -> Bool {
     guard error == nil else {
       saveAddressButton.inActivate()
@@ -308,11 +301,11 @@ extension AddressSearchViewController {
       }
       return false
     }
-
+    
     saveAddressButton.activate()
     return true
   }
-
+  
 }
 
 //MARK: - GMSMapView Delegate
