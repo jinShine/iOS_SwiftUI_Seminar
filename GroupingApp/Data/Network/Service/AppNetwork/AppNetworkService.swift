@@ -40,7 +40,8 @@ struct AppNetworkService {
             let requestStatusCode = NetworkStatusCode(rawValue: response.response?.statusCode ?? 0)
             
             guard requestStatusCode != .unauthorized && requestStatusCode != .forbidden else {
-              return single(.error(RequestError.invalidRequest)) as! Disposable
+              single(.error(RequestError.invalidRequest))
+              return Disposables.create()
             }
 
             single(.success(NetworkDataResponse(jsonData: response.data)))

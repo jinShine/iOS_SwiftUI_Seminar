@@ -24,13 +24,6 @@ extension GoogleRepository: GoogleRepositoryType {
     return googleNetworkService.buildRequest(to: .geocode(address: addresss))
       .map { response in
         let result = try JSONDecoder().decode(Geocoder.self, from: response.jsonData ?? Data())
-        let status = GoogleNetworkStatus(rawValue: result.status)
-
-        guard status == .ok || status == .noResult else {
-          log.error(GoogleNetworkStatus.message(status: status))
-          return result
-        }
-
         log.debug(result)
 
         return result

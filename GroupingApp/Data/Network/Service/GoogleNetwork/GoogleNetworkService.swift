@@ -41,7 +41,8 @@ struct GoogleNetworkService {
 
           guard statusCode >= 200 && statusCode < 300  else {
             log.error(RequestError.invalidRequest)
-            return single(.error(RequestError.invalidRequest)) as! Disposable
+            single(.error(RequestError.invalidRequest))
+            return Disposables.create()
           }
 
           single(.success(NetworkDataResponse(jsonData: response.data)))

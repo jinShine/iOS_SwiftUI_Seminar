@@ -23,11 +23,11 @@ public enum GoogleNetworkStatus: String {
   static func message(status: GoogleNetworkStatus?) -> String {
     switch status {
     case .ok: return "성공"
-    case .noResult: return "결과값 없음"
-    case .overQueryLimit: return "쿼리 할당량 초과"
-    case .requestDenied: return "서버에서 요청이 거부"
+    case .noResult: return "주소 결과가 없습니다.\n정확한 주소로 검색해주세요."
+    case .overQueryLimit: return "쿼리 할당량 초과되었습니다."
+    case .requestDenied: return "서버에서 요청이 거부되었습니다."
     case .serverError: return "서버 에러"
-    default: return "서버에러"
+    default: return "서버 에러"
     }
   }
 }
