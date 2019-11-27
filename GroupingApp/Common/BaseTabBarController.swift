@@ -16,7 +16,7 @@ enum TabBarType: Int {
 }
 
 class BaseTabBarController: UITabBarController {
-
+  
   //MARK: - Life Cycle
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -45,10 +45,13 @@ class BaseTabBarController: UITabBarController {
   }
   
   private func makeRegistry() -> UINavigationController {
-    let viewModel = RegistryViewModel(userInfoUseCase: UserInfoUseCaseImpl(userInfoRepository: UserInfoRepository(coreDataManager: CoreDataManager(modelName: "GroupingApp"))))
+    let navigator = RegistryNavigator(with: <#T##UINavigationController?#>)
+    let viewModel = RegistryViewModel(navigator: RegistryNavigator(with: navigationController), userInfoUseCase: UserInfoUseCaseImpl(
+      userInfoRepository: UserInfoRepository(coreDataManager: CoreDataManager(modelName: "GroupingApp")))
+    )
     let viewController = RegistryViewController.create(with: viewModel)
     let navigationController = UINavigationController(rootViewController: viewController)
-    viewModel.navigator = RegistryNavigator(with: navigationController)
+//    viewModel.navigator = RegistryNavigator(with: navigationController)
 
     return navigationController
   }

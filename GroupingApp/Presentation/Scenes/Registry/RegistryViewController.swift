@@ -310,34 +310,34 @@ class RegistryViewController: BaseViewController, ViewType {
     //OUTPUT
     let output = viewModel.transform(input: input)
     
-    output.dismiss
+    output.dismissState
       .drive()
       .disposed(by: rx.disposeBag)
     
-    output.keyboardHeight
+    output.keyboardHeightState
       .toContentInset(of: rootScrollView)
       .bind(to: rootScrollView.rx.contentInset)
       .disposed(by: rx.disposeBag)
 
-    output.pickerController
+    output.pickerControllerState
       .drive(onNext: { pickerVC in
         pickerVC.delegate = self
         self.present(pickerVC, animated: true) { App.loading.hide() }
       })
       .disposed(by: rx.disposeBag)
     
-    output.saveButtonEnable
+    output.saveButtonEnableState
       .drive(onNext: { enable in
         print(enable)
         enable ? self.saveButton.activate() : self.saveButton.inActivate()
       })
       .disposed(by: rx.disposeBag)
     
-    output.userInfoSave
+    output.userInfoSaveState
       .drive()
       .disposed(by: rx.disposeBag)
     
-    output.didSetReceivedAddress
+    output.didSetReceivedAddressState
       .drive(addressField.rx.text)
       .disposed(by: rx.disposeBag)
     
@@ -384,7 +384,7 @@ extension RegistryViewController: UITextFieldDelegate {
   func textFieldDidBeginEditing(_ textField: UITextField) {
     dismissKeyboard()
     App.loading.show()
-    viewModel.navigator?.navigate(to: .addressSearch)
+    viewModel.navigator.navigate(to: .addressSearch)
   }
   
 }

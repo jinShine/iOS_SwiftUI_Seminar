@@ -63,10 +63,4 @@ public extension Reactive where Base: UIViewController {
     return Observable<Bool>.merge(viewDidAppearObservable, viewWillDisappearObservable)
   }
   
-  /// Rx observable, triggered when the ViewController is being dismissed
-  var isDismissing: ControlEvent<Bool> {
-    let source = self.sentMessage(#selector(Base.dismiss)).map { $0.first as? Bool ?? false }
-    return ControlEvent(events: source)
-  }
-  
 }

@@ -9,6 +9,7 @@
 import UIKit
 
 struct App {
+  static let shared = App()
   
   static let window = UIApplication.shared.windows.first { $0.isKeyWindow }
   static let userDefaultsManager = UserDefaultsManger.default

@@ -12,13 +12,13 @@ protocol UserInfoRepositoryType {
   
   @discardableResult
   func create(profileImage: Data?,
-                      name: String,
-                      number: String,
-                      crew: String,
-                      address: String?,
-                      email: String?,
-                      birth: String?,
-                      memo: String?) -> Observable<Void>
+              name: String,
+              number: String,
+              crew: String,
+              address: String?,
+              email: String?,
+              birth: String?,
+              memo: String?) -> Observable<UserInfoModel>
   
   @discardableResult
   func userInfoList() -> Observable<[UserInfoModel]>

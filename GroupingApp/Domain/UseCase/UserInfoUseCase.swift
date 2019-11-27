@@ -16,7 +16,7 @@ protocol UserInfoUseCase {
                      address: String?,
                      email: String?,
                      birth: String?,
-                     memo: String?) -> Observable<Void>
+                     memo: String?) -> Observable<UserInfoModel>
 }
 
 final class UserInfoUseCaseImpl: UserInfoUseCase {
@@ -27,8 +27,8 @@ final class UserInfoUseCaseImpl: UserInfoUseCase {
     self.userInfoRepository = userInfoRepository
   }
   
-  func executeCreate(profileImage: Data?, name: String, number: String, crew: String, address: String?, email: String?, birth: String?, memo: String?) -> Observable<Void> {
-    userInfoRepository.create(profileImage: profileImage, name: name, number: number, crew: crew, address: address, email: email, birth: birth, memo: memo)
+  func executeCreate(profileImage: Data?, name: String, number: String, crew: String, address: String?, email: String?, birth: String?, memo: String?) -> Observable<UserInfoModel> {
+    return userInfoRepository.create(profileImage: profileImage, name: name, number: number, crew: crew, address: address, email: email, birth: birth, memo: memo)
   }
   
   

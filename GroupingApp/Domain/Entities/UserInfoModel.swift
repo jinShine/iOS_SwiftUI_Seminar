@@ -22,14 +22,8 @@ struct UserInfoModel: Equatable, Identifiable {
   var birth: String?
   var memo: String?
   
-  init(profileImage: Data?,
-       name: String,
-       number: String,
-       crew: String,
-       address: String?,
-       email: String?,
-       birth: String?,
-       memo: String?) {
+  init(profileImage: Data?, name: String, number: String, crew: String, address: String?,
+       email: String?, birth: String?, memo: String?) {
     
     self.id = "\(Date().timeIntervalSinceReferenceDate)"
     self.profileImage = profileImage

@@ -23,12 +23,22 @@ final class UserInfoRepository {
 
 extension UserInfoRepository: UserInfoRepositoryType {
   
-  func create(profileImage: Data?, name: String, number: String, crew: String, address: String?, email: String?, birth: String?, memo: String?) -> Observable<Void> {
-
-    return Observable.empty()
+  @discardableResult
+  func create(profileImage: Data?, name: String, number: String, crew: String, address: String?, email: String?, birth: String?, memo: String?) -> Observable<UserInfoModel> {
+    
+    let userInfoModel = UserInfoModel(profileImage: profileImage, name: name, number: number, crew: crew, address: address, email: email, birth: birth, memo: memo)
+    
+    do {
+      _ = try coreDataManager.mainContext.rx.update(userInfoModel)
+      return Observable.just(userInfoModel)
+    } catch {
+      return Observable.error(CoreDataError.saveError)
+    }
   }
   
+  @discardableResult
   func userInfoList() -> Observable<[UserInfoModel]> {
+    
     return Observable.just([])
   }
   
