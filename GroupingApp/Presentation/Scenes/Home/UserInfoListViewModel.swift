@@ -9,7 +9,7 @@
 import RxSwift
 import RxCocoa
 
-final class HomeViewModel: BindViewModelType {
+final class UserInfoListViewModel: BindViewModelType {
 
   //MARK: - Constant
 
@@ -63,7 +63,7 @@ final class HomeViewModel: BindViewModelType {
 }
 
 //MARK: - Method Handler
-extension HomeViewModel {
+extension UserInfoListViewModel {
 
 
 }

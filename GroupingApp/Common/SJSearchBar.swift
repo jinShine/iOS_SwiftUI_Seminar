@@ -10,6 +10,12 @@ import UIKit
 
 class SJSearchBar: UIControl {
   
+  private struct Constant {
+    static let basicMargin: CGFloat = 16.0
+    static let textFieldLeftMargin: CGFloat = 60.0
+//    static let layerCornerRadius: CGFloat = 18.0
+  }
+  
   private let searchBaseView: UIImageView = {
     let imageView = UIImageView()
     let image = UIImage(named: "SearchBar")
@@ -36,6 +42,7 @@ class SJSearchBar: UIControl {
   }
   
   private func setupUI() {
+    
     textField.delegate = self
     
     [searchBaseView].forEach { self.addSubview($0) }
@@ -51,8 +58,8 @@ class SJSearchBar: UIControl {
       searchBaseView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
       
       textField.centerYAnchor.constraint(equalTo: searchBaseView.centerYAnchor),
-      textField.leadingAnchor.constraint(equalTo: searchBaseView.leadingAnchor, constant: 60),
-      textField.trailingAnchor.constraint(equalTo: searchBaseView.trailingAnchor, constant: -16)
+      textField.leadingAnchor.constraint(equalTo: searchBaseView.leadingAnchor, constant: Constant.textFieldLeftMargin),
+      textField.trailingAnchor.constraint(equalTo: searchBaseView.trailingAnchor, constant: -Constant.basicMargin)
     ])
   }
 }

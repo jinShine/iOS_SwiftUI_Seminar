@@ -31,8 +31,8 @@ class SplashNavigator: Navigator<SplashRoute> {
 
   
   private func makeHomeViewController() -> UINavigationController {
-    let homeViewModel = HomeViewModel()
-    let homeVC = HomeViewController(viewModel: homeViewModel)
+    let homeViewModel = UserInfoListViewModel()
+    let homeVC = UserInfoListViewController(viewModel: homeViewModel)
     return UINavigationController.generate(rootViewController: homeVC,
                                            image: UIImage(named: "TabBar_Home")?.withRenderingMode(.alwaysOriginal),
                                            selectedImage: UIImage(named: "TabBar_Home_Selected")?.withRenderingMode(.alwaysOriginal))

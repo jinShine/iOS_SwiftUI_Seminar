@@ -37,7 +37,8 @@
 		5C258A6C2388FD64005429B4 /* UserInfomation+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C258A6A2388FD64005429B4 /* UserInfomation+CoreDataProperties.swift */; };
 		5C258A6F238992EE005429B4 /* UserInfoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C258A6E238992EE005429B4 /* UserInfoRepository.swift */; };
 		5C258A7123899687005429B4 /* UserInfoRepositoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C258A7023899687005429B4 /* UserInfoRepositoryType.swift */; };
-		5C258A75238E8539005429B4 /* App+DI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C258A74238E8539005429B4 /* App+DI.swift */; };
+		5C258A7823901D98005429B4 /* UserInfoListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C258A7623901D98005429B4 /* UserInfoListCell.swift */; };
+		5C258A7923901D98005429B4 /* UserInfoListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C258A7723901D98005429B4 /* UserInfoListCell.xib */; };
 		5C47A947235AEBAE0031106E /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C47A946235AEBAE0031106E /* Toast.swift */; };
 		5C47A969235C32850031106E /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C47A968235C32850031106E /* LoadingView.swift */; };
 		5C57DB5A234CF396007686CB /* AddressSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C57DB59234CF396007686CB /* AddressSection.swift */; };
@@ -56,13 +57,13 @@
 		5C8764CA2342F19000201833 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8764C92342F19000201833 /* AppDelegate.swift */; };
 		5C8764D42342F19000201833 /* GroupingApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5C8764D22342F19000201833 /* GroupingApp.xcdatamodeld */; };
 		5C8764EE2342F51B00201833 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8764ED2342F51B00201833 /* SplashViewController.swift */; };
-		5C8764FB234310B600201833 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8764FA234310B600201833 /* HomeViewController.swift */; };
+		5C8764FB234310B600201833 /* UserInfoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8764FA234310B600201833 /* UserInfoListViewController.swift */; };
 		5C8764FD2343112800201833 /* SplashNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8764FC2343112800201833 /* SplashNavigator.swift */; };
 		5C87650823432B1800201833 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C87650323432A3800201833 /* LaunchScreen.storyboard */; };
 		5C87653023432E8500201833 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8764CB2342F19000201833 /* SceneDelegate.swift */; };
 		5C876532234346D200201833 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C876531234346D200201833 /* Main.storyboard */; };
-		5C8765342343530800201833 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8765332343530800201833 /* HomeViewModel.swift */; };
-		5C8765362343559F00201833 /* HomeNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8765352343559F00201833 /* HomeNavigator.swift */; };
+		5C8765342343530800201833 /* UserInfoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8765332343530800201833 /* UserInfoListViewModel.swift */; };
+		5C8765362343559F00201833 /* UserInfoListNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8765352343559F00201833 /* UserInfoListNavigator.swift */; };
 		5C8765372343579F00201833 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C87650723432A3800201833 /* Assets.xcassets */; };
 		5C87653C23443D7E00201833 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C87653B23443D7E00201833 /* App.swift */; };
 		5C87654223443FD900201833 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C87654123443FD900201833 /* UIColor+Extension.swift */; };
@@ -121,7 +122,8 @@
 		5C258A6A2388FD64005429B4 /* UserInfomation+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UserInfomation+CoreDataProperties.swift"; path = "../../../../../UserInfomation+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		5C258A6E238992EE005429B4 /* UserInfoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserInfoRepository.swift; path = GroupingApp/Data/CoreData/UserInfoRepository.swift; sourceTree = SOURCE_ROOT; };
 		5C258A7023899687005429B4 /* UserInfoRepositoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserInfoRepositoryType.swift; path = GroupingApp/UserInfoRepositoryType.swift; sourceTree = SOURCE_ROOT; };
-		5C258A74238E8539005429B4 /* App+DI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "App+DI.swift"; sourceTree = "<group>"; };
+		5C258A7623901D98005429B4 /* UserInfoListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoListCell.swift; sourceTree = "<group>"; };
+		5C258A7723901D98005429B4 /* UserInfoListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserInfoListCell.xib; sourceTree = "<group>"; };
 		5C47A946235AEBAE0031106E /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		5C47A968235C32850031106E /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		5C57DB59234CF396007686CB /* AddressSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSection.swift; sourceTree = "<group>"; };
@@ -142,14 +144,14 @@
 		5C8764CB2342F19000201833 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		5C8764D32342F19000201833 /* GroupingApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GroupingApp.xcdatamodel; sourceTree = "<group>"; };
 		5C8764ED2342F51B00201833 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
-		5C8764FA234310B600201833 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		5C8764FA234310B600201833 /* UserInfoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoListViewController.swift; sourceTree = "<group>"; };
 		5C8764FC2343112800201833 /* SplashNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashNavigator.swift; sourceTree = "<group>"; };
 		5C87650423432A3800201833 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5C87650523432A3800201833 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
 		5C87650723432A3800201833 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5C876531234346D200201833 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		5C8765332343530800201833 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
-		5C8765352343559F00201833 /* HomeNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigator.swift; sourceTree = "<group>"; };
+		5C8765332343530800201833 /* UserInfoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoListViewModel.swift; sourceTree = "<group>"; };
+		5C8765352343559F00201833 /* UserInfoListNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoListNavigator.swift; sourceTree = "<group>"; };
 		5C87653B23443D7E00201833 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		5C87654123443FD900201833 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		5C8765452344407200201833 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -368,7 +370,6 @@
 				5C8764C92342F19000201833 /* AppDelegate.swift */,
 				5C8764CB2342F19000201833 /* SceneDelegate.swift */,
 				5C87653B23443D7E00201833 /* App.swift */,
-				5C258A74238E8539005429B4 /* App+DI.swift */,
 				5CE85FDF23575F6B009A27FD /* Location */,
 				5C66EA7723504C8B00A290CE /* CoreDataModel */,
 				5C66EA7623504C6E00A290CE /* Configurtions */,
@@ -407,9 +408,9 @@
 			isa = PBXGroup;
 			children = (
 				5C87650723432A3800201833 /* Assets.xcassets */,
+				5C876531234346D200201833 /* Main.storyboard */,
 				5C87650323432A3800201833 /* LaunchScreen.storyboard */,
 				5C87650523432A3800201833 /* Info.plist */,
-				5C876531234346D200201833 /* Main.storyboard */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -426,9 +427,11 @@
 		5C8764F82343105400201833 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				5C8764FA234310B600201833 /* HomeViewController.swift */,
-				5C8765332343530800201833 /* HomeViewModel.swift */,
-				5C8765352343559F00201833 /* HomeNavigator.swift */,
+				5C8764FA234310B600201833 /* UserInfoListViewController.swift */,
+				5C8765332343530800201833 /* UserInfoListViewModel.swift */,
+				5C8765352343559F00201833 /* UserInfoListNavigator.swift */,
+				5C258A7623901D98005429B4 /* UserInfoListCell.swift */,
+				5C258A7723901D98005429B4 /* UserInfoListCell.xib */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -678,6 +681,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C258A7923901D98005429B4 /* UserInfoListCell.xib in Resources */,
 				5C87650823432B1800201833 /* LaunchScreen.storyboard in Resources */,
 				5C66EA7B23504D0B00A290CE /* Configuration.plist in Resources */,
 				5C8765372343579F00201833 /* Assets.xcassets in Resources */,
@@ -752,10 +756,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5C258A75238E8539005429B4 /* App+DI.swift in Sources */,
 				5C01E92D234917A80051CA68 /* AddressCell.swift in Sources */,
 				5C57DB5A234CF396007686CB /* AddressSection.swift in Sources */,
-				5C8765342343530800201833 /* HomeViewModel.swift in Sources */,
+				5C8765342343530800201833 /* UserInfoListViewModel.swift in Sources */,
 				5C253DCD234A347F009CDAA4 /* SelectMapViewController.swift in Sources */,
 				5C66EA72235014E800A290CE /* UserDefaultsManager.swift in Sources */,
 				5C01E930234920BD0051CA68 /* UIViewController+Rx.swift in Sources */,
@@ -802,10 +805,11 @@
 				5C17C02B2347230E0097490E /* SJTextField.swift in Sources */,
 				5C8764D42342F19000201833 /* GroupingApp.xcdatamodeld in Sources */,
 				5C19108C2385985700E76FEB /* Binder+Extension.swift in Sources */,
+				5C258A7823901D98005429B4 /* UserInfoListCell.swift in Sources */,
 				5CE85FE5235764B8009A27FD /* LocationInteractor.swift in Sources */,
 				5C01E934234928110051CA68 /* AddressCellViewModel.swift in Sources */,
 				5C7AEEBC235DEC6000B07CD7 /* ViewModelType.swift in Sources */,
-				5C8764FB234310B600201833 /* HomeViewController.swift in Sources */,
+				5C8764FB234310B600201833 /* UserInfoListViewController.swift in Sources */,
 				5CD4CF812373E602005738FD /* UIDevice+Extension.swift in Sources */,
 				5C87653023432E8500201833 /* SceneDelegate.swift in Sources */,
 				5CE85FD9234E15B0009A27FD /* BaseTabBarController.swift in Sources */,
@@ -818,7 +822,7 @@
 				5C01E92A2347B01C0051CA68 /* RegistryNavigator.swift in Sources */,
 				5CB1245E2344E00900E61A49 /* RegistryViewController.swift in Sources */,
 				5C253DD4234A3D21009CDAA4 /* CALayer+Extension.swift in Sources */,
-				5C8765362343559F00201833 /* HomeNavigator.swift in Sources */,
+				5C8765362343559F00201833 /* UserInfoListNavigator.swift in Sources */,
 				5C17C028234711A70097490E /* UIView+Extension.swift in Sources */,
 				5CE85FD7234E15B0009A27FD /* BaseViewController.swift in Sources */,
 				5C01E91F23464FA70051CA68 /* UserInfoUseCase.swift in Sources */,
