@@ -9,7 +9,7 @@
 import RxSwift
 
 protocol UserInfoUseCase {
-  func executeCreate(profileImage: Data?,
+  func executeCreate(profileImage: Data,
                      name: String,
                      number: String,
                      crew: String,
@@ -17,6 +17,8 @@ protocol UserInfoUseCase {
                      email: String?,
                      birth: String?,
                      memo: String?) -> Observable<UserInfoModel>
+  
+  func executeList() -> Observable<[UserInfoSectionModel]>
 }
 
 final class UserInfoUseCaseImpl: UserInfoUseCase {
@@ -27,10 +29,13 @@ final class UserInfoUseCaseImpl: UserInfoUseCase {
     self.userInfoRepository = userInfoRepository
   }
   
-  func executeCreate(profileImage: Data?, name: String, number: String, crew: String, address: String?, email: String?, birth: String?, memo: String?) -> Observable<UserInfoModel> {
+  func executeCreate(profileImage: Data, name: String, number: String, crew: String, address: String?, email: String?, birth: String?, memo: String?) -> Observable<UserInfoModel> {
     return userInfoRepository.create(profileImage: profileImage, name: name, number: number, crew: crew, address: address, email: email, birth: birth, memo: memo)
   }
   
+  func executeList() -> Observable<[UserInfoSectionModel]> {
+    return userInfoRepository.userInfoList()
+  }
   
 }
 

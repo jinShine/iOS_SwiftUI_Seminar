@@ -270,6 +270,10 @@ class RegistryViewController: BaseViewController, ViewType {
   func bindViewModel() {
     
     //INPUT
+    if let profileImageData = profileButton.imageView?.image?.pngData() {
+      viewModel.profileImageSubject.onNext(profileImageData)
+    }
+    
     let dismissButtonAction = dismissButton.rx.tap.asDriver()
     let keyboarWillShow = NotificationCenter.default.rx
       .notification(UIApplication.keyboardWillShowNotification)
@@ -279,7 +283,7 @@ class RegistryViewController: BaseViewController, ViewType {
     let addPhotoActions = Driver.of(profileButton.rx.tap.asDriver(),
                                    addProfileButton.rx.tap.asDriver()).merge()
     
-    let inputCombine = Observable.combineLatest(viewModel.profileImageSubject.take(1),
+    let inputCombine = Observable.combineLatest(
                                                 nameTextField.rx.text.orEmpty,
                                                 numberTextField.rx.text.orEmpty,
                                                 crewTextField.rx.text.orEmpty,
@@ -328,7 +332,6 @@ class RegistryViewController: BaseViewController, ViewType {
     
     output.saveButtonEnableState
       .drive(onNext: { enable in
-        print(enable)
         enable ? self.saveButton.activate() : self.saveButton.inActivate()
       })
       .disposed(by: rx.disposeBag)
@@ -350,7 +353,11 @@ extension RegistryViewController: UIImagePickerControllerDelegate, UINavigationC
     
     let originImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
     self.profileButton.setImage(originImage, for: .normal)
-    viewModel.profileImageSubject.onNext(self.profileButton.imageView?.image?.pngData())
+    
+    if let imageData = originImage.pngData() {
+        viewModel.profileImageSubject.onNext(imageData)
+    }
+    
     self.dismiss(animated: true, completion: nil)
     
   }

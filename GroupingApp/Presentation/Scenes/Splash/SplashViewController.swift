@@ -18,21 +18,20 @@ class SplashViewController: BaseViewController {
   }()
   
   //MARK: - Properties
-  var splashNavigator: SplashNavigator?
+  var splashNavigator: SplashNavigator = SplashNavigator()
 
   //MARK: - Life Cycle
   override func viewDidLoad() {
     super.viewDidLoad()
 
     setupUI()
-    setupNavigator()
   }
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
 
     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-      self.splashNavigator?.navigate(to: .home)
+      self.splashNavigator.navigate(to: .home)
     }
 
   }
@@ -45,10 +44,6 @@ class SplashViewController: BaseViewController {
       $0.center.equalToSuperview()
       $0.size.equalTo(96)
     }
-  }
-
-  private func setupNavigator() {
-    splashNavigator = SplashNavigator(with: self.navigationController)
   }
 
 }

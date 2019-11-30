@@ -11,7 +11,7 @@ import RxSwift
 protocol UserInfoRepositoryType {
   
   @discardableResult
-  func create(profileImage: Data?,
+  func create(profileImage: Data,
               name: String,
               number: String,
               crew: String,
@@ -21,6 +21,6 @@ protocol UserInfoRepositoryType {
               memo: String?) -> Observable<UserInfoModel>
   
   @discardableResult
-  func userInfoList() -> Observable<[UserInfoModel]>
+  func userInfoList() -> Observable<[UserInfoSectionModel]>
   
 }

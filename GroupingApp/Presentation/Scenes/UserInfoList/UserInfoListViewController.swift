@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-class UserInfoListViewController: BaseViewController, BindViewType {
+class UserInfoListViewController: BaseViewController, ViewType {
 
   //MARK: - Constant
   struct Constant {}
@@ -47,7 +47,6 @@ class UserInfoListViewController: BaseViewController, BindViewType {
   
   lazy var tableView: UITableView = {
     let tableView = UITableView()
-    
     tableView.backgroundColor = .clear
     tableView.separatorStyle = .none
     tableView.rowHeight = UITableView.automaticDimension
@@ -58,88 +57,31 @@ class UserInfoListViewController: BaseViewController, BindViewType {
   
 
   //MARK: - Properties
-  typealias ViewModel = UserInfoListViewModel
-  var disposeBag = DisposeBag()
+  var viewModel: UserInfoListViewModel!
+  
   var list = BehaviorSubject<[String]>(value: [
     "1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1"
   ])
   
-  //MARK: - Initialization
-  init(viewModel: ViewModel) {
-    defer {
-      self.viewModel = viewModel
-    }
-    
-    super.init()
-  }
-
-  required init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
-
-  }
-
 
   //MARK: - Life Cycle
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    setupUI()
-    setupConstraint()
-
   }
-
-
-}
-
-//MARK: - Bind
-extension UserInfoListViewController {
-
-  //INPUT
-  func command(viewModel: ViewModel) {
-
-    self.list
-      .bind(to: tableView.rx.items) { tableview, row, value in
-        let cell = tableview.dequeueReusableCell(withIdentifier: UserInfoListCell.reuseIdentifier)!
-        
-        return cell
-    }.disposed(by: rx.disposeBag)
   
-    
-
-  }
-
-
-  //OUTPUT
-  func state(viewModel: ViewModel) {
-
-    viewModel.state
-      .drive(onNext: { [weak self] state in
-        guard let self = self else { return }
-
-
-      })
-      .disposed(by: self.disposeBag)
-  }
-
-}
-
-
-//MARK: - Method Handler
-extension UserInfoListViewController {
-
-  private func setupUI() {
-    self.navigationController?.setNavigationBarHidden(true, animated: false)
+  //MARK: - Setup UI
+  func setupUI() {
     
     [naviBaseView, searchBar, tableView].forEach {
       view.addSubview($0)
     }
 
     setupNavigationBar(at: self.view, leftItem: drawerButton, rightItem: settingButton)
-
   }
-
-  private func setupConstraint() {
-
+  
+  //MARK: - Setup Constraints
+  func setupConstraints() {
     naviBaseView.snp.makeConstraints {
       $0.top.leading.trailing.equalToSuperview()
       $0.height.equalTo(100)
@@ -162,6 +104,22 @@ extension UserInfoListViewController {
       $0.trailing.bottom.equalToSuperview().offset(-16)
     }
 
+  }
+  
+  //MARK: - Bind
+  func bindViewModel() {
+    
+    //INPUT
+    let userInfoListAction = rx.viewWillAppear.mapToVoid()
+    
+    let input = UserInfoListViewModel.Input(userInfoListAction: userInfoListAction)
+    
+    //OUTPUT
+    let output = viewModel.transform(input: input)
+    
+    output.userInfoListState
+      .bind(to: tableView.rx.items(dataSource: viewModel.datasource))
+      .disposed(by: rx.disposeBag)
   }
 
 }

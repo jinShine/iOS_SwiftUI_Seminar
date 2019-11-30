@@ -31,4 +31,18 @@ class CoreDataManager {
   var mainContext: NSManagedObjectContext {
     return persistentContainer.viewContext
   }
+  
+  let url: URL = {
+      let url = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("GroupingApp.sqlite")
+
+      return url
+  }()
+  
+  func delete() {
+    
+
+    
+    try! persistentContainer.persistentStoreCoordinator.destroyPersistentStore(at: url, ofType: "sqlite", options: nil)
+    
+  }
 }

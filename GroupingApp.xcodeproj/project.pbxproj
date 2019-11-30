@@ -424,7 +424,7 @@
 			path = Splash;
 			sourceTree = "<group>";
 		};
-		5C8764F82343105400201833 /* Home */ = {
+		5C8764F82343105400201833 /* UserInfoList */ = {
 			isa = PBXGroup;
 			children = (
 				5C8764FA234310B600201833 /* UserInfoListViewController.swift */,
@@ -433,14 +433,14 @@
 				5C258A7623901D98005429B4 /* UserInfoListCell.swift */,
 				5C258A7723901D98005429B4 /* UserInfoListCell.xib */,
 			);
-			path = Home;
+			path = UserInfoList;
 			sourceTree = "<group>";
 		};
 		5C8764F92343105F00201833 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
 				5C8764EC2342F4FF00201833 /* Splash */,
-				5C8764F82343105400201833 /* Home */,
+				5C8764F82343105400201833 /* UserInfoList */,
 				5CB1245F2344E00F00E61A49 /* Registry */,
 				5CB124632344E51900E61A49 /* Search */,
 			);

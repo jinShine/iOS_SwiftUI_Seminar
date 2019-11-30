@@ -9,11 +9,12 @@
 import Foundation
 import CoreData
 import RxCoreData
+import RxDataSources
 
-struct UserInfoModel: Equatable, Identifiable {
+struct UserInfoModel: Equatable, IdentifiableType {
 
   var id: String
-  var profileImage: Data?
+  var profileImage: Data
   var name: String
   var number: String
   var crew: String
@@ -22,7 +23,7 @@ struct UserInfoModel: Equatable, Identifiable {
   var birth: String?
   var memo: String?
   
-  init(profileImage: Data?, name: String, number: String, crew: String, address: String?,
+  init(profileImage: Data, name: String, number: String, crew: String, address: String?,
        email: String?, birth: String?, memo: String?) {
     
     self.id = "\(Date().timeIntervalSinceReferenceDate)"
@@ -53,7 +54,7 @@ extension UserInfoModel: Persistable {
 
   init(entity: NSManagedObject) {
     id = "\(Date().timeIntervalSinceReferenceDate)"
-    profileImage = entity.value(forKey: "profile") as? Data
+    profileImage = entity.value(forKey: "profile") as! Data
     number = entity.value(forKey: "number") as! String
     name = entity.value(forKey: "name") as! String
     crew = entity.value(forKey: "crew") as! String

@@ -31,14 +31,19 @@ class SplashNavigator: Navigator<SplashRoute> {
 
   
   private func makeHomeViewController() -> UINavigationController {
-    let homeViewModel = UserInfoListViewModel()
-    let homeVC = UserInfoListViewController(viewModel: homeViewModel)
-    return UINavigationController.generate(rootViewController: homeVC,
-                                           image: UIImage(named: "TabBar_Home")?.withRenderingMode(.alwaysOriginal),
-                                           selectedImage: UIImage(named: "TabBar_Home_Selected")?.withRenderingMode(.alwaysOriginal))
+    let userInfoListViewModel = UserInfoListViewModel(navigator: UserInfoListNavigator(),
+                                                      userInfoUseCase: UserInfoUseCaseImpl(
+                                                        userInfoRepository: UserInfoRepository(coreDataManager: CoreDataManager(modelName: "GroupingApp")
+                                                      )))
+    let userInfoListVC = UserInfoListViewController.create(with: userInfoListViewModel)
+
+    return UINavigationController.generate(rootViewController: userInfoListVC,
+                                    image: UIImage(named: "TabBar_Home")?.withRenderingMode(.alwaysOriginal),
+                                    selectedImage: UIImage(named: "TabBar_Home_Selected")?.withRenderingMode(.alwaysOriginal))
   }
 
   private func makeRegistryViewController() -> UINavigationController {
+    
     return UINavigationController.generate(image: UIImage(named: "TabBar_Registry")?.withRenderingMode(.alwaysOriginal),
                                            selectedImage: UIImage(named: "TabBar_Registry_Selected")?.withRenderingMode(.alwaysOriginal))
   }
@@ -46,6 +51,7 @@ class SplashNavigator: Navigator<SplashRoute> {
   private func makeSearchViewController() -> UINavigationController {
     let searchViewModel = SearchViewModel()
     let searchVC = SearchViewController(viewModel: searchViewModel)
+    
     return UINavigationController.generate(rootViewController: searchVC,
                                            image: UIImage(named: "TabBar_Search")?.withRenderingMode(.alwaysOriginal),
                                            selectedImage: UIImage(named: "TabBar_Search_Selected")?.withRenderingMode(.alwaysOriginal))

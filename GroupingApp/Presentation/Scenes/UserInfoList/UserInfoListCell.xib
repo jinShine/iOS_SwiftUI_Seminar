@@ -114,8 +114,12 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="addressLabel" destination="0oC-MH-i9N" id="SKB-0Z-ijO"/>
                 <outlet property="baseView" destination="vrL-0g-TWN" id="Oxp-y0-JNR"/>
                 <outlet property="crewLabel" destination="swP-5J-Y6H" id="gBZ-Nf-eU6"/>
+                <outlet property="nameLabel" destination="XL8-eh-FPX" id="p1o-UX-Oyj"/>
+                <outlet property="numberLabel" destination="8e8-GU-WDy" id="QbV-96-Eik"/>
+                <outlet property="profileImageView" destination="G8b-Fs-yzd" id="fRr-ZP-wBS"/>
             </connections>
             <point key="canvasLocation" x="246.37681159420291" y="188.16964285714286"/>
         </tableViewCell>

@@ -17,7 +17,7 @@ final class RegistryViewModel: ViewModelType {
     let keyboardWillHideAction: Observable<Notification>
     let addPhotoAction: Driver<Void>
     let checkSaveValidationAction: Observable<(String, String, String)>
-    let saveButtonAction: Observable<(Data?, String, String, String, String, String, String, String)>
+    let saveButtonAction: Observable<(String, String, String, String, String, String, String)>
     let showReceivedAddressAction: Observable<Void>
   }
 
@@ -34,7 +34,7 @@ final class RegistryViewModel: ViewModelType {
   var navigator: RegistryNavigator
   let userInfoUseCase: UserInfoUseCase
   var receivedAddress: String?
-  let profileImageSubject = PublishSubject<Data?>()
+  let profileImageSubject = BehaviorSubject<Data>(value: (UIImage(named: "Empty_Profile")?.pngData())!)
   let receivedAddressSubject = PublishSubject<String>()
 
 
@@ -48,11 +48,7 @@ final class RegistryViewModel: ViewModelType {
   func transform(input: Input) -> Output {
 
     let dismissState = input.dismissAction
-      .map {
-//        if let navigator = self.navigator {
-        self.navigator.navigate(to: .main)
-//        }
-      }
+      .map { self.navigator.navigate(to: .main) }
 
     let keyboardWillShow = input.keyboardWillShowAction
       .map { ($0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height ?? 0 }
@@ -76,8 +72,8 @@ final class RegistryViewModel: ViewModelType {
       }.asDriver(onErrorJustReturn: false)
 
     let userInfoSaveState = input.saveButtonAction
-      .flatMap { profile, name, number, crew, address, email, birth, memo in
-        return self.userInfoUseCase.executeCreate(profileImage: profile, name: name, number: number, crew: crew, address: address, email: email, birth: birth, memo: memo)
+      .flatMap { name, number, crew, address, email, birth, memo in
+        return self.userInfoUseCase.executeCreate(profileImage: try! self.profileImageSubject.value(), name: name, number: number, crew: crew, address: address, email: email, birth: birth, memo: memo)
       }
       .map { _ in self.navigator.navigate(to: .main) }
       .mapToVoid()

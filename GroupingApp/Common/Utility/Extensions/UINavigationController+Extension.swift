@@ -16,6 +16,7 @@ extension UINavigationController {
     selectedImage: UIImage?
   ) -> UINavigationController {
     let navigationController = BaseNavigationController(rootViewController: rootViewController)
+    navigationController.setNavigationBarHidden(true, animated: false)
     navigationController.tabBarItem.image = image
     navigationController.tabBarItem.selectedImage = selectedImage
     return navigationController

@@ -28,8 +28,8 @@ class UserInfoListNavigator: Navigator<HomeRoute> {
   }
 
   private func setupHome() -> UIViewController {
-    let userInfoListViewModel = UserInfoListViewModel()
-    let homeVC = UserInfoListViewController(viewModel: userInfoListViewModel)
+    let userInfoListViewModel = UserInfoListViewModel(navigator: UserInfoListNavigator(with: presenter), userInfoUseCase: UserInfoUseCaseImpl(userInfoRepository: UserInfoRepository(coreDataManager: CoreDataManager(modelName: "GroupingApp"))))
+    let homeVC = UserInfoListViewController.create(with: userInfoListViewModel)
     let navigationController = UINavigationController(rootViewController: homeVC)
     navigationController.tabBarItem.image = UIImage(named: "TabBar_Home")?.withRenderingMode(.alwaysTemplate)
     navigationController.tabBarItem.selectedImage = UIImage(named: "TabBar_Home_Selected")?.withRenderingMode(.alwaysTemplate)
