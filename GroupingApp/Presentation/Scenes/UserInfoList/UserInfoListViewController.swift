@@ -58,16 +58,18 @@ class UserInfoListViewController: BaseViewController, ViewType {
 
   //MARK: - Properties
   var viewModel: UserInfoListViewModel!
-  
-  var list = BehaviorSubject<[String]>(value: [
-    "1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1"
-  ])
-  
 
+  
   //MARK: - Life Cycle
   override func viewDidLoad() {
     super.viewDidLoad()
 
+  }
+  
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    
+    
   }
   
   //MARK: - Setup UI

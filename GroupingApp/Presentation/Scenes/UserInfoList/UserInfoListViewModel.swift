@@ -31,7 +31,7 @@ final class UserInfoListViewModel: ViewModelType {
     let ds = RxTableViewSectionedAnimatedDataSource<UserInfoSectionModel> (configureCell: { datasource, tableView, indexPath, item -> UITableViewCell in
       
       let cell = tableView.dequeueReusableCell(withIdentifier: UserInfoListCell.reuseIdentifier, for: indexPath) as! UserInfoListCell
-      
+
       if let imageFromCache = self.userImageCache.object(forKey: item.id as NSString) {
         cell.profileImageView.image = imageFromCache
       } else {
@@ -40,7 +40,7 @@ final class UserInfoListViewModel: ViewModelType {
         cell.profileImageView.image = imageToCache
       }
       
-      cell.nameLabel.text = item.name
+      cell.nameLabel.text = item.id
       cell.addressLabel.text = item.address
       cell.numberLabel.text = item.number
       cell.crewLabel.setTitle(item.crew, for: .normal)
@@ -60,8 +60,9 @@ final class UserInfoListViewModel: ViewModelType {
   
   func transform(input: Input) -> Output {
     
-    let userInfoListState = input.userInfoListAction.flatMapLatest { _ -> Observable<[UserInfoSectionModel]> in
-      return self.userInfoUseCase.executeList()
+    let userInfoListState = input.userInfoListAction
+      .flatMap { _ -> Observable<[UserInfoSectionModel]> in
+        return self.userInfoUseCase.executeList()
     }
     
     return Output(userInfoListState: userInfoListState)

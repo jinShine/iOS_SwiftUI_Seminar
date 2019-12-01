@@ -359,7 +359,6 @@ extension RegistryViewController: UIImagePickerControllerDelegate, UINavigationC
     }
     
     self.dismiss(animated: true, completion: nil)
-    
   }
   
   func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
