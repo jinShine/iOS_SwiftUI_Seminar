@@ -10,14 +10,14 @@ import Foundation
 import FlowInject
 
 enum SplashRoute: Route {
-  case home
+  case userInfoList
 }
 
 class SplashNavigator: Navigator<SplashRoute> {
 
   func navigate(to destination: SplashRoute) {
     switch destination {
-    case .home:
+    case .userInfoList:
       let tabBarController = BaseTabBarController()
       tabBarController.viewControllers = [
         makeHomeViewController(),
@@ -31,10 +31,12 @@ class SplashNavigator: Navigator<SplashRoute> {
 
   
   private func makeHomeViewController() -> UINavigationController {
-    let userInfoListViewModel = UserInfoListViewModel(navigator: UserInfoListNavigator(),
-                                                      userInfoUseCase: UserInfoUseCaseImpl(
-                                                        userInfoRepository: UserInfoRepository(coreDataManager: CoreDataManager(modelName: "GroupingApp")
-                                                      )))
+    let userInfoListViewModel = UserInfoListViewModel(
+      navigator: UserInfoListNavigator(),
+      userInfoUseCase: UserInfoUseCaseImpl(
+        userInfoRepository: UserInfoRepository(coreDataManager: CoreDataManager(modelName: "GroupingApp"))
+      )
+    )
     let userInfoListVC = UserInfoListViewController.create(with: userInfoListViewModel)
 
     return UINavigationController.generate(rootViewController: userInfoListVC,

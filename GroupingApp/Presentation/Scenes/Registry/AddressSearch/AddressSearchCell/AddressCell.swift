@@ -35,12 +35,5 @@ class AddressCell: UITableViewCell {
     self.roadAddressLabel.textColor = App.color.lightGray
     self.roadAddressLabel.font = App.font.regular(size: 12)
   }
-  
-//  var viewModel: AddressCellViewModel! {
-//    didSet {
-//      self.jibunAddressLabel.text = viewModel.address
-//      self.roadAddressLabel.text = viewModel.
-//    }
-//  }
 
 }

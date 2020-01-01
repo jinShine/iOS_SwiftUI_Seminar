@@ -8,15 +8,13 @@
 
 import UIKit
 
-class SplashViewController: BaseViewController {
+class SplashViewController: BaseViewController, ViewType {
   
   //MARK: - Constant
-  
   struct UI {
     static let logoSize: CGFloat = 96
   }
   
-
   //MARK: - UI Properties
   
   let logoImageView: UIImageView = {
@@ -27,37 +25,38 @@ class SplashViewController: BaseViewController {
   
   
   //MARK: - Properties
-  
-  var splashNavigator: SplashNavigator = SplashNavigator()
+  var viewModel: SplashViewModel!
 
   
-  //MARK: - Life Cycle
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
-
-    setupUI()
-  }
-
-  override func viewDidAppear(_ animated: Bool) {
-    super.viewDidAppear(animated)
-
-    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-      self.splashNavigator.navigate(to: .home)
-    }
-
-  }
-  
-  
-  //MARK: - Methods
-  
-  private func setupUI() {
+  //MARK: - Setup UI
+  func setupUI() {
     view.backgroundColor = .white
     view.addSubview(logoImageView)
+  }
+  
+  
+  //MARK: - Setup Constraints
+  func setupConstraints() {
     logoImageView.snp.makeConstraints {
       $0.center.equalToSuperview()
       $0.size.equalTo(UI.logoSize)
     }
   }
-
+  
+  //MARK: - Bind
+  func bindViewModel() {
+    
+    //INPUT
+    let showUserInfoListAction = rx.viewDidAppear.mapToVoid()
+      .asDriver(onErrorJustReturn: ())
+    
+    let input = SplashViewModel.Input(showUserInfoListAction: showUserInfoListAction)
+    
+    //OUTPUT
+    let output = viewModel.transform(input: input)
+    
+    output.showUserInfoListState
+      .drive()
+      .disposed(by: rx.disposeBag)
+  }
 }

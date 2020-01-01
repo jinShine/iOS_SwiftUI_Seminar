@@ -14,11 +14,13 @@ import GoogleMaps
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
+  var appNavigator: SplashNavigator?
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-    setup()
     
-//    CoreDataManager(modelName: "GroupingApp").delete()
+    setup()
+    //CoreDataManager(modelName: "GroupingApp").delete()
+    
     return true
   }
   
@@ -28,8 +30,10 @@ extension AppDelegate {
 
   private func setup() {
     
+    self.window = UIWindow(frame: UIScreen.main.bounds)
+    AppNavigator(in: self.window).navigate(to: .splash)
+    
     //Google
     GMSServices.provideAPIKey(App.configuration.accessGoogleAPIKey)
-
   }
 }

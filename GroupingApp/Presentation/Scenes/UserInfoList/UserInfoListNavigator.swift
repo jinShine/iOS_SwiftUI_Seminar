@@ -14,25 +14,26 @@ enum HomeRoute: Route {
 }
 
 class UserInfoListNavigator: Navigator<HomeRoute> {
-
-  func navigate(to destination: SplashRoute) {
+  
+  func navigate(to destination: HomeRoute) {
     switch destination {
     case .home:
       let tabBarController = BaseTabBarController()
       tabBarController.viewControllers = [
         setupHome()
       ]
-
+      
       presenter?.pushViewController(tabBarController, animated: true)
     }
   }
-
+  
   private func setupHome() -> UIViewController {
     let userInfoListViewModel = UserInfoListViewModel(navigator: UserInfoListNavigator(with: presenter), userInfoUseCase: UserInfoUseCaseImpl(userInfoRepository: UserInfoRepository(coreDataManager: CoreDataManager(modelName: "GroupingApp"))))
     let homeVC = UserInfoListViewController.create(with: userInfoListViewModel)
     let navigationController = UINavigationController(rootViewController: homeVC)
     navigationController.tabBarItem.image = UIImage(named: "TabBar_Home")?.withRenderingMode(.alwaysTemplate)
     navigationController.tabBarItem.selectedImage = UIImage(named: "TabBar_Home_Selected")?.withRenderingMode(.alwaysTemplate)
+    
     return navigationController
   }
 }
