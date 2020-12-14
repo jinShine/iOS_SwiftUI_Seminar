@@ -41,6 +41,23 @@ class HomeViewController: UIViewController {
     
 
     @IBAction func playButtonTapped(_ sender: Any) {
+      print(123)
+      SearchAPI.search("super man") { movies in
+        guard let movie = movies.first else { return }
+
+        DispatchQueue.main.async {
+          let url = URL(string: movie.previewURL)!
+          let item = AVPlayerItem(url: url)
+
+          let sb = UIStoryboard(name: "Player", bundle: nil)
+          let vc = sb.instantiateViewController(identifier: "PlayerViewController") as! PlayerViewController
+          vc.modalPresentationStyle = .overFullScreen
+          vc.player.replaceCurrentItem(with: item)
+          self.present(vc, animated: false, completion: nil)
+        }
+      }
+        
+//      }
 //        SearchAPI.search("interstella") { movies in
 //            guard let interstella = movies.first else { return }
 //            DispatchQueue.main.async {
