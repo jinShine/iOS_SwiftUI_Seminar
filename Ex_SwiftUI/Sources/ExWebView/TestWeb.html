@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>JS Test</title>
+    <script type="text/javascript">
+      function loadiPhoneInfo() {
+        // window.webkit.messageHandlers.특정네임.postMessage('') 정해진 규격이다
+        // 특정네임을 보고 처리를 해야 한다.
+        window.webkit.messageHandlers.iPhoneInfo.postMessage('someParam');
+      }
+    </script>
+  </head>
+
+  <body>
+    <button onclick='loadiPhoneInfo();'>iPhone Info</button></br>
+  </body>
+</html>
