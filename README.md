@@ -55,6 +55,3 @@
       .bold()       // Text -> Text 리턴
       .padding()    // View -> padding 수식어 호출 후에는 Text가 아닌 View 반환
     ```
-    
-    ### 순서
-    
