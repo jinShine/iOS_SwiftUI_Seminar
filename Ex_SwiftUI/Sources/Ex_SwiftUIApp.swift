@@ -11,7 +11,8 @@ import SwiftUI
 struct Ex_SwiftUIApp: App {
     var body: some Scene {
         WindowGroup {
-          ContentView()
+//          ContentView()
+          ExScrollViewReader()
         }
     }
 }
