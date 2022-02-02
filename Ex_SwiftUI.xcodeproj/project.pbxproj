@@ -16,6 +16,7 @@
 		6B8003CB27A97E7300AE9408 /* ExTextEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8003CA27A97E7300AE9408 /* ExTextEditor.swift */; };
 		6B8003CD27A9867D00AE9408 /* ExScrollViewReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8003CC27A9867D00AE9408 /* ExScrollViewReader.swift */; };
 		6B8003CF27A98CE600AE9408 /* ExState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8003CE27A98CE600AE9408 /* ExState.swift */; };
+		6B8003F127AAC77B00AE9408 /* ExBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8003F027AAC77B00AE9408 /* ExBinding.swift */; };
 		6BA52A7F2784A5E700DC1163 /* ExShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA52A7E2784A5E700DC1163 /* ExShape.swift */; };
 		6BA52A812784A9C700DC1163 /* ExButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA52A802784A9C700DC1163 /* ExButton.swift */; };
 		6BB5150A2789DCB7008844F7 /* ExToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB515092789DCB7008844F7 /* ExToggle.swift */; };
@@ -43,6 +44,7 @@
 		6B8003CA27A97E7300AE9408 /* ExTextEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExTextEditor.swift; sourceTree = "<group>"; };
 		6B8003CC27A9867D00AE9408 /* ExScrollViewReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExScrollViewReader.swift; sourceTree = "<group>"; };
 		6B8003CE27A98CE600AE9408 /* ExState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExState.swift; sourceTree = "<group>"; };
+		6B8003F027AAC77B00AE9408 /* ExBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExBinding.swift; sourceTree = "<group>"; };
 		6BA52A7E2784A5E700DC1163 /* ExShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExShape.swift; sourceTree = "<group>"; };
 		6BA52A802784A9C700DC1163 /* ExButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExButton.swift; sourceTree = "<group>"; };
 		6BB515092789DCB7008844F7 /* ExToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExToggle.swift; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 				6B8003CA27A97E7300AE9408 /* ExTextEditor.swift */,
 				6B8003CC27A9867D00AE9408 /* ExScrollViewReader.swift */,
 				6B8003CE27A98CE600AE9408 /* ExState.swift */,
+				6B8003F027AAC77B00AE9408 /* ExBinding.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -224,6 +227,7 @@
 				6B3EA17E27A832F100D105F3 /* ExNavigationView.swift in Sources */,
 				6BC573BF277CBDD800A2B28A /* ContentView.swift in Sources */,
 				6B4BCB0227830703002AEE4F /* ExText.swift in Sources */,
+				6B8003F127AAC77B00AE9408 /* ExBinding.swift in Sources */,
 				6BE497AD2780AD4800E0371B /* ExStackView.swift in Sources */,
 				6BA52A7F2784A5E700DC1163 /* ExShape.swift in Sources */,
 				6BF9DD8C27A04FE100FF3BBD /* ExWebViewVC.swift in Sources */,
