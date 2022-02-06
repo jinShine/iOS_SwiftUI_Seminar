@@ -21,6 +21,12 @@
 		6B8003F127AAC77B00AE9408 /* ExBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8003F027AAC77B00AE9408 /* ExBinding.swift */; };
 		6B8003F327AACE3200AE9408 /* ExObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8003F227AACE3200AE9408 /* ExObservableObject.swift */; };
 		6BA48BC427B01EF6003E22A9 /* ExAppStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA48BC327B01EF6003E22A9 /* ExAppStorage.swift */; };
+		6BA48BC927B021F1003E22A9 /* ExGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA48BC827B021F1003E22A9 /* ExGridView.swift */; };
+		6BA48BCB27B02252003E22A9 /* GridType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA48BCA27B02252003E22A9 /* GridType.swift */; };
+		6BA48BCD27B024CF003E22A9 /* GridTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA48BCC27B024CF003E22A9 /* GridTypePicker.swift */; };
+		6BA48BD127B02739003E22A9 /* ContentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA48BD027B02739003E22A9 /* ContentItem.swift */; };
+		6BA48BD327B02CD2003E22A9 /* SingleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA48BD227B02CD2003E22A9 /* SingleRow.swift */; };
+		6BA48BD527B0310B003E22A9 /* ItemStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA48BD427B0310B003E22A9 /* ItemStyle.swift */; };
 		6BA52A7F2784A5E700DC1163 /* ExShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA52A7E2784A5E700DC1163 /* ExShape.swift */; };
 		6BA52A812784A9C700DC1163 /* ExButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA52A802784A9C700DC1163 /* ExButton.swift */; };
 		6BB5150A2789DCB7008844F7 /* ExToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB515092789DCB7008844F7 /* ExToggle.swift */; };
@@ -53,6 +59,12 @@
 		6B8003F027AAC77B00AE9408 /* ExBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExBinding.swift; sourceTree = "<group>"; };
 		6B8003F227AACE3200AE9408 /* ExObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExObservableObject.swift; sourceTree = "<group>"; };
 		6BA48BC327B01EF6003E22A9 /* ExAppStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExAppStorage.swift; sourceTree = "<group>"; };
+		6BA48BC827B021F1003E22A9 /* ExGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExGridView.swift; sourceTree = "<group>"; };
+		6BA48BCA27B02252003E22A9 /* GridType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridType.swift; sourceTree = "<group>"; };
+		6BA48BCC27B024CF003E22A9 /* GridTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridTypePicker.swift; sourceTree = "<group>"; };
+		6BA48BD027B02739003E22A9 /* ContentItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentItem.swift; sourceTree = "<group>"; };
+		6BA48BD227B02CD2003E22A9 /* SingleRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleRow.swift; sourceTree = "<group>"; };
+		6BA48BD427B0310B003E22A9 /* ItemStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemStyle.swift; sourceTree = "<group>"; };
 		6BA52A7E2784A5E700DC1163 /* ExShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExShape.swift; sourceTree = "<group>"; };
 		6BA52A802784A9C700DC1163 /* ExButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExButton.swift; sourceTree = "<group>"; };
 		6BB515092789DCB7008844F7 /* ExToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExToggle.swift; sourceTree = "<group>"; };
@@ -109,8 +121,22 @@
 				6B194CA727AD765800959E88 /* ExEnvironmentObject.swift */,
 				6B194CB527B0188200959E88 /* ExStateObject.swift */,
 				6BA48BC327B01EF6003E22A9 /* ExAppStorage.swift */,
+				6BA48BC527B020E7003E22A9 /* 1. Grid View */,
 			);
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		6BA48BC527B020E7003E22A9 /* 1. Grid View */ = {
+			isa = PBXGroup;
+			children = (
+				6BA48BCA27B02252003E22A9 /* GridType.swift */,
+				6BA48BCC27B024CF003E22A9 /* GridTypePicker.swift */,
+				6BA48BC827B021F1003E22A9 /* ExGridView.swift */,
+				6BA48BD027B02739003E22A9 /* ContentItem.swift */,
+				6BA48BD227B02CD2003E22A9 /* SingleRow.swift */,
+				6BA48BD427B0310B003E22A9 /* ItemStyle.swift */,
+			);
+			path = "1. Grid View";
 			sourceTree = "<group>";
 		};
 		6BC573B0277CBDD800A2B28A = {
@@ -230,20 +256,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				6B8003F327AACE3200AE9408 /* ExObservableObject.swift in Sources */,
+				6BA48BCB27B02252003E22A9 /* GridType.swift in Sources */,
+				6BA48BC927B021F1003E22A9 /* ExGridView.swift in Sources */,
 				6B74627E2793275800F7E81A /* ExAlertView.swift in Sources */,
 				6BA48BC427B01EF6003E22A9 /* ExAppStorage.swift in Sources */,
 				6BF9DD8A27A04D6600FF3BBD /* ExWebViewKit.swift in Sources */,
 				6BB5150A2789DCB7008844F7 /* ExToggle.swift in Sources */,
 				6B8003C927A97B5200AE9408 /* ExTabView.swift in Sources */,
 				6B8003CF27A98CE600AE9408 /* ExState.swift in Sources */,
+				6BA48BD127B02739003E22A9 /* ContentItem.swift in Sources */,
+				6BA48BD527B0310B003E22A9 /* ItemStyle.swift in Sources */,
 				6B8003CB27A97E7300AE9408 /* ExTextEditor.swift in Sources */,
 				6B4BCB04278354B6002AEE4F /* ExImage.swift in Sources */,
 				6B3EA17E27A832F100D105F3 /* ExNavigationView.swift in Sources */,
 				6BC573BF277CBDD800A2B28A /* ContentView.swift in Sources */,
+				6BA48BCD27B024CF003E22A9 /* GridTypePicker.swift in Sources */,
 				6B4BCB0227830703002AEE4F /* ExText.swift in Sources */,
 				6B8003F127AAC77B00AE9408 /* ExBinding.swift in Sources */,
 				6BE497AD2780AD4800E0371B /* ExStackView.swift in Sources */,
 				6B194CA827AD765800959E88 /* ExEnvironmentObject.swift in Sources */,
+				6BA48BD327B02CD2003E22A9 /* SingleRow.swift in Sources */,
 				6BA52A7F2784A5E700DC1163 /* ExShape.swift in Sources */,
 				6B194CB627B0188200959E88 /* ExStateObject.swift in Sources */,
 				6BF9DD8C27A04FE100FF3BBD /* ExWebViewVC.swift in Sources */,
