@@ -17,7 +17,6 @@ struct ExGridView: View {
     VStack {
       // picker
       GridTypePicker(gridType: $selectedGridType)
-
       // item style
       ItemStyle(items: items, gridType: $selectedGridType)
     }
