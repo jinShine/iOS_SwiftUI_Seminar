@@ -13,7 +13,6 @@
   * body를 필수적으로 구현해야 한다.
     * body프로퍼티에서 반환해야 하는 타입이 또 다시 View 프로토콜을 준수하는 타입 (즉, 재귀호출)
     * 재귀호출이 일어나면 안되기 때문에 SwiftUI에서는 Text, Image, Color, Stack 등 Never타입이 사용된다.
-    
 * **Preview실행**
   * (단축키: Option+Command+P)
 
@@ -55,3 +54,4 @@
       .bold()       // Text -> Text 리턴
       .padding()    // View -> padding 수식어 호출 후에는 Text가 아닌 View 반환
     ```
+
